@@ -3,7 +3,7 @@
     // $files = array_diff(scandir($mydir),array('.','..','index.php'));
     
     function directory($mydir){
-        $files = array_diff(scandir($mydir),array('.','..','index.php','css'));
+        $files = array_diff(scandir($mydir),array('.','..','index.php','css','.git'));
 ?>
     <ul>
         <?php 
