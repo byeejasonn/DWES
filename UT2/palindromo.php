@@ -1,5 +1,9 @@
 <?php
-    $cadena = $_GET['palabra'];
+    if(isset($_GET['palabra'])) {
+        $cadena = $_GET['palabra'];
+    } else {
+        $cadena = '';
+    }
 
     function palindromo($cadena) {
         $cadena=strtolower($cadena);
@@ -17,14 +21,23 @@
     function letras($cadena) {
         $cadena = strtolower($cadena);
         $cadena = str_replace(" ","",$cadena);
+        $longitud = strlen($cadena);
         $letras = [
             "vocales" => 0,
             "consonantes" => 0
         ];
 
-        $letras['vocales'] = substr_count($cadena, "a") + substr_count($cadena, "e") + substr_count($cadena, "i") + substr_count($cadena, "o") + substr_count($cadena, "u"); 
+        for ($i=0; $i < $longitud; $i++) { 
+            if ($cadena[$i]=='a' || $cadena[$i]=='e' || $cadena[$i]=='i' || $cadena[$i]=='o' || $cadena[$i]=='u') {
+                $letras['vocales']++;
+            } elseif($cadena[$i] >= 'a' && $cadena[$i]<= 'z') {
+                $letras['consonantes']++;
+            }
+        }
 
-        $letras['consonantes'] =  strlen($cadena) - $letras['vocales'];
+        // $letras['vocales'] = substr_count($cadena, "a") + substr_count($cadena, "e") + substr_count($cadena, "i") + substr_count($cadena, "o") + substr_count($cadena, "u"); 
+
+        // $letras['consonantes'] =  strlen($cadena) - $letras['vocales'];
 
         return $letras;
     }
