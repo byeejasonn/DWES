@@ -12,15 +12,24 @@ if(isset($_GET['nombre'],$_GET['empresa'],$_GET['representante'],$_GET['fecha'])
     $representante = $_GET['representante'];
     $fecha = $_GET['fecha'];
     if($nombre!='' && $empresa!=''&& $representante!='' && $fecha!='') {
-        generarpdf();
+        generarpdf($nombre,$empresa,$representante,$fecha);
     }
 }
 
-function generarpdf() {
+function generarpdf($nombre,$empresa,$representante,$fecha) {
     $pdf=new FPDF();
+    $pdf->SetTitle('CartaMotivacion',true);
+    $pdf->SetMargins(15,10,15);
     $pdf->AddPage();
     $pdf->SetFont('Arial','B',16);
-    $pdf->Cell(40,10,'Hola gente soy Jason!');
+    $pdf->MultiCell(0,18,utf8_decode('Carta de motivación'),0,'C');
+    $pdf->SetFont('Arial','',11);
+    $pdf->MultiCell(0,12,utf8_decode("Estimado $representante"));
+    $pdf->Cell(10);
+    $pdf->MultiCell(0,6,utf8_decode("Me dirijo a usted para solicitar el puesto de desarrollador web en $empresa. Durante los últimos siete años, he estado programando sitios web y utilizando CSS para crear interfaces funcionales y sencillas de usar. Esta ha sido mi pasión desde que estaba en el instituto, donde ya comencé a familiarizarme con la programación. Desde entonces, he seguido de cerca la evolución de su empresa. Cuando hace dos años recibieron el premio de Innovación, tuve claro que algún día me gustaría formar parte de su equipo."));
+    $pdf->SetFont('Courier','',11);
+    $pdf->Cell(0,12,utf8_decode("$fecha"),0,0,'L');
+    $pdf->Cell(0,12,utf8_decode("Firmado: $nombre"),0,0,'R');
     $pdf->Output();
 }
 
