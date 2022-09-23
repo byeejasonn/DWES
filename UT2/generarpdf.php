@@ -14,6 +14,11 @@ if(isset($_GET['nombre'],$_GET['empresa'],$_GET['representante'],$_GET['fecha'])
     if($nombre!='' && $empresa!=''&& $representante!='' && $fecha!='') {
         generarpdf($nombre,$empresa,$representante,$fecha);
     }
+} else {
+    $nombre="";
+    $empresa="";
+    $representante="";
+    $fecha="";
 }
 
 function generarpdf($nombre,$empresa,$representante,$fecha) {
