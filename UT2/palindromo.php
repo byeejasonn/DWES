@@ -7,6 +7,7 @@
 
     function palindromo($cadena) {
         $cadena=strtolower($cadena);
+        $cadena = str_replace(array("á","é","í","ó","ú"," "),array("a","e","i","o","u",""),$cadena);
         $longitud = strlen($cadena);
         $palindromo = true;
         for ($i=0; $i < $longitud; $i++) { 
@@ -20,7 +21,7 @@
     
     function letras($cadena) {
         $cadena = strtolower($cadena);
-        $cadena = str_replace(" ","",$cadena);
+        $cadena = str_replace(array("á","é","í","ó","ú"," "),array("a","e","i","o","u",""),$cadena);
         $longitud = strlen($cadena);
         $letras = [
             "vocales" => 0,
