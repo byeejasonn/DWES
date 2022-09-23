@@ -63,6 +63,7 @@
             <input type="text" name="palabra" id="palabra" value="<?=$cadena?>"><br>
         </div>
 
+        <?php if(isset($_GET['palabra'])) { ?>
         <div>
             <span>Vocales: </span> <span><?=letras($cadena)['vocales']?></span>
         </div>
@@ -74,6 +75,8 @@
         <div>
             <span>Palindromo: </span> <span><?=palindromo($cadena)?'Sí':'No';?></span>
         </div>    
+
+        <?php } ?>
         
             <input type="submit" value="Enviar">
         </form>
