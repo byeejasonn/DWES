@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.horario-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 450px;
+
+}
+
+.title {
+    margin: 12px 0;
+}
+
+.horario {
+    width: 100%;
+    height: 100%;
+}
+
+table, td, th {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    width: calc(100%/5);
+}
+
+.DWEC {
+    background-color: #dfdf82;
+}
+
+.EIE {
+    background-color: #ffff00;
+}
+
+.Inglés {
+    background-color: #ceceff;
+}
+
+.DAW {
+    background-color: #ffd1f7;
+}
+
+.DIW {
+    background-color: #ffe5b4;
+}
+
+.DWES {
+    background-color: #b9b9e4;
+}
