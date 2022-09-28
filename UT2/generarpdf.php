@@ -29,7 +29,7 @@ function generarpdf($nombre,$empresa,$representante,$fecha) {
     $pdf->SetFont('Arial','B',16);
     $pdf->MultiCell(0,18,utf8_decode('Carta de motivación'),0,'C');
     $pdf->SetFont('Arial','',11);
-    $pdf->MultiCell(0,12,utf8_decode("Estimado $representante"));
+    $pdf->MultiCell(0,12,utf8_decode("Estimado/a $representante"));
     $pdf->Cell(10);
     $pdf->MultiCell(0,6,utf8_decode("Me dirijo a usted para solicitar el puesto de desarrollador web en $empresa. Durante los últimos siete años, he estado programando sitios web y utilizando CSS para crear interfaces funcionales y sencillas de usar. Esta ha sido mi pasión desde que estaba en el instituto, donde ya comencé a familiarizarme con la programación. Desde entonces, he seguido de cerca la evolución de su empresa. Cuando hace dos años recibieron el premio de Innovación, tuve claro que algún día me gustaría formar parte de su equipo."));
     $pdf->SetFont('Courier','',11);
