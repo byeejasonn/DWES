@@ -8,7 +8,6 @@
     ];
 
     function print_horario($horario) {
-        $error = false;
         $i = 0;
         $dia = key($horario);
 ?>
@@ -19,17 +18,34 @@
                 <?php endforeach; ?> 
             </tr>
             <?php
-                while(!$error) :
-                    if ($i < count($horario[$dia])) : 
+                while($i < count($horario[$dia])) :
             ?>
                         <tr>
                             <?php 
                                 foreach ($horario as $dia => $modulos) : 
 
                                     $rowspan = array_count_values($horario[$dia])[$modulos[$i]];
+                                    
+                                    /* 
+                                    array_count devulve un array $clave => $suma
+                                       Array = "dia de la semana"        $clave => $suma
+                                    ej Array ( [DWES] => 3 [Recreo] => 1 [DWEC] => 3 ) Array ( [DWES] => 3 [Recreo] => 1 [DWEC] => 3 )
+                                    como quiero acceder a el valor de un modulo en concreto añado al final de la funcion [$modulo[$i]] que es el modulo que quiero hacer print
+                                    */
+
                                     $modulos = array_unique($modulos);
 
+                                    /*
+                                    con array_unique elimino los datos repetidos dentro del array
+                                    Array ( [0] => DWEC [3] => Recreo [4] => EIE [6] => Inglés )
+                                    Como he eliminado ciertas posiciones el indice es un caos
+                                    */
+
                                     if (!empty($modulos[$i])) :
+
+                                    /*
+                                    Como el indice es un caos pero no es igual para cada array de cada dia recorro todas las posiciones comprobando si esta vacio o no, si no lo esta printa el valor y usa la variable rowspan que tiene la suma de horas de ese modulo en concreto
+                                    */
                             ?>
                                         <td class="<?= $modulos[$i] ?>" rowspan="<?= $rowspan ?>" style="--index:<?= $rowspan ?>;"><?= $modulos[$i]; ?></td>
                             <?php
@@ -37,9 +53,7 @@
                                 endforeach; 
                             ?> 
                         </tr>
-            <?php   else :
-                        $error = true;
-                    endif;
+            <?php
                     $i++;
                 endwhile;
             ?>
