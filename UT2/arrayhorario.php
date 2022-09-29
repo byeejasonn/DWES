@@ -1,10 +1,10 @@
 <?php
     $horario = [
         "Lunes" => ["DWEC","DWEC","DWEC","Recreo","EIE","EIE","Inglés"],
-        "Martes" => ["Inglés","DAW","DAW","Recreo","DIW","DIW","DIW"],
-        "Miercoles" => ["DIW","DIW","DIW","Recreo","DWES","DWES","DWES"],
-        "Jueves" => ["EIE","DAW","DAW","Recreo","DWES","DWES","DWES"],
-        "Viernes" => ["DWES","DWES","DWES","Recreo","DWEC","DWEC","DWEC"]
+        "Martes" => ["Inglés","DAW","DAW","","DIW","DIW","DIW"],
+        "Miercoles" => ["DIW","DIW","DIW","","DWES","DWES","DWES"],
+        "Jueves" => ["EIE","DAW","DAW","","DWES","DWES","DWES"],
+        "Viernes" => ["DWES","DWES","DWES","","DWEC","DWEC","DWEC"]
     ];
 
     function print_horario($horario) {
@@ -54,7 +54,7 @@
                                     Como el indice es un caos pero no es igual para cada array de cada dia recorro todas las posiciones comprobando si esta vacio o no, si no lo esta printa el valor y usa la variable rowspan que tiene la suma de horas de ese modulo en concreto
                                     */
                             ?>
-                                        <td class="<?= $modulos[$i] ?>" rowspan="<?= $rowspan ?>" style="--index:<?= $rowspan ?>;"><?= $modulos[$i]; ?></td>
+                                        <td class="<?= $modulos[$i] ?>" rowspan="<?= $rowspan ?>" style="--index:<?= $rowspan ?>;" <?= ($modulos[$i] == "Recreo")?"colspan='5'":""; ?>><?= $modulos[$i]; ?></td>
                             <?php
                                     endif;
                                 endforeach; 
