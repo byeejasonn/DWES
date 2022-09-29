@@ -9,16 +9,23 @@
 
     function print_horario($horario) {
         $i = 0;
-        $dia = key($horario);
+        $dias = array_keys($horario);
 ?>
         <table class="horario">
             <tr>
-                <?php foreach ($horario as $dia => $modulos) : ?>
-                    <th><?= $dia; ?></th>
+                <?php foreach ($dias as $dia) : ?>
+                    <th><?= $dia ?></th>
                 <?php endforeach; ?> 
             </tr>
             <?php
-                while($i < count($horario[$dia])) :
+                for ($i=0; $i < count($horario[$dias[array_key_first($dias)]]); $i++) :
+                /*
+                ya que necesito un indice que apunte a x posicion de cada dia para poder pintarlo teniendo en cuenta que pudiesen ser de diferente longitud
+
+                para ello cuento los modulos del primer dia del array accediendo al primer valor del array $dias donde tengo las claves del array $horario
+
+                eso hara que recorra todos los valores del array del primer dia, en este caso el "Lunes", al final del for para que el valor de $dias uso la funcion next() para que el puntero avance y ponga la segunda posicion del array, y asi sucesivamente...
+                */
             ?>
                         <tr>
                             <?php 
@@ -54,8 +61,8 @@
                             ?> 
                         </tr>
             <?php
-                    $i++;
-                endwhile;
+                    next($dias);
+                endfor;
             ?>
         </table>
 <?php
