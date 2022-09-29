@@ -11,7 +11,6 @@
         $error = false;
         $i = 0;
         $dia = key($horario);
-        $rowspan = 0;
 ?>
         <table class="horario">
             <tr>
