@@ -1,3 +1,7 @@
+:root {
+    --cell-height: 45px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -26,7 +30,7 @@ main {
 
 .horario {
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 table, td, th {
@@ -37,6 +41,11 @@ table, td, th {
 
 th {
     width: calc(100%/5);
+    height: var(--cell-height);
+}
+
+td {
+    height: calc(var(--index)*var(--cell-height));
 }
 
 .DWEC {

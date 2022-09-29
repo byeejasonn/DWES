@@ -11,6 +11,7 @@
         $error = false;
         $i = 0;
         $dia = key($horario);
+        $rowspan = 0;
 ?>
         <table class="horario">
             <tr>
@@ -23,9 +24,19 @@
                     if ($i < count($horario[$dia])) : 
             ?>
                         <tr>
-                            <?php foreach ($horario as $dia => $modulos) : ?>
-                                <td class="<?= $modulos[$i] ?>"><?= $horario[$dia][$i]; ?></td>
-                            <?php endforeach; ?> 
+                            <?php 
+                                foreach ($horario as $dia => $modulos) : 
+
+                                    $rowspan = array_count_values($horario[$dia])[$modulos[$i]];
+                                    $modulos = array_unique($modulos);
+
+                                    if (!empty($modulos[$i])) :
+                            ?>
+                                        <td class="<?= $modulos[$i] ?>" rowspan="<?= $rowspan ?>" style="--index:<?= $rowspan ?>;"><?= $modulos[$i]; ?></td>
+                            <?php
+                                    endif;
+                                endforeach; 
+                            ?> 
                         </tr>
             <?php   else :
                         $error = true;
