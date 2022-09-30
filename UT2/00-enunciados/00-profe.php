@@ -24,6 +24,25 @@ function calorias($carry, $item) {
     $carry += $item[1]*$item[2];
     return $carry;
 }
+
+$hombres = array_filter($personas, function($persona, $index){
+    if($persona[1]){
+        return $persona[0];
+    }
+}, 1);
+
+$mujeres = array_filter($personas, function($persona, $index){
+    if(!$persona[1]){
+        return $persona[0];
+    }
+}, 1);
+
+print_r($hombres);
+echo "<br>";
+print_r($mujeres);
+echo "<br>";
+
+
 ?>
 
 <!DOCTYPE html>
