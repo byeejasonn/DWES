@@ -7,19 +7,14 @@ $personas = [
     ["Amparo", 0],
 ];
 
-function formalidad($index, $persona) {
-    print_r($algo);
-    //print_r($persona);
-    foreach ($persona as $nombre => $sexo) {
-        echo $nombre;
-        // if($sexo) {
-        //     $array[] = "Señor $nombre";
-        // } else {
-        //     $array[] = "Señora $nombre";
-        // }
+function formalidad($personas, $index) {
+    if($personas[1]) {
+        $array[$index] = "Señor ".$personas[0];
+    } else {
+        $array[$index] = "Señora ".$personas[0];
     }
-    echo "<br>";
-    //print_r($array);
+
+    echo $array[$index]."<br>";
 }
 ?>
 
