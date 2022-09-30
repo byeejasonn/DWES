@@ -1,5 +1,6 @@
 <?php
     $horario = [
+        "Horas" => ["16:00 - 16:55","16:55 - 17:50","17:50 - 18:45","18:45 - 19:10","19:10 - 20:05","20:05 - 21:00","21:00 - 21:55"],
         "Lunes" => ["DWEC","DWEC","DWEC","Recreo","EIE","EIE","Inglés"],
         "Martes" => ["Inglés","DAW","DAW","","DIW","DIW","DIW"],
         "Miercoles" => ["DIW","DIW","DIW","","DWES","DWES","DWES"],
