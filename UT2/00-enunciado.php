@@ -34,10 +34,12 @@
     }
 
     function generarFactura($productos) {
-        $productosCompra = array_intersect($_GET, $productos);
+        $productosCompra = array_intersect_key($_GET, $productos);
 
         foreach ($productosCompra as $producto => $cantidad) {
-            $factura[$producto] = $productos[$producto]*$cantidad;
+            if($cantidad != 0) {
+                $factura[$producto] = $productos[$producto]*$cantidad;
+            }
         }
 
         if(!empty($factura)) {
@@ -83,7 +85,7 @@
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
-            padding: 2px 6px;
+            padding: 4px 6px;
             margin: 30px 0;
         }
 
