@@ -3,14 +3,17 @@
         "naranja" => 1.2,
         "manzana" => 1.5,
         "pera" => 1.8,
-        "platano" => 1.1,
-        "kiwi" => 2,
+        "platano" => 0.8,
+        "kiwi" => 0.75,
         "macarrones" => 0.5,
         "arroz" => 0.75,
-        "salchichas" => 1
+        "salchichas" => 1,
+        "patatas_fritas" => 3,
+        "paninis" => 1.5,
+        "leche_6_uds" => 5,
+        "pizza_jamon_serrano" => 2.59,
+        "helado_chocolate" => 2.99
     ];
-
-    $lista = [];
 
     function imprimirLista($productos) {
 ?>
@@ -20,12 +23,12 @@
             <th>Cantidad</th>
         </tr>
         <?php 
-            foreach ( $productos as $producto => $precio) :
+            foreach ($productos as $producto => $precio) :
         ?>
                 <tr>
                     <td><?= ucfirst($producto) ?></td>
                     <td><?= $precio ?>€</td>
-                    <td><input type="number" step="1" min="0" max="99" name="<?= $producto ?>" value="<?= (empty($_GET))?'0':$_GET[$producto]; ?>"></td>
+                    <td><input type="number" step="1" min="0" max="99" name="<?= $producto ?>" value="<?= (empty($_GET) || array_keys($productos) != array_keys($_GET))?'0':$_GET[$producto]; ?>"></td>
                 </tr>
         <?php
             endforeach;
@@ -35,6 +38,7 @@
 
     function generarFactura($productos) {
         $productosCompra = array_intersect_key($_GET, $productos);
+        // usamos la funcion array_intersect_key para generar otro array con las cantidades de cada producto de nuestro array de $productos ya que podrian haber otras variables definidas en $_GET que no hacen parte de nuestro array principal
 
         foreach ($productosCompra as $producto => $cantidad) {
             if($cantidad != 0) {
@@ -133,6 +137,19 @@
                 }
             ?>
         </form>
+
+        <form action="" method="get" class="formulario">
+            <h2>Lista de la compra</h2>
+
+            <table>
+                <input type="text" name="prueba">
+    
+                <tr>
+                    <td colspan="3"><input type="submit" value="Enviar"></td>
+                </tr>
+            </table>
+        </form>
+
     </div>
 </body>
 </html>
