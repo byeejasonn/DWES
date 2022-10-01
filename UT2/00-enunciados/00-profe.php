@@ -13,11 +13,13 @@ $comida = [
     2 => ["Pan", 1, 90]
 ];
 
-function formalidad($personas, $index) {
-    
-    $array[$index] = ($personas[1]?'Señor ':'Señora ') . $personas[0];
+function printar_array($valor) {
+    echo "$valor <br>";
+}
 
-    echo $array[$index]."<br>";
+function formalidad($personas) {
+    $persona = ($personas[1]?'Señor ':'Señora ') . $personas[0];
+    return $persona;
 }
 
 function calorias($carry, $item) {
@@ -25,23 +27,13 @@ function calorias($carry, $item) {
     return $carry;
 }
 
-$hombres = array_filter($personas, function($persona, $index){
-    if($persona[1]){
-        return $persona[0];
-    }
-}, 1);
+$hombres = array_column(array_filter($personas, function($persona, $index){
+    return $persona[1];
+}, 1), 0);
 
-$mujeres = array_filter($personas, function($persona, $index){
-    if(!$persona[1]){
-        return $persona[0];
-    }
-}, 1);
-
-print_r($hombres);
-echo "<br>";
-print_r($mujeres);
-echo "<br>";
-
+$mujeres = array_column(array_filter($personas, function($persona, $index){
+    return !$persona[1];
+}, 1), 0);
 
 ?>
 
@@ -59,10 +51,23 @@ echo "<br>";
     </style>
 </head>
 <body>
-    <?php
-        array_walk($personas,"formalidad");
 
-        echo "<br>Calorias totales: ".array_reduce($comida, "calorias");
+    <p><b>Apartado 1</b></p>
+    <?php
+        $resultado = array_map("formalidad", $personas);
+
+        array_walk($resultado, "printar_array");
+    ?>
+
+    <p><b>Apartado 2</b></p>
+    <?php
+        echo "Calorias totales: ".array_reduce($comida, "calorias");
+    ?>
+
+    <p><b>Apartado 3</b></p>
+    <?php
+        array_walk($hombres, "printar_array");
+        array_walk($hombres, "printar_array");
     ?>
 </body>
 </html>
