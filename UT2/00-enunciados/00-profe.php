@@ -69,5 +69,7 @@ $mujeres = array_column(array_filter($personas, function($persona, $index){
         array_walk($hombres, "printar_array");
         array_walk($hombres, "printar_array");
     ?>
+
+<?php include("{$_SERVER['DOCUMENT_ROOT']}/back.php") ?>
 </body>
 </html>

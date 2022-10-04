@@ -150,6 +150,7 @@
             </table>
         </form> -->
 
+        <?php include("{$_SERVER['DOCUMENT_ROOT']}/back.php") ?>
     </div>
 </body>
 </html>
