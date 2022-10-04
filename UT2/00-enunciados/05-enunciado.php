@@ -53,6 +53,7 @@
 
     function imprimirFactura($factura) {
 ?>
+        <h2>Factura</h2>
         <table>
             <tr><th>Producto</th><th>Precio</th></tr>
 
@@ -89,8 +90,8 @@
         table, th, td {
             border: 1px solid black;
             border-collapse: collapse;
-            padding: 4px 6px;
-            margin: 30px 0;
+            padding: 2px 5px;
+            margin: 10px 0 12px;
         }
 
         input[type=number] {
@@ -104,41 +105,40 @@
 
         .center {
             width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-        }
-
-        .formulario {
-            padding: 30px 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            margin: 15px 0;
         }
     </style>
 </head>
 <body>
 
     <div class="center">
-        <form action="" method="get" class="formulario">
-            <h2>Lista de la compra</h2>
-
-            <table>
-                <?php imprimirLista($productos) ?>
+        <form action="" method="get">
+            <div class="lista">
+                <h2>Lista de la compra</h2>
     
-                <tr>
-                    <td colspan="3"><input type="submit" value="Enviar"></td>
-                </tr>
-            </table>
+                <table>
+                    <?php imprimirLista($productos) ?>
+        
+                    <tr>
+                        <td colspan="3"><input type="submit" value="Enviar"></td>
+                    </tr>
+                </table>
+            </div>
     
-            <?php
-                if (!empty($_GET)) {
-                    generarFactura($productos);
-                }
-            ?>
         </form>
+        <div class="factura">
+        <?php
+            if (!empty($_GET)) {
+                generarFactura($productos);
+            }
+        ?>
+        </div>
 
-        <form action="" method="get" class="formulario">
+        <!-- <form action="" method="get" class="formulario">
             <h2>Lista de la compra</h2>
 
             <table>
@@ -148,7 +148,7 @@
                     <td colspan="3"><input type="submit" value="Enviar"></td>
                 </tr>
             </table>
-        </form>
+        </form> -->
 
     </div>
 </body>
