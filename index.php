@@ -1,14 +1,13 @@
 <?php 
     $mydir = '.';
-    // $files = array_diff(scandir($mydir),array('.','..','index.php'));
     
     function directory($mydir){
-        $files = array_diff(scandir($mydir),array('.','..','index.php','css','.git'));
+        $files = array_diff(scandir($mydir),array('.','..','index.php','css','.git', 'back.php'));
 ?>
     <ul>
         <?php 
-            foreach($files as $file) {
-                if(is_dir($mydir."/".$file)) {
+            foreach($files as $file) :
+                if(is_dir($mydir."/".$file)) :
         ?>
                     <li>
                         <input type="checkbox" id="checkbox-<?= 
@@ -19,10 +18,10 @@
 
                         <?php directory($mydir."/".$file); ?>
                     </li>
-        <?php   } else {
-                    echo "<li><a href=".$mydir."/".$file.">".$file."</a></li>";
-                }
-            }
+        <?php   else : ?>
+                    <li><a href="<?= $mydir."/".$file ?>"><?= $file ?></a></li>
+        <?php   endif;
+            endforeach;
         ?>
     </ul>
 
@@ -44,15 +43,7 @@
         <main>
             <h3>Listado</h3>
             <div class="list">
-                <?php 
-                    // foreach($files as $file) {
-                    //     if(is_dir($mydir."/".$file)) {
-                    //         echo "<li><b>".$file."</b></li>";
-                    //         directory($mydir."/".$file);
-                    //     } else {
-                    //         echo "<li><a href=".$mydir."/".$file.">".$file."</a></li>";
-                    //     }
-                    // }
+                <?php
                     directory($mydir);
                 ?>
             </div>
