@@ -20,7 +20,7 @@ while(!$pass) {
     }
 }
 
-//lspi 
+//hora 
 
 echo "Contraseña: $passwd";
 
