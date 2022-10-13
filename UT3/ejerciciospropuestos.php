@@ -18,7 +18,7 @@
         }
     }
 
-    function mayor_menor() {
+    function mayorMenor() {
         $num1 = mt_rand(0, 100);
         $num2 = mt_rand(0, 100);
         $num3 = mt_rand(0, 100);
@@ -59,13 +59,13 @@
         echo "<h1>$mayor</h1> <h2>$mediano</h2> <h3>$menor</h3>";
     }
 
-    function for_frase($cadena) {
+    function forFrase($cadena) {
         for($i=0; $i< strlen($cadena); $i++) {
             echo "<h4>{$cadena[$i]}</h4>";
         }
     }
 
-    function while_frase($cadena) {
+    function whileFrase($cadena) {
         $i = 0;
         while($i < strlen($cadena)) {
             echo "<h4>{$cadena[$i]}</h4>";
@@ -81,13 +81,64 @@
         }
     }
 
-    function random_hasta_primo() {
+    function randomHastaPrimo() {
         do {
             $num = mt_rand(0,100);
             echo "<span>$num</span> ";
         } while(!esPrimo($num) && $num != 17);
     }
 
+    function url() {
+        if (!empty($_GET)) :
+?>
+        <table>
+            <tr><th>Table</th><th>Valor</th></tr>
+        <?php foreach ($_GET as $key => $value) : ?>
+            <tr>
+                <td><?= $key ?></td>
+                <td><?= $value ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+<?php  
+        endif;
+    }
+
+    function sumaEntre($inicio, $fin) {
+        $carry = 0;
+
+        if ($inicio < $fin) {
+            for ($i=$inicio+1; $i < $fin; $i++) { 
+                $carry += $i;
+            }
+        } elseif ($inicio > $fin) {
+            for ($i=$fin+1; $i < $inicio; $i++) { 
+                $carry += $i;
+            }
+        }
+
+        return $carry;
+    }
+
+    function concatena($separador, ...$cadenas) {
+        //$separador = $cadenas[0];
+        $carry = '';
+
+        foreach($cadenas as $key => $palabra) {
+            $carry .= $palabra.$separador;
+        }
+
+        return trim($carry, $separador);
+    }
+
+    function analizParametros(...$varios) {
+        $array = [];
+        foreach($varios as $key => $value) {
+            $array[gettype($value)] += 1;
+        }
+
+        return $array;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,15 +149,33 @@
     <title>Unidad 3</title>
 </head>
 <body>
-    <h2>Condicionales</h2>
-    <?php mayor_menor() ?>
-    <h2>Bucles</h2>
-    <?php for_frase($frase) ?>
+    <h1>-- Condicionales</h1>
+    <?php mayorMenor() ?>
+
+    <h1>-- Bucles</h1>
+    <?php forFrase($frase) ?>
     <br>
-    <?php while_frase($frase) ?>
+    <?php whileFrase($frase) ?>
     <br>
     <?php a($frase) ?>
     <br>
-    <?php random_hasta_primo() ?>
+    <?php randomHastaPrimo() ?>
+    <br>
+    <?php url() ?>
+
+    <h1>-- Funciones</h1>
+    <?php for ($i=0; $i < 10; $i++) { 
+        echo "<p>".sumaEntre(mt_rand(0,20), mt_rand(0,20))."</p>";
+    } ?>
+    <br>
+    <?php 
+        echo concatena(" ", "Hola", "mundo", "!")."<br>";
+        echo concatena(".", "Esto", "son", "varias", "cadenas", "puntos"); 
+    ?>
+    <br>
+    <?php
+        $analisis = analizParametros(3, "h", 'hola', [1,2,3], [1], "h");
+        print_r($analisis);
+    ?>
 </body>
 </html>
