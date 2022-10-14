@@ -188,9 +188,9 @@
     function generaSelect(array $opciones, int $seleccionada = -1) {
 ?>
     <select name="provincias" id="provincias">
-        <?php for($i=0; $i<count($opciones); $i++) : ?>
-            <option value="<?= array_keys($opciones)[$i]?>" <?= ($i == $seleccionada)?'selected':''; ?> ><?= array_keys($opciones)[$i] ?></option>
-        <?php endfor; ?>
+        <?php foreach($opciones as $key => $value) : ?>
+            <option value="<?= $key ?>" <?= ($value == $seleccionada)?"selected":""; ?> ><?= $key ?></option>
+        <?php endforeach; ?>
     </select>
 <?php
     }
@@ -299,7 +299,7 @@
 
         generaSelect($opciones);
         echo "<br><br>";
-        generaSelect($opciones, 2);
+        generaSelect($opciones, 17);
     ?>
 </body>
 </html>
