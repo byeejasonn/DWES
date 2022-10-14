@@ -134,10 +134,65 @@
     function analizParametros(...$varios) {
         $array = [];
         foreach($varios as $key => $value) {
-            $array[gettype($value)] += 1;
+            if(!array_key_exists(gettype($value), $varios)) {
+                $array[gettype($value)] = 1;
+            } else {
+                $array[gettype($value)]++;
+            }
         }
 
         return $array;
+    }
+
+    function swapValues(&$var1, &$var2) {
+        $aux = $var1;
+        $var1 = $var2;
+        $var2 = $aux;
+    }
+
+    function genArray($num = 10, $max = 10, $min = 0) {
+        for ($i=0; $i<$num; $i++) {
+            $array[$i] = mt_rand($min, $max);
+        }
+
+        return $array;
+    }
+
+    function modificarValoresTipo(&$valores) {
+        $pow = 2;
+
+        foreach ($valores as &$valor) {
+            if (is_int($valor)) {
+                $valor = pow($valor, $pow);
+                $pow++;
+            } elseif (is_float($valor)) {
+                $valor *= -1;
+            } elseif (is_string($valor)) {
+                $valor = strtolower($valor) ^ strtoupper($valor) ^ $valor;
+            }
+        }
+    }
+
+    function generarForm($value, $key) {
+?>
+    <form method="post" id="datos-personales">
+        <?php if(is_string($value)) : ?>
+            <label for="<?= $key ?>"><?= ucfirst($key) ?></label><br><input type="text" name="<?= $key ?>" id="<?= $key ?>" value="<?= $value ?>"><br><br>
+        <?php elseif(is_int($value)): ?>
+            <label for="<?= $key ?>"><?= ucfirst($key) ?></label><br><input type="number" name="<?= $key ?>" id="<?= $key ?>" value="<?= $value ?>"><br><br>
+        <?php endif; ?>
+    </form>
+<?php
+    }
+
+    function generaSelect(array $opciones, int $seleccionada = -1) {
+?>
+    <select name="provincias" id="provincias">
+        <?php for($i=0; $i<count($opciones); $i++) : ?>
+            <option value="<?= array_keys($opciones)[$i]?>" <?= ($i == $seleccionada)?'selected':''; ?> ><?= array_keys($opciones)[$i] ?></option>
+        <?php endfor; ?>
+    </select>
+<?php
     }
 ?>
 <!DOCTYPE html>
@@ -147,6 +202,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unidad 3</title>
+    <style>
+        * {
+            font-family: Arial;
+        }
+    </style>
 </head>
 <body>
     <h1>-- Condicionales</h1>
@@ -154,28 +214,92 @@
 
     <h1>-- Bucles</h1>
     <?php forFrase($frase) ?>
-    <br>
+    <br><br>
     <?php whileFrase($frase) ?>
-    <br>
+    <br><br>
     <?php a($frase) ?>
-    <br>
+    <br><br>
     <?php randomHastaPrimo() ?>
-    <br>
+    <br><br>
     <?php url() ?>
 
     <h1>-- Funciones</h1>
     <?php for ($i=0; $i < 10; $i++) { 
         echo "<p>".sumaEntre(mt_rand(0,20), mt_rand(0,20))."</p>";
     } ?>
-    <br>
+    <br><br>
     <?php 
         echo concatena(" ", "Hola", "mundo", "!")."<br>";
         echo concatena(".", "Esto", "son", "varias", "cadenas", "puntos"); 
     ?>
-    <br>
+    <br><br>
     <?php
         $analisis = analizParametros(3, "h", 'hola', [1,2,3], [1], "h");
         print_r($analisis);
+    ?>
+    <br><br>
+    <?php
+        $var1 = 1;
+        $var2 = 2;
+        echo "var1: $var1 || var2: $var2 <br>";
+        swapValues($var1, $var2);
+        echo "var1: $var1 || var2: $var2<br>";
+
+        $var1 = "hola";
+        $var2 = 2;
+        echo "var1: $var1 || var2: $var2 <br>";
+        swapValues($var1, $var2);
+        echo "var1: $var1 || var2: $var2 <br>"; 
+    ?>
+    <br>
+    <?php
+        print_r(genArray());
+        echo "<br>";
+        print_r(genArray(5));
+        echo "<br>";
+        print_r(genArray(5,50));
+        echo "<br>";
+        print_r(genArray(5,50,-50));
+    ?>
+    <br><br>
+    <?php
+        $array = [
+            "Hola",
+            3,
+            3.4,
+            -1.2,
+            2,
+            "Que Tal"
+        ];
+        
+        print_r($array);
+        echo "<br>";
+        modificarValoresTipo($array);
+        print_r($array);
+    ?>
+    <br><br>
+    <?php
+        $yo = [
+            "nombre" => "Jorge Dueñas Lerín",
+            "dirección" => "Calle falsa número 1234",
+            "teléfono" => "91 123 45 67",
+            "población" => "Madrid",
+            "edad" => 23,
+        ];
+
+        array_walk($yo, "generarForm");
+    ?>
+    <br><br>
+    <?php
+        $opciones = [
+            "Madrid" => 28,
+            "Sevilla" => 17,
+            "Cáceres" => 56,
+        ];
+
+        generaSelect($opciones);
+        echo "<br><br>";
+        generaSelect($opciones, 2);
     ?>
 </body>
 </html>
