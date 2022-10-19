@@ -2,9 +2,9 @@
 
 class CuentaBancaria {
 
-    public static $numeroCuenta = 100001;
-    public $nombre;
-    public $saldo;
+    private static $numeroCuenta = 100001;
+    private $nombre;
+    private $saldo;
 
     function cuentaBancaria(string $nombre, float $saldo = 0) {
         $this->numeroCuenta = self::$numeroCuenta++;
