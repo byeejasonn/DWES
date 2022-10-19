@@ -2,10 +2,12 @@
 
 class CuentaBancaria {
 
-    private $numeroCuenta = 1000;
+    public static $numeroCuenta = 100001;
+    public $nombre;
+    public $saldo;
 
     function cuentaBancaria(string $nombre, float $saldo = 0) {
-        $this->numeroCuenta += 1;
+        $this->numeroCuenta = self::$numeroCuenta++;
         $this->nombre = $nombre;
         $this->saldo = $saldo;
     }
@@ -22,22 +24,22 @@ class CuentaBancaria {
         return $this->saldo;
     }
 
-    function transferir(int $cuenta, float $cantidad) {
+    function transferir($cuenta, float $cantidad) {
         $this->saldo -= $cantidad;
         $cuenta->saldo += $cantidad;
     }
 
-    function unir(int $cuenta) {
+    function unir($cuenta) {
         $this->saldo += $cuenta->saldo;
         $cuenta->saldo = 0;
         $cuenta->numeroCuenta = -1;
     }
 
-    function bamcaRota() {
+    function bancaRota() {
         $this->saldo = 0;
     }
 
     function mostrar() {
-        return "<p><span class='nombre'>".$this->nombre."</span>, saldo <span class='saldo'>".$this->saldo."</span></p>";
+        return "<div class='cuenta'><span class='numero__cuenta'>Datos de la cuenta: ".$this->numeroCuenta."</span><br><span class='titular'>Titular: ".$this->nombre."</span><br><span class='saldo'>Saldo: ".$this->saldo."</span></div>";
     }
 }
