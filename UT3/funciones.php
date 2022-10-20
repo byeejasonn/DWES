@@ -209,8 +209,11 @@
         }
     }
 
-    function invertirCadena($cadena) {
-        
+    function invertirCadena($cadena, $index = 0) {
+        if (!empty($cadena[$index])) {
+            invertirCadena($cadena, $index + 1);
+        }
+        echo $cadena[$index];
     }
 ?>
 <!DOCTYPE html>
