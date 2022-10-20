@@ -6,7 +6,7 @@ class CuentaBancaria {
     private $nombre;
     private $saldo;
 
-    function cuentaBancaria(string $nombre, float $saldo = 0) {
+    function __construct(string $nombre, float $saldo = 0) {
         $this->numeroCuenta = self::$numeroCuenta++;
         $this->nombre = $nombre;
         $this->saldo = $saldo;

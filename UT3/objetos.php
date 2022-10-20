@@ -31,14 +31,9 @@
     <section>
         <h2>Clase CuentaBancaria</h2>
         <?php 
-            $cuenta1 = new CuentaBancaria;
-            $cuenta2 = new CuentaBancaria;
-            $cuenta3 = new CuentaBancaria;
-
-
-            $cuenta1->cuentaBancaria('Milloneti',1000000);
-            $cuenta2->cuentaBancaria('Agapito', 30345);
-            $cuenta3->cuentaBancaria('Pobretón', 10000);
+            $cuenta1 = new CuentaBancaria('Milloneti', 1000000);
+            $cuenta2 = new CuentaBancaria('Agapito', 30345);
+            $cuenta3 = new CuentaBancaria('Pobretón', 10000);
 
             for($i = 0; $i < 100; $i++) {
                 $cuenta1->retirar(1000);
@@ -46,11 +41,11 @@
             
             $cuenta2->ingresar(1200);
 
-            print "Cuenta 1: ".$cuenta1->saldo."<br>Cuenta 2: ".$cuenta2->saldo."<br>Cuenta 3: ".$cuenta3->saldo."<br>";
+            print "Cuenta 1: ".$cuenta1->saldo()."<br>Cuenta 2: ".$cuenta2->saldo()."<br>Cuenta 3: ".$cuenta3->saldo()."<br>";
 
             $cuenta3->unir($cuenta1);
 
-            $cuenta2->transferir($cuenta1, ($cuenta2->saldo)/2);
+            $cuenta2->transferir($cuenta1, ($cuenta2->saldo())/2);
         ?>
         <br>
         <?= $cuenta1->mostrar() ?>
