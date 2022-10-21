@@ -2,6 +2,9 @@
 
     require('./clases/circulo.php');
     require('./clases/cuentaBancaria.php');
+    require('./clases/Coche.php');
+    require('./clases/CocheCargado.php');
+    require('./clases/CocheConRemolque.php');
 
 ?>
 <!DOCTYPE html>
@@ -53,6 +56,32 @@
         <?= $cuenta2->mostrar() ?>
         <br>
         <?= $cuenta3->mostrar() ?>
+    </section>
+
+    <section>
+        <h2>Coche</h2>
+        <h3>Coche Con Remolque</h3>
+        <?php
+            $bmw = new Coche(1000, 'BMW', 30);
+            $renault = new CocheConRemolque(1001, 'Renault', 30, 200);
+            $porche = new Coche(1002, 'Porche', 40);
+            $renaultGrua = new CocheCargado(1003, 'Renault', 20, $porche);
+            
+            $coches = [
+                $bmw,
+                $renault,
+                $renaultGrua
+            ];
+
+            array_walk($coches, function ($coche) {
+                echo $coche->pintarInformacion()."<br>";
+            });
+
+        ?>
+    </section>
+
+    <section>
+        
     </section>
 </body>
 </html>
