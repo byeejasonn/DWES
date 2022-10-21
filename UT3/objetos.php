@@ -5,6 +5,7 @@
     require('./clases/Coche.php');
     require('./clases/CocheCargado.php');
     require('./clases/CocheConRemolque.php');
+    require('./clases/Usuario.php');
 
 ?>
 <!DOCTYPE html>
@@ -17,6 +18,10 @@
     <style>
         * {
             font-family: Arial;
+        }
+
+        .blue {
+            color: lightblue;
         }
     </style>
 </head>
@@ -81,7 +86,28 @@
     </section>
 
     <section>
-        
+        <h2>Usuarios</h2>
+        <?php
+            $jason = new Usuario('Jason', 'Londoño Barreto', 'Fútbol');
+
+            $jason->introducirResultado('derrota');
+
+            $jason->introducirResultado('victoria');
+            $jason->introducirResultado('victoria');
+            $jason->introducirResultado('victoria');
+            $jason->introducirResultado('victoria');
+            $jason->introducirResultado('victoria');
+            $jason->introducirResultado('victoria');
+
+            $jason->introducirResultado('derrota');
+            $jason->introducirResultado('derrota');
+            $jason->introducirResultado('derrota');
+            $jason->introducirResultado('derrota');
+            $jason->introducirResultado('derrota');
+            $jason->introducirResultado('derrota');
+
+            $jason->imprimirInformacion();
+        ?>
     </section>
 </body>
 </html>
