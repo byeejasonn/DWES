@@ -2,14 +2,15 @@
 
 class Usuario {
 
-    private $nombre;
-    private $apellidos;
-    private $deporte;
-    private $nivel;
-    private $historico;
+    protected $nombre;
+    protected $apellidos;
+    protected $deporte;
+    protected $nivel;
+    protected $historico;
 
-    private const MAXNIVEL = 6;
-    private const MINNIVEL = -6;
+    protected const MAXNIVEL = 6;
+    protected const MINNIVEL = -6;
+    protected static $historicoPart = 6;
 
     public function __construct(string $nombre, string $apellidos, string $deporte) {
         $this->nombre = $nombre;
@@ -38,11 +39,11 @@ class Usuario {
                 break;
         }
 
-        if ($this->nivel < self::MAXNIVEL && $this->historico == self::MAXNIVEL) {
+        if ($this->nivel < self::MAXNIVEL && $this->historico == self::$historicoPart) {
             $this->nivel++;
             $this->historico = 0;
             echo $this->nombre." sube a nivel ".$this->nivel."<br>";
-        } elseif($this->nivel > self::MINNIVEL && $this->historico == self::MINNIVEL) {
+        } elseif($this->nivel > self::MINNIVEL && $this->historico == (self::$historicoPart) * -1) {
             $this->nivel--;
             $this->historico = 0;
             echo $this->nombre." baja a nivel ".$this->nivel."<br>";

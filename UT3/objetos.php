@@ -6,6 +6,8 @@
     require('./clases/CocheCargado.php');
     require('./clases/CocheConRemolque.php');
     require('./clases/Usuario.php');
+    require('./clases/UsuarioPremium.php');
+    require('./clases/UsuarioAdmin.php');
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +23,7 @@
         }
 
         .blue {
-            color: lightblue;
+            color: #43A6C6;
         }
     </style>
 </head>
@@ -107,6 +109,30 @@
             $jason->introducirResultado('derrota');
 
             $jason->imprimirInformacion();
+
+            $premium = new UsuarioPremium('Mario', 'Bros', 'Furbol');
+
+            $premium->introducirResultado('victoria');
+            $premium->introducirResultado('victoria');
+            $premium->introducirResultado('victoria');
+
+            $premium->introducirResultado('derrota');
+            $premium->introducirResultado('derrota');
+            $premium->introducirResultado('derrota');
+
+            $premium->imprimirInformacion();
+
+            $admin = new UsuarioAdmin('Luigi', 'Bros', 'Baloncesto');
+
+            $admin->introducirResultado('victoria');
+            $admin->introducirResultado('victoria');
+            $admin->introducirResultado('victoria');
+
+            $admin->introducirResultado('derrota');
+            $admin->introducirResultado('derrota');
+            $admin->introducirResultado('derrota');
+
+            $admin->imprimirInformacion();
         ?>
     </section>
 </body>
