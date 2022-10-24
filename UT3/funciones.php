@@ -212,8 +212,8 @@
     function invertirCadena($cadena, $index = 0) {
         if (!empty($cadena[$index])) {
             invertirCadena($cadena, $index + 1);
+            echo $cadena[$index];
         }
-        echo $cadena[$index];
     }
 ?>
 <!DOCTYPE html>
@@ -231,34 +231,44 @@
 </head>
 <body>
     <h1>-- Condicionales</h1>
+    <h2>Ejercicio1</h2>
     <?php mayorMenor() ?>
 
     <h1>-- Bucles</h1>
+    <h2>Ejercicio2</h2>
+    <h3>For</h3>
     <?php forFrase($frase) ?>
-    <br><br>
+    <h3>While</h3>
     <?php whileFrase($frase) ?>
-    <br><br>
+
+    <h2>Ejercicio3</h2>
     <?php a($frase) ?>
-    <br><br>
+
+    <h2>Ejercicio4</h2>
     <?php randomHastaPrimo() ?>
-    <br><br>
+
+    <h2>Ejercicio5</h2>
     <?php url() ?>
 
     <h1>-- Funciones</h1>
+    <h2>Ejercicio6</h2>
     <?php for ($i=0; $i < 10; $i++) { 
         echo "<p>".sumaEntre(mt_rand(0,20), mt_rand(0,20))."</p>";
     } ?>
-    <br><br>
+
+    <h2>Ejercicio7</h2>
     <?php 
         echo concatena(" ", "Hola", "mundo", "!")."<br>";
         echo concatena(".", "Esto", "son", "varias", "cadenas", "puntos"); 
     ?>
-    <br><br>
+
+    <h2>Ejercicio8</h2>
     <?php
         $analisis = analizParametros(3, "h", 'hola', [1,2,3], [1], "h");
         print_r($analisis);
     ?>
-    <br><br>
+
+    <h2>Ejercicio9</h2>
     <?php
         $var1 = 1;
         $var2 = 2;
@@ -272,7 +282,8 @@
         swapValues($var1, $var2);
         echo "var1: $var1 || var2: $var2 <br>"; 
     ?>
-    <br>
+
+    <h2>Ejercicio10</h2>
     <?php
         print_r(genArray());
         echo "<br>";
@@ -282,7 +293,8 @@
         echo "<br>";
         print_r(genArray(5,50,-50));
     ?>
-    <br><br>
+    
+    <h2>Ejercicio11</h2>
     <?php
         $array = [
             "Hola",
@@ -298,7 +310,8 @@
         modificarValoresTipo($array);
         print_r($array);
     ?>
-    <br><br>
+    
+    <h2>Ejercicio12</h2>
     <?php
         $yo = [
             "nombre" => "Jorge Dueñas Lerín",
@@ -310,7 +323,8 @@
 
         array_walk($yo, "generarForm");
     ?>
-    <br><br>
+    
+    <h2>Ejercicio13</h2>
     <?php
         $opciones = [
             "Madrid" => 28,
@@ -322,7 +336,8 @@
         echo "<br><br>";
         generaSelect($opciones, 17);
     ?>
-    <h3>Ejercicio 14</h3>
+
+    <h2>Ejercicio14</h2>
     <?php
         $cosas = [
             3,
@@ -335,7 +350,7 @@
         imprimeTabulado($cosas);
     ?>
 
-    <h3>Ejercicio 15</h3>
+    <h2>Ejercicio15</h2>
     <?php
         invertirCadena('Jason');
     ?>
