@@ -90,9 +90,29 @@
     <section>
         <h2>Usuarios</h2>
         <?php
+            
+
+
+
+
+            $premium = new UsuarioPremium('Mario', 'Bros', 'Furbol');
+
+            $premium->introducirResultado('victoria');
+            $premium->introducirResultado('victoria');
+            $premium->introducirResultado('victoria');
+
+            $premium->introducirResultado('derrota');
+            $premium->introducirResultado('derrota');
+            $premium->introducirResultado('derrota');
+
+            $premium->imprimirInformacion();
+
+
+
+
             $jason = new Usuario('Jason', 'Londoño Barreto', 'Fútbol');
 
-            $jason->introducirResultado('derrota');
+            $jason->introducirResultado('empate');
 
             $jason->introducirResultado('victoria');
             $jason->introducirResultado('victoria');
@@ -110,17 +130,8 @@
 
             $jason->imprimirInformacion();
 
-            $premium = new UsuarioPremium('Mario', 'Bros', 'Furbol');
 
-            $premium->introducirResultado('victoria');
-            $premium->introducirResultado('victoria');
-            $premium->introducirResultado('victoria');
 
-            $premium->introducirResultado('derrota');
-            $premium->introducirResultado('derrota');
-            $premium->introducirResultado('derrota');
-
-            $premium->imprimirInformacion();
 
             $admin = new UsuarioAdmin('Luigi', 'Bros', 'Baloncesto');
 
