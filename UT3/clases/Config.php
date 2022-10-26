@@ -5,7 +5,7 @@ class Config {
     private $nombre;
     private static $instance;
 
-    function __construct(string $nombre = '') {
+    private function __construct(string $nombre = '') {
         $this->nombre = $nombre;
     }
 

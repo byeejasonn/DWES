@@ -1,7 +1,7 @@
 <?php
 
-    require('./clases/circulo.php');
-    require('./clases/cuentaBancaria.php');
+    require('./clases/Circulo.php');
+    require('./clases/CuentaBancaria.php');
     require('./clases/Coche.php');
     require('./clases/CocheCargado.php');
     require('./clases/CocheConRemolque.php');
