@@ -11,6 +11,11 @@
     require('./clases/Objeto.php');
 
     require('./clases/Config.php');
+
+    require('./clases/PlataformaPago.php');
+    require('./clases/BancoMalvado.php');
+    require('./clases/BitCoinConan.php');
+    require('./clases/BancoMaloMalisimo.php');
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +25,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Objetos Avanzados</title>
+    <style>
+        * {
+            font-family: Arial;
+        }
+    </style>
 </head>
 <body>
     <h2>Juego</h2>
@@ -91,8 +101,29 @@
     ?>
 
     <h2>Interfaces</h2>
+    <h3>BancoMalvado</h3>
     <?php
-    
+    $bancoMalvado = new BancoMalvado();
+    $bancoMalvado->estableceConexion();
+    $bancoMalvado->compruebaSeguridad();
+    $bancoMalvado->pagar('Jason', 10000);
+    ?>
+
+    <h3>Random entre entidades</h3>
+    <?php
+    $bancoBitCoin = new BitCoinConan();
+    $bancoMalisimo = new BancoMaloMalisimo();
+
+    $bancos = [$bancoMalvado, $bancoBitCoin, $bancoMalisimo];
+
+    $bancos[mt_rand(0,2)]->pagar('Jason', 10000);
+    $bancos[mt_rand(0,2)]->pagar('Mario', 10000);
+    $bancos[mt_rand(0,2)]->pagar('Daniel', 10000);
+    ?>
+
+    <h2>Ejercicio Completo</h2>
+    <?php
+
     ?>
 </body>
 </html>
