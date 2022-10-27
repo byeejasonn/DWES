@@ -1,5 +1,13 @@
 <?php
 
+    // singleton
+    require('./clases/Config.php');
+    // bancos
+    require('./clases/PlataformaPago.php');
+    require('./clases/BancoMalvado.php');
+    require('./clases/BitCoinConan.php');
+    require('./clases/BancoMaloMalisimo.php');
+    // juego (ejercicio completo)
     require('./clases/Posicion.php');
     require('./clases/Descripcion.php');
     require('./clases/Personaje.php');
@@ -9,13 +17,6 @@
     require('./clases/MagoOscuro.php');
     require('./clases/Edificio.php');
     require('./clases/Objeto.php');
-
-    require('./clases/Config.php');
-
-    require('./clases/PlataformaPago.php');
-    require('./clases/BancoMalvado.php');
-    require('./clases/BitCoinConan.php');
-    require('./clases/BancoMaloMalisimo.php');
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +33,43 @@
     </style>
 </head>
 <body>
+    <h2>Singleton</h2>
+    <?php
+
+    $config1 = Config::singleton();
+    $config1->setNombre('Jason');
+    // podemos comprobar que el nombre que tiene el primero objeto es 'Jason'
+    echo $config1->getNombre()."<br>";
+    
+    $config2 = Config::singleton();
+    $config2->setNombre('Mario');
+    
+    // al ser la misma instaciacion se quedan con el nombre que se ha definido por ultima vez
+    echo $config1->getNombre()."<br>";
+    echo $config2->getNombre()."<br>";
+    ?>
+
+    <h2>Interfaces</h2>
+    <h3>BancoMalvado</h3>
+    <?php
+    $bancoMalvado = new BancoMalvado();
+    $bancoMalvado->estableceConexion();
+    $bancoMalvado->compruebaSeguridad();
+    $bancoMalvado->pagar('Jason', 10000);
+    ?>
+
+    <h3>Random entre entidades</h3>
+    <?php
+    $bancoBitCoin = new BitCoinConan();
+    $bancoMalisimo = new BancoMaloMalisimo();
+
+    $bancos = [$bancoMalvado, $bancoBitCoin, $bancoMalisimo];
+
+    $bancos[mt_rand(0,2)]->pagar('Jason', 10000);
+    $bancos[mt_rand(0,2)]->pagar('Mario', 10000);
+    $bancos[mt_rand(0,2)]->pagar('Daniel', 10000);
+    ?>
+
     <h2>Juego</h2>
     <?php
     $humano = new Humano();
@@ -83,47 +121,6 @@
     echo $objeto->getPosition()."<br>";
 
     ?>
-
-    <h2>Singleton</h2>
-    <?php
-
-    $config1 = Config::singleton();
-    $config1->setNombre('Jason');
-    // podemos comprobar que el nombre que tiene el primero objeto es 'Jason'
-    echo $config1->getNombre()."<br>";
     
-    $config2 = Config::singleton();
-    $config2->setNombre('Mario');
-    
-    // al ser la misma instaciacion se quedan con el nombre que se ha definido por ultima vez
-    echo $config1->getNombre()."<br>";
-    echo $config2->getNombre()."<br>";
-    ?>
-
-    <h2>Interfaces</h2>
-    <h3>BancoMalvado</h3>
-    <?php
-    $bancoMalvado = new BancoMalvado();
-    $bancoMalvado->estableceConexion();
-    $bancoMalvado->compruebaSeguridad();
-    $bancoMalvado->pagar('Jason', 10000);
-    ?>
-
-    <h3>Random entre entidades</h3>
-    <?php
-    $bancoBitCoin = new BitCoinConan();
-    $bancoMalisimo = new BancoMaloMalisimo();
-
-    $bancos = [$bancoMalvado, $bancoBitCoin, $bancoMalisimo];
-
-    $bancos[mt_rand(0,2)]->pagar('Jason', 10000);
-    $bancos[mt_rand(0,2)]->pagar('Mario', 10000);
-    $bancos[mt_rand(0,2)]->pagar('Daniel', 10000);
-    ?>
-
-    <h2>Ejercicio Completo</h2>
-    <?php
-
-    ?>
 </body>
 </html>

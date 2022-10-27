@@ -90,10 +90,6 @@
     <section>
         <h2>Usuarios</h2>
         <?php
-            
-
-
-
 
             $premium = new UsuarioPremium('Mario', 'Bros', 'Furbol');
 
@@ -106,8 +102,6 @@
             $premium->introducirResultado('derrota');
 
             $premium->imprimirInformacion();
-
-
 
 
             $jason = new Usuario('Jason', 'Londoño Barreto', 'Fútbol');
@@ -129,8 +123,6 @@
             $jason->introducirResultado('derrota');
 
             $jason->imprimirInformacion();
-
-
 
 
             $admin = new UsuarioAdmin('Luigi', 'Bros', 'Baloncesto');
