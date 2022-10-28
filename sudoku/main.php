@@ -23,7 +23,7 @@
 
         .sudoku {
             width: fit-content;
-            margin: 20px auto;
+            margin: 40px auto;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
         }
@@ -49,6 +49,8 @@
             appearance: none;
             text-align: center;
             font-size: 20px;
+            outline: none;
+            border: none;
         }
     </style>
 </head>

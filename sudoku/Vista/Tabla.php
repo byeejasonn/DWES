@@ -4,6 +4,7 @@ class Tabla {
     private const FILAS = 3;
     private const CUADRADOS = 9;
     private const PISTAS = 17;
+    private $pistas = 0;
 
     function __construct() {
         $this->pintarTabla();
@@ -24,22 +25,16 @@ class Tabla {
         // }
         // echo "</div>";
 
-
 ?>      <div class = 'sudoku'>
 <?php   for ($i=0; $i < self::CUADRADOS; $i++) : ?>
             <div class = 'cuadrado-wrapper'>
 <?php       for ($j=0; $j < self::CUADRADOS; $j++) : ?>
                     <div class = 'cuadrado'>
                         <select name="cuadrado<?="$i-$j"?>" id="cuadrado<?="$i-$j"?>">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
+                            <option value="null"></option>
+                            <?php for ($k=1; $k <= self::CUADRADOS; $k++) : ?>
+                                <option value="<?=$k?>"><?=$k?></option>
+                            <?php endfor; ?>
                         </select>
                     </div>
 <?php       endfor; ?>
