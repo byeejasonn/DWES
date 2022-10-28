@@ -10,22 +10,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku</title>
     <style>
-        .fila {
-            display: flex;
+        :root {
+            --cuadrado-with: 60px;
         }
 
-        .cuadrado {
-            width: 50px;
-            height: 50px;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial;
+        }
+
+        .sudoku {
+            width: fit-content;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .cuadrado-wrapper {
+            display: grid;
+            grid-template-columns: var(--cuadrado-with) var(--cuadrado-with) var(--cuadrado-with);
             border: 1px solid black;
         }
 
-        .limite-v {
-            border-right: 3px solid black;
+        .cuadrado {
+            width: var(--cuadrado-with);
+            height: var(--cuadrado-with);
+            border: 1px solid black;
         }
-        
-        .limite-h {
-            border-bottom: 3px solid black;
+
+        .cuadrado select {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            text-align: center;
+            font-size: 20px;
         }
     </style>
 </head>
