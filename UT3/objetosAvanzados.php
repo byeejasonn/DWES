@@ -1,22 +1,32 @@
 <?php
 
-    // singleton
-    require('./clases/Config.php');
-    // bancos
-    require('./clases/PlataformaPago.php');
-    require('./clases/BancoMalvado.php');
-    require('./clases/BitCoinConan.php');
-    require('./clases/BancoMaloMalisimo.php');
-    // juego (ejercicio completo)
-    require('./clases/Posicion.php');
-    require('./clases/Descripcion.php');
-    require('./clases/Personaje.php');
-    require('./clases/Humano.php');
-    require('./clases/Mago.php');
-    require('./clases/MagoBlanco.php');
-    require('./clases/MagoOscuro.php');
-    require('./clases/Edificio.php');
-    require('./clases/Objeto.php');
+    // autolad (incluye los archivos de las clases que usa el programa)
+    // spl_autoload_register( function ($class) {
+    //     require("./clases/$class.php");
+    // });
+    spl_autoload_register( function ($class) {
+        $class = str_replace('\\', '/',$class);
+        // echo "$class<br>";
+        require("./clases/$class.php");
+    });
+
+    // // singleton
+    // require('./clases/Config.php');
+    // // bancos
+    // require('./clases/PlataformaPago.php');
+    // require('./clases/BancoMalvado.php');
+    // require('./clases/BitCoinConan.php');
+    // require('./clases/BancoMaloMalisimo.php');
+    // // juego (ejercicio completo)
+    // require('./clases/Posicion.php');
+    // require('./clases/Descripcion.php');
+    // require('./clases/Personaje.php');
+    // require('./clases/Humano.php');
+    // require('./clases/Mago.php');
+    // require('./clases/MagoBlanco.php');
+    // require('./clases/MagoOscuro.php');
+    // require('./clases/Edificio.php');
+    // require('./clases/Objeto.php');
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +82,7 @@
 
     <h2>Juego</h2>
     <?php
-    $humano = new Humano();
+    $humano = new Juego\Humano();
     $humano->atacar();
     $humano->defender();
     $humano->setX(1);
@@ -81,7 +91,7 @@
     echo $humano->getPosition()."<br>";
     echo "<br>";
     
-    $magoBlanco = new MagoBlanco();
+    $magoBlanco = new Juego\MagoBlanco();
     $magoBlanco->atacar();
     $magoBlanco->defender();
     $magoBlanco->setX(2);
@@ -90,7 +100,7 @@
     echo $magoBlanco->getPosition()."<br>";
     echo "<br>";
     
-    $magoOscuro = new MagoOscuro();
+    $magoOscuro = new Juego\MagoOscuro();
     $magoOscuro->atacar();
     $magoOscuro->defender();
     $magoOscuro->setX(3);
@@ -99,7 +109,7 @@
     echo $magoOscuro->getPosition()."<br>";
     echo "<br>";
 
-    $edificio = new Edificio();
+    $edificio = new Juego\Edificio();
     $edificio->setAltura(15.3);
     echo $edificio->getAltura()."<br>";
     $edificio->setDescripcion('Edificio alto');
@@ -110,7 +120,7 @@
     echo $edificio->getPosition()."<br>";
     echo "<br>";
 
-    $objeto = new Objeto();
+    $objeto = new Juego\Objeto();
     $objeto->setPeso(5.5);
     echo $objeto->getPeso()."<br>";
     $objeto->setDescripcion('Objeto pesado');

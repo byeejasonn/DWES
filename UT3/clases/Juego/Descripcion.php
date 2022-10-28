@@ -1,4 +1,5 @@
 <?php
+namespace Juego;
 
 trait Descripcion {
     private $descripcion;

@@ -1,4 +1,5 @@
 <?php 
+namespace Juego;
 
 trait Posicion {
     private $x;

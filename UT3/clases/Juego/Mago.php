@@ -1,4 +1,5 @@
 <?php
+namespace Juego;
 
 abstract class Mago implements Personaje {
 

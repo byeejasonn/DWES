@@ -1,4 +1,5 @@
 <?php
+namespace Juego;
 
 class MagoBlanco extends Mago {
 
