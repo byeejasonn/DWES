@@ -19,12 +19,20 @@
             height: 50px;
             border: 1px solid black;
         }
+
+        .limite-v {
+            border-right: 3px solid black;
+        }
+        
+        .limite-h {
+            border-bottom: 3px solid black;
+        }
     </style>
 </head>
 <body>
     <?php
         $tabla = new Tabla();
-        $tabla->pintarTabla();
+        // $tabla->pintarTabla();
     ?>
 </body>
 </html>
