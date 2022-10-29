@@ -24,14 +24,6 @@
         .sudoku {
             width: fit-content;
             margin: 40px auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-
-        .cuadrado-wrapper {
-            display: grid;
-            grid-template-columns: var(--cuadrado-with) var(--cuadrado-with) var(--cuadrado-with);
-            border: 1px solid black;
         }
 
         .cuadrado {
@@ -39,6 +31,19 @@
             height: var(--cuadrado-with);
             border: 1px solid black;
         }
+
+        .fila-wrapper {
+            display: flex;
+        }
+
+        .border-fila {
+            border-top: 3px solid black;
+        }
+
+        .border-columna {
+            border-left: 3px solid black;
+        }
+
 
         .cuadrado select {
             width: 100%;
@@ -55,9 +60,13 @@
     </style>
 </head>
 <body>
-    <?php
-        $tabla = new Tabla();
-        // $tabla->pintarTabla();
-    ?>
+    <form action="./Controlador/FileManager.php" method="POST" >
+        <?php
+            $tabla = new Tabla();
+            // $tabla->pintarTabla();
+        ?>
+
+        <input type="submit" value="PROBAR">
+    </form>
 </body>
 </html>
