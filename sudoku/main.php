@@ -1,5 +1,11 @@
 <?php
     require('./Vista/Tabla.php');
+
+    $tabla = new Tabla();
+
+    if (isset($_POST['submit'])) {
+        $tabla->save();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -60,13 +66,12 @@
     </style>
 </head>
 <body>
-    <form action="./Controlador/FileManager.php" method="POST" >
+    <form action="main.php" method="POST" >
         <?php
-            $tabla = new Tabla();
-            // $tabla->pintarTabla();
+            $tabla->pintarTabla();
         ?>
 
-        <input type="submit" value="PROBAR">
+        <input type="submit" value="Enviar" name="submit">
     </form>
 </body>
 </html>

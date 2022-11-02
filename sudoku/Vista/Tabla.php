@@ -22,8 +22,10 @@ class Tabla {
 
     function __construct() {
         // $this->tabla = array_fill(0, self::CUADRADOS, array_fill(0, self::CUADRADOS, 0));
-        $this->pintarTabla();
-        $this->backTracking();
+        // if (isset($_POST['submit'])) {
+        //     $this->tablaToJson();
+        // }
+        // $this->backTracking();
     }
 
     function pintarTabla() {
@@ -49,13 +51,13 @@ class Tabla {
                 <?php $borderColumna = ($j%self::FILAS == 0 && $j != 0)?'border-columna':''; ?>
                 <div class = 'cuadrado <?= $borderColumna ?>'>
                     <?php if ($this->tabla[$i][$j] == 0 ) : ?>
-                        <select name="cuadrado<?="$i-$j"?>" id="cuadrado<?="$i-$j"?>">
+                        <select name="<?="$i-$j"?>" id="cuadrado<?="$i-$j"?>">
                             <?php for ($k=0; $k <= self::CUADRADOS; $k++) : ?>
-                                <option value="<?=$k?>"><?= ($k == 0)?'':$k ?></option>
+                                <option value="<?=$k?>" <?= ($k == 0)?'selected':''; ?> ><?= ($k == 0)?'':$k ?></option>
                             <?php endfor; ?>
                         </select>
                     <?php else: ?>
-                        <select name="cuadrado<?="$i-$j"?>" id="cuadrado<?="$i-$j"?>">
+                        <select name="<?="$i-$j"?>" id="cuadrado<?="$i-$j"?>">
                                 <option value="<?=$this->tabla[$i][$j]?>" selected><?= $this->tabla[$i][$j] ?></option>
                         </select>
                     <?php endif; ?>
@@ -66,7 +68,6 @@ class Tabla {
         </div>
 <?php        
     }
-
 
     function backTracking() {
         // for ($i=0; $i < 81; $i++) { 
@@ -82,5 +83,14 @@ class Tabla {
             // echo "<br>";
             // print_r($fullCol);
         // }
+    }
+
+    function save() {
+        $respuesta = array_diff($_POST, ['Enviar']);
+
+        foreach ($respuesta as $key => $value) {
+            $key = explode('-', $key);
+            $this->tabla[$key[0]][$key[1]] = $value;
+        }
     }
 }
