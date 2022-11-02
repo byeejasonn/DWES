@@ -27,6 +27,12 @@
             font-family: Arial;
         }
 
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .sudoku {
             width: fit-content;
             margin: 40px auto;
@@ -63,10 +69,17 @@
             outline: none;
             border: none;
         }
+
+        input[type=submit] {
+            height: 30px;
+            width: 60px;
+            font-size: 15px;
+        }
+
     </style>
 </head>
 <body>
-    <form action="main.php" method="POST" >
+    <form action="main.php" method="POST">
         <?php
             $tabla->pintarTabla();
         ?>

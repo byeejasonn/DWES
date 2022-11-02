@@ -1,8 +1,11 @@
 <?php 
     $mydir = '.';
-    
     function directory($mydir){
-        $files = array_diff(scandir($mydir),array('.','..','index.php','css','.git', 'back.php'));
+        if ($mydir == '.') {
+            $files = array_diff(scandir($mydir),array('.','..','index.php','css','.git', 'back.php'));
+        } else {
+            $files = array_diff(scandir($mydir),array('.','..','css','.git', 'back.php'));
+        }
 ?>
     <ul>
         <?php 
