@@ -10,30 +10,31 @@
         if(!empty($_POST['tema'])) {
             $tema = $_POST['tema'];
         } else {
-            $errores['tema'] = ['No puede estar vacío'];
+            $errores['tema'] = 'No puede estar vacío';
         }
 
         if(!empty($_POST['hora'])) {
             $hora = $_POST['hora'];
         } else {
-            $errores['hora'] = ['La hora no puede estar vacía'];
+            $errores['hora'] = 'La hora no puede estar vacía';
+        }
+
+        if(empty($errores)) {
+            //guardar
+            file_put_contents(
+                "playlist.csv",
+                "$tema;$hora\n",
+                FILE_APPEND
+            );
+    
+            //redirigir
+            header('Location: listado.php');
+    
+            // salir
+            exit();
         }
     }
     
-    if(count($errores) == 0) {
-        //guardar
-        file_put_contents(
-            "playlist.csv",
-            "$tema;$hora\n",
-            FILE_APPEND
-        );
-
-        //redirigir
-        header('Location: listado.php');
-
-        // salir
-        exit();
-    }
 
 ?>
 
