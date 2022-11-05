@@ -13,18 +13,22 @@ class StudentManager {
     }
     
     private function __construct() {
-        fetchStudents();
+        $this->fetchStudents();
     }
 
     public function fetchStudents() {
-        self::$list = file_get_contents(
-            "list.csv"
-        );
-    
-        self::$list = explode("\n",$list);
-        array_pop(self::$list);
+       
+            self::$list = @file_get_contents(
+                "list.csv"
+            );
 
-        return self::$list;
+            if (self::$list != false) {
+                self::$list = explode("\n",$list);
+                array_pop(self::$list);
+            } else {
+                self::$list = file_put_contents("list.csv","",FILE_APPEND);    
+            }
+            return self::$list;
     }
 
     protected function saveAlumnos(Student $student) {
@@ -42,6 +46,5 @@ class StudentManager {
             FILE_APPEND
         );
     }    
-
 
 }
