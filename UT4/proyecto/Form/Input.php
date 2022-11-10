@@ -83,7 +83,7 @@
                 self::$errors["password"] = "La contraseña no puede estar vacía";
             }
 
-            return $data;
+            return password_hash($data, PASSWORD_DEFAULT);
         }
 
         public static function clearMail(string $data) {
