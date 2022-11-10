@@ -1,29 +1,37 @@
-<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>150</x><y>414</y><w>210</w><h>210</h></coordinates><panel_attributes>Student
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>140</x><y>474</y><w>360</w><h>250</h></coordinates><panel_attributes>Student
 --
 - name
 - surname
 - user
 - password
 - mail
-- tlf
+- phone
 - gender
 - grade
 - birth date
 
 --
 + constructor
-
---</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>320</x><y>194</y><w>210</w><h>150</h></coordinates><panel_attributes>AlumnManager
++ getters
++ setters
++ toString
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>274</y><w>210</w><h>170</h></coordinates><panel_attributes>AlumnManager
 --
-_- listado_
+_- list_
 _- instace_
 
 --
 + singleton
 - constructor
-# saveStudent
 - fetchStudent
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>210</x><y>64</y><w>210</w><h>80</h></coordinates><panel_attributes>InputPlantilla TRAIT
+# saveStudent
+_- printList()_</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>94</y><w>360</w><h>150</h></coordinates><panel_attributes>ClearInputData
 --
+_- STRING_
+_- USER_
+_- PHONE_
+_- MAIL_
+_- PASSWORD_
+
 --
-# cleanData(mix data, string regex)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>134</y><w>30</w><h>300</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;280</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>334</y><w>70</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;10;80</additional_attributes></element></diagram>
+# cleanData(mix data, string regex)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>234</y><w>30</w><h>260</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;240</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>434</y><w>30</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;40</additional_attributes></element></diagram>
