@@ -1,14 +1,15 @@
 <?php
-    spl_autoload_register(function($clase) {
-        $ruta = "./";
-        $archivo = str_replace('\\', '/', $clase);
-        require("$ruta${archivo}.php");
+    spl_autoload_register(function($class) {
+        $path = "./";
+        $file = str_replace('\\', '/', $class);
+        require("$path${file}.php");
     });
 
+    session_start();
+
+    $keys = $_SESSION["keys"];
+
     $config = Form\StudentManager::singleton();
-
-    $fields = ["Nombre", "Apellidos", "Sexo", "Cumpleaños", "Usuario", "Correo", "Teléfono", "Ciclo"];
-
     $students = $config->fetchStudents();
 ?>
 
@@ -18,8 +19,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tronco | Student list</title>
+    <title>Tronco | Lista de estudiantes</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" type="image/png" href="./img/favicon.png">
 </head>
 <body>
     <div class="list-wrapper">
@@ -27,9 +29,11 @@
             <table class="student-list">
                 <caption class="student-list__caption">Lista de alumnos</caption>
                 <tr class="student-list__row">
-                    <?php foreach ($fields as $field) : ?>
-                        <th class="student-list__heading"><?= $field ?></th>
-                    <?php endforeach; ?>
+                    <?php foreach ($keys as $key) : // Si la clave es la contraseña, no la muestres
+                        if ($key != $_SESSION["keys"][5]) : ?>
+                            <th class="student-list__heading"><?= ucfirst($key) ?></th>
+                        <?php endif;
+                    endforeach; ?>
                 </tr>
                 <?php foreach ($students as $student) : ?>
                     <tr class="student-list__row">
@@ -45,9 +49,9 @@
                 <?php endforeach; ?>
             </table>
         <?php else: ?>
-            <h2>¿No hay alumnos, por qué no creas uno?</h2>
+            <h2 class="student-list__caption">¿No hay alumnos, por qué no creas uno?</h2>
         <?php endif; ?>
-        
+
         <a class="form__submit" href="index.php">Volver</a>
     </div>
 </body>

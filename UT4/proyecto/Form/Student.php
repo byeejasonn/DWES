@@ -1,7 +1,9 @@
 <?php
     namespace Form;
 
-    class Student extends \Form\StudentManager {
+    use \Form;
+
+    class Student extends StudentManager {
         private $name;
         private $surname;
         private $user;
@@ -12,28 +14,16 @@
         private $grade;
         private $birthdate;
 
-        // public function __construct($name, $surname, $user, $password, $mail, $phone, $gender, $birthdate, $grade) {
-        //     $this->name = $name;
-        //     $this->surname = $surname;
-        //     $this->user = $user;
-        //     $this->password = $password;
-        //     $this->mail = $mail;
-        //     $this->phone = $phone;
-        //     $this->gender = $gender;
-        //     $this->birthdate = $birthdate;
-        //     $this->grade = $grade;
-        // }
-
-        public function __construct($data) {
-            $this->name = $data['name'];
-            $this->surname = $data['surname'];
-            $this->user = $data['user'];
-            $this->password = $data['password'];
-            $this->mail = $data['mail'];
-            $this->phone = $data['phone'];
-            $this->gender = $data['gender'];
-            $this->birthdate = $data['birthdate'];
-            $this->grade = $data['grade'];
+        public function __construct($post) {
+            $this->name = $post[$_SESSION["keys"][0]];
+            $this->surname = $post[$_SESSION["keys"][1]];
+            $this->gender = $post[$_SESSION["keys"][2]];
+            $this->birthdate = $post[$_SESSION["keys"][3]];
+            $this->user = $post[$_SESSION["keys"][4]];
+            $this->password = $post[$_SESSION["keys"][5]];
+            $this->mail = $post[$_SESSION["keys"][6]];
+            $this->phone = $post[$_SESSION["keys"][7]];
+            $this->grade = $post[$_SESSION["keys"][8]];
         }
 
         // Getters
@@ -110,16 +100,25 @@
             $this->birthdate = $birthdate;
         }
 
+        public function validateStudent() {
+            foreach (Input::$inputs as $input) {
+                $input->validate();
+            }
+
+            // Hardcodear es mi pasión
+            $this->setName(Input::$inputs[0]->getData());
+            $this->setSurname(Input::$inputs[1]->getData());
+            $this->setGender(Input::$inputs[2]->getData());
+            $this->setBirthdate(Input::$inputs[3]->getData());
+            $this->setUser(Input::$inputs[4]->getData());
+            $this->setPassword(Input::$inputs[5]->getData());
+            $this->setMail(Input::$inputs[6]->getData());
+            $this->setPhone(Input::$inputs[7]->getData());
+            $this->setGrade(Input::$inputs[8]->getData());
+        }
+
         public function isValid() {
-            $this->name = \Form\Input::clearName($this->name);
-            $this->surname = \Form\Input::clearSurname($this->surname);
-            $this->user = \Form\Input::clearUser($this->user);
-            $this->password = \Form\Input::clearPassword($this->password);
-            $this->mail = \Form\Input::clearMail($this->mail);
-            $this->phone = \Form\Input::clearPhone($this->phone);
-            $this->gender = \Form\Input::clearRadio($this->gender);
-            $this->birthdate = \Form\Input::clearDate($this->birthdate);
-            $this->grade = \Form\Input::clearSelect($this->grade);
+            return count(Input::getErrors()) == 0;
         }
     }
 ?>
