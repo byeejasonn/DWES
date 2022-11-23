@@ -1,0 +1,29 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+}
+
+.icon {
+    width: 22px;
+    vertical-align: bottom;
+    user-select: none;
+}
+
+.main {
+    margin: 10px 80px;
+}
+
+.main > * {
+    margin: 14px 0;
+}
+
+.ciclistas {
+    margin: 0 20px;
+}
+
+.ciclistas li {
+    margin: 5px 0;
+}
