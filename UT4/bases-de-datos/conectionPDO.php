@@ -3,17 +3,22 @@
         $dsn = 'mysql:host=localhost;dbname=dwes';
         $user = "byeejasonn";
         $passwd = "1234";
+        $options = [
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_NUM
+            // PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_BOTH
+        ];
 
-        $mbd = new PDO($dsn, $user, $passwd);
+        $conn = new PDO($dsn, $user, $passwd, $options);
 
         // Utilizar la conexión aquí
-        $resultado = $mbd->query('SELECT * FROM Ciclistas');
+        $resultado = $conn->query('SELECT * FROM Ciclistas');
 
         imprimirTabla($resultado);
 
         // Ya se ha terminado; se cierra
         $resultado = null;
-        $mbd = null;
+        $conn = null;
 
     } catch (PDOException $e) {
         print "¡Error!: " . $e->getMessage() . "\n";
@@ -30,15 +35,15 @@
         ?>
         <table>
             <tr>
-                <?php foreach ($tabla[0] as $clave => $valor) : if (!is_numeric($clave)) : ?>
+                <?php foreach ($tabla[0] as $clave => $valor) : ?>
                     <th><?= $clave ?></th>
-                <?php endif; endforeach; ?>
+                <?php endforeach; ?>
             </tr>
             <?php foreach ($tabla as $fila) : ?>
                 <tr>
-                    <?php foreach ($fila as $clave => $valor) : if (!is_numeric($clave)) : ?>
+                    <?php foreach ($fila as $clave => $valor) : ?>
                         <td><?= $valor ?></td>
-                    <?php endif; endforeach; ?>
+                    <?php endforeach; ?>
                 </tr>
             <?php endforeach; ?>
         </table>
