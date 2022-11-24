@@ -28,6 +28,13 @@
     margin: 5px 0;
 }
 
+form {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    gap: 15px;
+}
+
+
 table {
     border-collapse: collapse;
 }
@@ -44,8 +51,4 @@ tr:first-child {
 
 tr:nth-child(2n + 3) {
     background-color: #eee;
-}
-
-td:first-child {
-    font-weight: bold;
 }
