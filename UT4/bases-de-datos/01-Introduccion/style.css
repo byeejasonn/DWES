@@ -52,3 +52,38 @@ tr:first-child {
 tr:nth-child(2n + 3) {
     background-color: #eee;
 }
+
+.error {
+    font-family: 'Courier New', Courier, monospace;
+    color: red;
+    font-size: 18px;
+}
+
+.success {
+    font-family: 'Courier New', Courier, monospace;
+    color: green;
+    font-size: 18px;
+}
+
+.ciclistas-wrapper {
+    width: fit-content;
+}
+
+.pagination {
+    margin: 10px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+}
+
+.prev {
+    grid-column: 1/2;
+}
+
+.current {
+    grid-column: 2/3;
+}
+
+.next {
+    grid-column: 3/4;
+}
