@@ -111,6 +111,7 @@
     function imprimirPagination($config) {
         $start = 1;
         $end = $config::getConn()->query("SELECT count(*) as filas FROM Ciclistas")->fetch()["filas"] / $_POST['limit'];
+        // $end = $stmt->rowCount() / $_POST['limit'];
 
         if(empty($_GET['page'])) {
             $_GET['page'] = 1;
@@ -120,11 +121,11 @@
 ?>
         <div class="pagination">
             <?php if ($current > $start) : ?>
-                <div class="prev"><a href="./ciclistas-form.php?page=<?= $current-1 ?>">⇦<?= $current-1 ?></a></div>
+                <div class="prev"><a href="./ciclistas-form.php?page=<?= $current-1 ?>">⇦ <?= $current-1 ?></a></div>
             <?php endif; ?>
             <div class="current"><?= $_GET['page'] ?></div>
             <?php if ($current < $end) : ?>
-                <div class="next"><a href="./ciclistas-form.php?page=<?= $current+1 ?>"><?= $current+1 ?>⇨</a></div>
+                <div class="next"><a href="./ciclistas-form.php?page=<?= $current+1 ?>"><?= $current+1 ?> ⇨</a></div>
             <?php endif; ?>
         </div>
 <?php
@@ -149,6 +150,7 @@
                 Nombre: <input type="text" name="nombre" id="nombre" list="ciclistas" autocomplete="off">
             </label>
             <?php imprimirOffset() ?> 
+            <input type="submit" value="submit" name="submit">
         </form>
         <a href="./insert-ciclistas.php">Insertar Ciclista</a>
         <div class="ciclistas-wrapper">
