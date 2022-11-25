@@ -8,6 +8,10 @@
         $_GET['page'] = 1;
     }
 
+    session_start();
+    print_r($_SESSION);
+    $_SESSION['limit'] = $_POST['limit'];
+
     function imprimirCiclistas($config) {
         // $stmt;
         // if(!empty($_POST['nombre'])) {
@@ -19,6 +23,8 @@
         // }
 
         $stmt = $config::getConn()->prepare("SELECT nombre, num_trofeos as 'Numero trofeos' FROM Ciclistas WHERE nombre like :nombre LIMIT :offset , :limit");
+
+        $paginacion = $config::getConn()->prepare("SELECT count(*) AS 'paginas' FROM Ciclistas WHERE nombre like :nombre");
         
         $nombre = '%%';
         $limit = $_POST['limit'];
@@ -28,10 +34,14 @@
             $nombre = "%${_POST['nombre']}%";
         }
 
+        $paginacion->bindParam(":nombre", $nombre);
+
         $stmt->bindParam(":nombre", $nombre);
         $stmt->bindParam(":limit", $limit, PDO::PARAM_INT);
         $stmt->bindParam(":offset", $offset, PDO::PARAM_INT);
         
+        $paginacion->execute();
+
         $stmt->execute();
         $ciclistas = $stmt->fetchAll();
 
@@ -64,7 +74,7 @@
                     </tr>
                 <?php endforeach; ?>
             </table>
-            <?= imprimirPagination($config) ?>
+            <?= imprimirPagination($paginacion) ?>
             <p>Filas: <?= $stmt->rowCount() ?></p>
 <?php
         endif;
@@ -87,7 +97,7 @@
         $options = [5, 10, 20, 50, 100];
 
         if(!empty($_POST['limit'])) :
-            $value = $_POST['limit'];
+            $value = $_SESSION['limit'];
 
             if(in_array($value, $options)) : ?>
                 <select name="limit" id="limit">
@@ -108,10 +118,11 @@
 <?php   endif;
     }
 
-    function imprimirPagination($config) {
+    function imprimirPagination($paginacion) {
         $start = 1;
-        $end = $config::getConn()->query("SELECT count(*) as filas FROM Ciclistas")->fetch()["filas"] / $_POST['limit'];
-        // $end = $stmt->rowCount() / $_POST['limit'];
+        // $end = $config::getConn()->query("SELECT count(*) as filas FROM Ciclistas")->fetch()["filas"] / $_POST['limit'];
+        $end = $paginacion->fetch()['paginas'] / $_POST['limit'];
+        // print_r($paginacion->fetch());
 
         if(empty($_GET['page'])) {
             $_GET['page'] = 1;
@@ -147,7 +158,7 @@
     <div class="main">
         <form action="" method="POST">
             <label>
-                Nombre: <input type="text" name="nombre" id="nombre" list="ciclistas" autocomplete="off">
+                Nombre: <input type="text" name="nombre" id="nombre" value="<?= $_POST['nombre'] ?>" list="ciclistas" autocomplete="off">
             </label>
             <?php imprimirOffset() ?> 
             <input type="submit" value="submit" name="submit">

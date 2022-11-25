@@ -37,6 +37,7 @@ form {
 
 table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 th, td {
@@ -66,7 +67,7 @@ tr:nth-child(2n + 3) {
 }
 
 .ciclistas-wrapper {
-    width: fit-content;
+    width: 450px;
 }
 
 .pagination {
@@ -86,4 +87,8 @@ tr:nth-child(2n + 3) {
 
 .next {
     grid-column: 3/4;
+}
+
+input[type="submit"] {
+    width: 150px;
 }
