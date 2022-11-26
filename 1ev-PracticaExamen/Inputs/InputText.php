@@ -19,10 +19,10 @@ class InputText extends AInput {
     }
 
     function validar() {
-        self::cleandata();
+        parent::validar();
 
         if (!preg_match($this->regex, $this->data)) {
-            $this->error = "$this->name tiene que tener de ".self::MINLENGTH." a ".self::MAXLENGTH." caracteres";
+            $this->error[] = "$this->name tiene que tener de ".self::MINLENGTH." a ".self::MAXLENGTH." caracteres";
         }
     }
 
@@ -30,10 +30,10 @@ class InputText extends AInput {
 ?>
         <label><?= $this->name ?>:
             
-            <input type="<?= $this->type ?>" name="<?= $this->name ?>" min="<?= $this->minlength ?>" max="<?= $this->maxlength ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>">
+            <input type="<?= $this->type ?>" name="<?= $this->name ?>" min="<?= $this->minlength ?>" max="<?= $this->maxlength ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
 
             <?php if(!empty($this->error)) : ?>
-                <div class="error"><?= $this->error ?></div>
+                <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>
             <?php endif; ?>
         </label>
 <?php

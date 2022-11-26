@@ -9,5 +9,6 @@ enum Type : string {
     case CHECKBOX = "checkbox";
     case RADIO = "radio";
     case DATE = "date";
+    case MAIL = "mail";
 
 }

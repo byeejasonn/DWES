@@ -21,7 +21,13 @@ abstract class AInput {
     }
 
     // añadir validar si el campo esta vacio
-    abstract function validar();
+    function validar() {
+        self::cleanData();
+
+        if(empty($this->data)) {
+            $this->error[] = "El campo no puede estar vacio";
+        }
+    }
 
     abstract function imprimirInput();
 

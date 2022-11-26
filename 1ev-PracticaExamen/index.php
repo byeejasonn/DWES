@@ -7,6 +7,10 @@
 
     $form = new Config\Form();
     $form->crearInputs($_POST);
+
+    if(isset($_POST["submit"])) {
+        $form->validarForm();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
