@@ -25,7 +25,7 @@ class InputMail extends AInput {
 ?>
         <label><?= $this->name ?>:
             
-            <input type="<?= $this->type ?>" name="<?= $this->name ?>" min="<?= $this->minlength ?>" max="<?= $this->maxlength ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
+            <input type="<?= $this->type ?>" name="<?= $this->name ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
 
             <?php if(!empty($this->error)) : ?>
                 <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>

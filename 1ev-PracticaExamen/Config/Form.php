@@ -14,6 +14,7 @@ class Form {
         new \Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         new \Inputs\InputNumber("Edad", $POST["Edad"], 10, 75);
         new \Inputs\InputMail("Email", $POST["Email"], "example@example.com");
+        new \Inputs\InputCheckbox("Cursos", $POST["Cursos"], "ESO", "Bachillerato", "CFGB", "CFGM", "CFGS");
     }
 
     public function crearForm($action, $method) {

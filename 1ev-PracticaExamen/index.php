@@ -7,6 +7,7 @@
 
     $form = new Config\Form();
     $form->crearInputs($_POST);
+    print_r($_POST);
 
     if(isset($_POST["submit"])) {
         $form->validarForm();
