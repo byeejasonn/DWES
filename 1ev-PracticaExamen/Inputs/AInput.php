@@ -21,7 +21,7 @@ abstract class AInput {
     }
 
     // añadir validar si el campo esta vacio
-    function validar() {
+    protected function validar() {
         self::cleanData();
 
         if(empty($this->data)) {

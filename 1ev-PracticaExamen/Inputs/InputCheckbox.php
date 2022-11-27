@@ -13,8 +13,8 @@ class InputCheckbox extends AInput {
     }
 
     function validar() {
-        // hay que comprobar todas las opciones de forma individula
-        foreach ($this->data as $option) {
+        // hay que comprobar todas las opciones de forma individual
+        foreach (($this->data == null)?[]:$this->data as $option) {
             if (!in_array($option, $this->options)) {
                 $this->error[] = "$this->name no es válido";
                 // para que no se repita el error, solo ocurra una vez
@@ -26,12 +26,12 @@ class InputCheckbox extends AInput {
     function imprimirInput() {
         // como el checkbox lo queremos guardar en un array ponemos en el name unos "[]"
 ?>
-        <div><?= $this->name ?>: <br>
+        <div><?= str_replace("_", " ", $this->name) ?>: <br>
             
             <?php foreach ($this->options as $option) :?>
                 <label>
                     
-                    <input type="<?= $this->type ?>" name="<?= $this->name ?>[]" value="<?= $option ?>" <?= (in_array($option, ($this->data == null)? [] :$this->data)?'checked':'') ?> >
+                    <input type="<?= $this->type ?>" name="<?= $this->name ?>[]" value="<?= $option ?>" <?= in_array($option, ($this->data == null)? [] :$this->data)?'checked':'' ?> >
                     <?= $option ?>
                 </label>
             <?php endforeach; ?>

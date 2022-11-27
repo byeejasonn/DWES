@@ -23,14 +23,17 @@ class InputMail extends AInput {
 
     function imprimirInput() {
 ?>
-        <label><?= $this->name ?>:
+        <div class="input">
+            <label><?= str_replace("_", " ", $this->name) ?>:
+                
+                <input type="<?= $this->type ?>" name="<?= $this->name ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
+    
+            </label>
             
-            <input type="<?= $this->type ?>" name="<?= $this->name ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
-
             <?php if(!empty($this->error)) : ?>
                 <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>
             <?php endif; ?>
-        </label>
+        </div>
 <?php
     }
 }

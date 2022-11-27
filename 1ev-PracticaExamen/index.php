@@ -1,4 +1,5 @@
 <?php
+    // autoload
     spl_autoload_register(function ($class) {
         $path = "./";
         $file = str_replace("\\", "/", $class);
@@ -6,7 +7,7 @@
     });
 
     $form = new Config\Form();
-    $form->crearInputs($_POST);
+    @$form->crearInputs($_POST);
     print_r($_POST);
 
     if(isset($_POST["submit"])) {
