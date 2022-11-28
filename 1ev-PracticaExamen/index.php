@@ -36,6 +36,7 @@
 </head>
 <body>
     <div class="main">
+        <h3>Registro</h3>
         <?= $form->crearForm("", "POST") ?>
         <a href="./listado.php">Listado</a>
     </div>

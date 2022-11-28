@@ -12,8 +12,8 @@ class Form {
         new \Inputs\InputText("Nombre", $POST["Nombre"], 3, 20, "Nombre");
         new \Inputs\InputText("Apellidos", $POST["Apellidos"], 3, 30, "Apellidos");
         new \Inputs\InputRadio("Genero", $POST["Genero"], "Hombre", "Mujer");
-        new \Inputs\InputNumber("Edad", $POST["Edad"], 12, 75);
-        new \Inputs\InputDate("Fecha_nacimiento", $POST["Fecha_nacimiento"]);
+        new \Inputs\InputNumber("Salario", $POST["Salario"], 400, 13000);
+        new \Inputs\InputDate("Fecha_nacimiento", $POST["Fecha_nacimiento"], 18, "1920-01-01");
         new \Inputs\Select("Localidad", $POST["Localidad"], SINGLE, "Madrid", "Alcorcón", "Getafe");
         new \Inputs\InputText("Usuario", $POST["Usuario"], 3, 20, "Usuario");
         new \Inputs\InputMail("Email", $POST["Email"], "example@example.com", 40);
@@ -25,12 +25,9 @@ class Form {
 
     public function crearForm($action, $method) {
 
-        if(isset($_GET['success'])) {
-?>
+        if(isset($_GET['success'])) : ?>
             <div class="success">Usuario añadido con exito</div>
-<?php
-        }
-?>
+<?php   endif;?>
         <form action="<?= $action ?>" method="<?= $method ?>">
             <?php
                 foreach (self::$inputs as $input) {
@@ -62,7 +59,7 @@ class Form {
 
         foreach (self::$inputs as $key => $input) {
             if ($input->getType() == \Enum\Type::CHECKBOX->value || $input->getType() == \Enum\Type::SELECT->value) {
-                $stmt->bindValue($key, implode(";",$input->getData()));
+                $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
             } else if ($input->getType() == \Enum\Type::PASSWORD->value) {
                 $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
             } else if($input->getType() == \Enum\Type::MAIL->value) {
@@ -77,10 +74,18 @@ class Form {
 
     public function getListado() {
         $conn = Conn::singleton()->getConn();
-
-        $stmt = $conn->query("SELECT Nombre, Apellidos, Genero, Edad, fechanacimiento as 'Fecha Nacimiento', Localidad, Usuario, Email, Cursos FROM PracticaExamen");
-
+        
+        $stmt = $conn->query("SELECT id, Nombre, Apellidos, Genero, Edad, fechanacimiento as 'Fecha Nacimiento', Localidad, Usuario, Email, Cursos FROM PracticaExamen");
+        
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+    
+    public function deleteRegistros($post) {
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare(sprintf("DELETE FROM PracticaExamen WHERE id IN (%s)", implode(", ",array_fill(0, count($post), "?"))));
+
+        return $stmt->execute($post);
     }
 }
