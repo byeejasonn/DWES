@@ -24,7 +24,7 @@ class InputText extends AInput {
         parent::validar();
 
         if (!preg_match($this->regex, $this->data)) {
-            $this->error[] = "$this->name tiene que tener de ".self::MINLENGTH." a ".self::MAXLENGTH." caracteres";
+            $this->error[] = "$this->name tiene que tener de ".$this->minlength." a ".$this->maxlength." caracteres";
             \Config\Form::$errors++;
         }
     }
@@ -38,9 +38,8 @@ class InputText extends AInput {
     
             </label>
             
-            <?php if(!empty($this->error)) : ?>
-                <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>
-            <?php endif; ?>
+            <?php parent::imprimirErrores() ?>
+
         </div>
 <?php
     }

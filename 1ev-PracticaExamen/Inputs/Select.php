@@ -9,7 +9,7 @@ class Select extends AInput {
     private $mode;
     private $options;
 
-    function __construct($name, $data = null, $mode = self::SINGLE,...$options) {
+    function __construct($name, $data = null, $mode = SINGLE,...$options) {
         $this->type = \Enum\Type::SELECT->value;
         $this->options = $options;
         $this->mode = $mode;
@@ -50,9 +50,8 @@ class Select extends AInput {
 
             </select>
             
-            <?php if(!empty($this->error)) : ?>
-                <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>
-            <?php endif; ?>
+            <?php parent::imprimirErrores() ?>
+
         </div>
 <?php
     }

@@ -36,9 +36,8 @@ class InputRadio extends AInput {
                 </label>
             <?php endforeach; ?>
 
-            <?php if(!empty($this->error)) : ?>
-                <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>
-            <?php endif; ?>
+            <?php parent::imprimirErrores() ?>
+
         </div>
 <?php
     }

@@ -30,6 +30,12 @@ abstract class AInput {
         }
     }
 
+    protected function imprimirErrores() {
+        if(!empty($this->error)) : ?>
+            <div class="error"><?php foreach ($this->error as $error) { echo "$error<br>"; } ?></div>
+<?php   endif;
+    }
+
     abstract function imprimirInput();
 
     function getType() {
