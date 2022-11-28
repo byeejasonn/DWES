@@ -17,11 +17,11 @@
 
         // vemos si el formulario es valido
         if($form->esValido()) {
-            echo "es valido";
+            // echo "es valido";
             // gracias al array de inputs recogemos los datos
             $form->guardarBBDD();
 
-            // header("Location: index.php?success");
+            header("Location: index.php?success");
         }
     }
 ?>
@@ -31,22 +31,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba</title>
-    <style>
-        * {
-            font-family: Arial;
-        }
-
-        .error {
-            color: red;
-        }
-
-        .success {
-            color: green;
-        }
-    </style>
+    <title>Registro</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <?= $form->crearForm("", "POST") ?>
+    <div class="main">
+        <?= $form->crearForm("", "POST") ?>
+        <a href="./listado.php">Listado</a>
+    </div>
 </body>
 </html>

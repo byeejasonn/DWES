@@ -1,0 +1,41 @@
+* {
+    font-family: Arial;
+}
+
+.main {
+    width: max-content;
+    margin: 0 auto;
+}
+
+.input {
+    margin: 10px 0;
+}
+
+.input textarea {
+    resize: none;
+    width: 100%;
+    min-height: 150px;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+    padding: 3px 2px;
+}
+
+a {
+    width: fit-content;
+    display: block;
+    margin: 10px 0;
+}

@@ -37,8 +37,10 @@ class Form {
                     $input->imprimirInput();
                 }
             ?>
-
-            <input type="submit" name="submit" value="submit">
+            
+            <div class="input">
+                <input type="submit" name="submit" value="submit">
+            </div>
         </form>
 <?php
     }
@@ -63,11 +65,22 @@ class Form {
                 $stmt->bindValue($key, implode(";",$input->getData()));
             } else if ($input->getType() == \Enum\Type::PASSWORD->value) {
                 $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
-            } else {
+            } else if($input->getType() == \Enum\Type::MAIL->value) {
                 $stmt->bindValue($key, $input->getData());
+            } else {
+                $stmt->bindValue($key, ucwords($input->getData()));
             }
         }
 
         $stmt->execute();
+    }
+
+    public function getListado() {
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->query("SELECT Nombre, Apellidos, Genero, Edad, fechanacimiento as 'Fecha Nacimiento', Localidad, Usuario, Email, Cursos FROM PracticaExamen");
+
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 }

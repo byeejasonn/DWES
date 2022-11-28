@@ -26,7 +26,7 @@ abstract class AInput {
 
         if(empty($this->data)) {
             $this->error[] = "El campo no puede estar vacio";
-            \Config\Form::$error++;
+            \Config\Form::$errors++;
         }
     }
 
