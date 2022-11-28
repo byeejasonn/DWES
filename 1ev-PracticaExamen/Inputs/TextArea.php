@@ -5,6 +5,7 @@ namespace Inputs;
 class TextArea extends AInput {
     
     function __construct($name, $data) {
+        $this->type = \Enum\Type::TEXTAREA->value;
         parent::__construct($name, $data);
     }
 

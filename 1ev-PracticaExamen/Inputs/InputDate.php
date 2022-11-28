@@ -22,10 +22,15 @@ class InputDate extends AInput {
     function validar() {
         parent::validar();
 
-        $this->data = new \DateTime($this->data, new \DateTimeZone("Europe/Madrid"));
+        // if($this->date == null) {
+        //     $this->date = new \DateTime("now", new \DateTimeZone("Europe/Madrid"));
+        // }
 
-        if ($this->data > $this->maxdate || $this->data < $this->mindate) {
-            $this->error[] = $this->data->format("Y-m-d")." no válida";
+        $fecha = new \DateTime($this->data, new \DateTimeZone("Europe/Madrid"));
+
+        if ($fecha > $this->maxdate || $fecha < $this->mindate) {
+            $this->error[] = $fecha->format("Y-m-d")." no válida";
+            \Config\Form::$errors++;
         }
 
     }
@@ -35,7 +40,7 @@ class InputDate extends AInput {
         <div class="input">
             <label><?= str_replace("_", " ", $this->name) ?>:
                 
-                <input type="<?= $this->type ?>" name="<?= $this->name ?>" min="<?= $this->mindate->format("Y-m-d") ?>" max="<?= $this->maxdate->format("Y-m-d") ?>" value="<?= $this->data->format("Y-m-d") ?>" required>
+                <input type="<?= $this->type ?>" name="<?= $this->name ?>" min="<?= $this->mindate->format("Y-m-d") ?>" max="<?= $this->maxdate->format("Y-m-d") ?>" value="<?= ($this->data != null)?$this->data:'' ?>" required>
     
             </label>
             

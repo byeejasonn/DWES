@@ -24,6 +24,7 @@ class InputNumber extends AInput {
 
         if ($this->data < $this->min || $this->data > $this->max) {
             $this->error[] = "$this->name tiene que estar comprendido entre $this->min y $this->max";
+            \Config\Form::$errors++;
         }
     }
 

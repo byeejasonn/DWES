@@ -10,5 +10,7 @@ enum Type : string {
     case RADIO = "radio";
     case DATE = "date";
     case MAIL = "mail";
+    case SELECT = "select";
+    case TEXTAREA = "textarea";
 
 }

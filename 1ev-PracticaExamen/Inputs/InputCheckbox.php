@@ -17,6 +17,7 @@ class InputCheckbox extends AInput {
         foreach (($this->data == null)?[]:$this->data as $option) {
             if (!in_array($option, $this->options)) {
                 $this->error[] = "$this->name no es válido";
+                \Config\Form::$errors++;
                 // para que no se repita el error, solo ocurra una vez
                 break;
             }

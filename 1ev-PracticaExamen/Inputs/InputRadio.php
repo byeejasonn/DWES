@@ -12,8 +12,12 @@ class InputRadio extends AInput {
 
     function validar() {
         
-        if(!in_array($this->data, $this->options)) {
+        if($this->data == null) {
+            $this->error[] = "$this->name no puede estar vacío";
+            \Config\Form::$errors++;
+        } elseif(!in_array($this->data, $this->options)) {
             $this->error[] = "$this->data no es una opción válida";
+            \Config\Form::$errors++;
         }
 
     }

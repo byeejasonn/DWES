@@ -11,7 +11,7 @@ abstract class AInput {
     function __construct($name, $data) {
         $this->name = $name;
         $this->data = $data;
-        \Config\Form::$inputs[] = $this;
+        \Config\Form::$inputs[":".strtolower(str_replace("ñ", "ny",$this->name))] = $this;
     }
 
     protected function cleanData() {
@@ -26,9 +26,21 @@ abstract class AInput {
 
         if(empty($this->data)) {
             $this->error[] = "El campo no puede estar vacio";
+            \Config\Form::$error++;
         }
     }
 
     abstract function imprimirInput();
 
+    function getType() {
+        return $this->type;
+    }
+
+    function getData() {
+        return $this->data;
+    }
+
+    function getName() {
+        return $this->name;
+    }
 }

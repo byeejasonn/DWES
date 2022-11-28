@@ -4,24 +4,32 @@ namespace Config;
 
 class Form {
     public static $inputs;
+    public static $errors;
 
     function __construct() {}
-
+    
     public function crearInputs($POST) {
-        new \Inputs\InputText("Nombre", $POST["Nombre"], 3, 10, "Nombre");
-        new \Inputs\InputText("Apellidos", $POST["Apellidos"], 3, 20, "Apellidos");
-        new \Inputs\InputRadio("Sexo", $POST["Sexo"], "Hombre", "Mujer");
-        new \Inputs\InputNumber("Edad", $POST["Edad"], 10, 75);
+        new \Inputs\InputText("Nombre", $POST["Nombre"], 3, 20, "Nombre");
+        new \Inputs\InputText("Apellidos", $POST["Apellidos"], 3, 30, "Apellidos");
+        new \Inputs\InputRadio("Genero", $POST["Genero"], "Hombre", "Mujer");
+        new \Inputs\InputNumber("Edad", $POST["Edad"], 12, 75);
         new \Inputs\InputDate("Fecha_nacimiento", $POST["Fecha_nacimiento"]);
         new \Inputs\Select("Localidad", $POST["Localidad"], SINGLE, "Madrid", "Alcorcón", "Getafe");
         new \Inputs\InputText("Usuario", $POST["Usuario"], 3, 20, "Usuario");
-        new \Inputs\InputMail("Email", $POST["Email"], "example@example.com");
+        new \Inputs\InputMail("Email", $POST["Email"], "example@example.com", 40);
         new \Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         new \Inputs\InputCheckbox("Cursos", $POST["Cursos"], "ESO", "Bachillerato", "CFGB", "CFGM", "CFGS");
         new \Inputs\TextArea("Sobre_ti", $POST["Sobre_ti"]);
+        // print_r(implode(", ",array_keys(self::$inputs)));
     }
 
     public function crearForm($action, $method) {
+
+        if(isset($_GET['success'])) {
+?>
+            <div class="success">Usuario añadido con exito</div>
+<?php
+        }
 ?>
         <form action="<?= $action ?>" method="<?= $method ?>">
             <?php
@@ -39,5 +47,27 @@ class Form {
         foreach (self::$inputs as $input) {
             $input->validar();
         }
+    }
+
+    public function esValido() {
+        return (self::$errors == 0);
+    }
+
+    public function guardarBBDD() {
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("INSERT INTO PracticaExamen (Nombre, Apellidos, Genero, Edad, FechaNacimiento, Localidad, Usuario, Email, Contrasenya, Cursos, SobreTi) VALUES (:nombre, :apellidos, :genero, :edad, :fecha_nacimiento, :localidad, :usuario, :email, :contrasenya, :cursos, :sobre_ti)");
+
+        foreach (self::$inputs as $key => $input) {
+            if ($input->getType() == \Enum\Type::CHECKBOX->value || $input->getType() == \Enum\Type::SELECT->value) {
+                $stmt->bindValue($key, implode(";",$input->getData()));
+            } else if ($input->getType() == \Enum\Type::PASSWORD->value) {
+                $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
+            } else {
+                $stmt->bindValue($key, $input->getData());
+            }
+        }
+
+        $stmt->execute();
     }
 }

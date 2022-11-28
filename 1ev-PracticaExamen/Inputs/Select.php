@@ -10,6 +10,7 @@ class Select extends AInput {
     private $options;
 
     function __construct($name, $data = null, $mode = self::SINGLE,...$options) {
+        $this->type = \Enum\Type::SELECT->value;
         $this->options = $options;
         $this->mode = $mode;
         parent::__construct($name, $data);
@@ -17,14 +18,21 @@ class Select extends AInput {
 
     function validar() {
         
-        // hay que comprobar todas las opciones de forma individual por si fuera multiple
-        foreach ($this->data as $option) {
-            if (!in_array($option, $this->options)) {
-                $this->error[] = "$this->name no es válido";
-                // para que no se repita el error, solo ocurra una vez
-                break;
+        if($this->data == null) {
+            $this->error[] = "$this->name no puede estar vacío";
+            \Config\Form::$errors++;
+        } else {
+            // hay que comprobar todas las opciones de forma individual por si fuera multiple
+            foreach ($this->data as $option) {
+                if (!in_array($option, $this->options)) {
+                    $this->error[] = "$this->name no es válido";
+                    \Config\Form::$errors++;
+                    // para que no se repita el error, solo ocurra una vez
+                    break;
+                }
             }
         }
+
 
     }
 

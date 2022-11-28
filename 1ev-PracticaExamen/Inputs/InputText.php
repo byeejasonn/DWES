@@ -13,6 +13,8 @@ class InputText extends AInput {
 
     function __construct($name, $data = null, $minlength = self::MINLENGTH, $maxlength = self::MAXLENGTH, $placeholder = '') {
         $this->type = \Enum\Type::TEXT->value;
+        $this->minlength = $minlength;
+        $this->maxlength = $maxlength;
         $this->placeholder = $placeholder;
         $this->regex = \Enum\RegEx::TEXT->value;
         parent::__construct($name, $data);
@@ -23,6 +25,7 @@ class InputText extends AInput {
 
         if (!preg_match($this->regex, $this->data)) {
             $this->error[] = "$this->name tiene que tener de ".self::MINLENGTH." a ".self::MAXLENGTH." caracteres";
+            \Config\Form::$errors++;
         }
     }
 
@@ -31,7 +34,7 @@ class InputText extends AInput {
         <div class="input">
             <label><?= str_replace("_", " ", $this->name) ?>:
                 
-                <input type="<?= $this->type ?>" name="<?= $this->name ?>" min="<?= $this->minlength ?>" max="<?= $this->maxlength ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
+                <input type="<?= $this->type ?>" name="<?= $this->name ?>" minlength="<?= $this->minlength ?>" maxlength="<?= $this->maxlength ?>" placeholder="<?= $this->placeholder ?>" value="<?= $this->data ?>" required>
     
             </label>
             
