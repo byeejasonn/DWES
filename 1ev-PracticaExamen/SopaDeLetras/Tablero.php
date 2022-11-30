@@ -109,9 +109,3 @@ class Tablero {
         }
     }
 }
-
-// $tablero = new Tablero();
-
-// $tablero->inicializaSopaLetras(5,5);
-
-// $tablero->colocaPalabraHorizontal("jason");
