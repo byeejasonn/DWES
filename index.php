@@ -22,7 +22,7 @@
                         <?php directory($mydir."/".$file); ?>
                     </li>
         <?php   else : ?>
-                    <li><a href="<?= $mydir."/".$file ?>"><?= $file ?></a></li>
+                    <li><a href="<?= $mydir."/".$file ?>" target="_blank"><?= $file ?></a></li>
         <?php   endif;
             endforeach;
         ?>
