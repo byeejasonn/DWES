@@ -27,7 +27,7 @@ class Connection {
 
             self::$conn = new PDO(self::DSN, self::USER, self::PASSWD, self::OPTIONS);
         
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             echo "¡Error!: " . $e->getMessage() . "\n";
             die();
         }

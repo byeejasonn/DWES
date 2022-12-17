@@ -1,19 +1,20 @@
 <?php
-session_start();
 
-if( true ){
-    header('Location: login.php?error=No implementado');
-    exit;
-}
+include('./auth.php');
 
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" media="all" href="css/estilo.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privado 1</title>
+    <link rel="stylesheet" type="text/css" media="all" href="css/estilo.css">
 </head>
 <body>
-<h1>Bienvenido!!</h1>
-<?php include('menu.php')?>
-<p>Información solo para gente autentificada</p>
+    <h1>Bienvenido!!</h1>
+    <?php include('menu.php') ?>
+    <p>Información solo para gente autentificada</p>
 </body>
 </html>
