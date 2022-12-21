@@ -13,7 +13,7 @@ if (!isset($_SESSION['user'])) {
     $url = Conn::singleton()->encrypt($_SERVER['REQUEST_URI']);
     // $_SERVER['REQUEST_URI']
     header('Location: login.php?error=No implementado&url='.$url);
-    exit;
+    exit();
 }
 
 ?>

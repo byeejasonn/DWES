@@ -2,6 +2,11 @@
 
 session_start();
 
+if (isset($_SESSION['user'])) {
+    header('Location: publico.php');
+    die();
+}
+
 spl_autoload_register(function($class){
     $path = "./";
     $file = str_replace("\\", "/", $class);
@@ -21,10 +26,19 @@ function clean_input($data)
 
 $email = "";
 $password = "";
-$url = isset($_POST['url'])?$_POST['url']:'';
-if(empty($url)) {
-    $url = isset($_GET['url'])?$_GET['url']:Conn::singleton()->encrypt("./publico.php");;
+// $url = isset($_POST['url'])?$_POST['url']:'';
+// if(empty($url)) {
+//     $url = isset($_GET['url'])?$_GET['url']:Conn::singleton()->encrypt("./publico.php");
+// }
+
+if (isset($_POST['url'])) {
+    $url = $_POST['url'];
+} elseif (isset($_GET['url'])) {
+    $url = $_GET['url'];
+} else {
+    $url = Conn::singleton()->encrypt("./publico.php");
 }
+
 $errorList = [];
 
 if (isset($_POST["submit"])) {
@@ -57,7 +71,7 @@ if (isset($_POST["submit"])) {
 
     // print_r($user);
 
-    if ($email == $user['email'] && password_verify($password, $user['password'])) {
+    if (isset($user) && password_verify($password, $user['password'])) {
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
         $_SESSION['user'] = explode("@", $email)[0];

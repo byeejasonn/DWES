@@ -1,6 +1,6 @@
 <?php
 
-include('./auth.php');
+require('./auth.php');
 
 ?>
 <!DOCTYPE html>
