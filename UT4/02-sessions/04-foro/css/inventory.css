@@ -1,0 +1,29 @@
+.items {
+    display: grid;
+    grid-template-columns: 60px 2fr;
+    gap: 30px;
+    border: 1px solid white;
+    border-width: 1px 1px 0 0;
+    padding: 10px 30px;
+}
+
+.items img {
+    width: 80px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #ffffff60;
+    box-shadow: 0 0 10px 2px #ffffff60;
+}
+
+.content-section article {
+    margin: 25px 0;
+}
+
+.content-section article {
+    margin: 25px 0;
+}
+
+

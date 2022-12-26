@@ -1,0 +1,99 @@
+.content-section{
+    display: flex;
+    justify-content: center;
+}
+
+#form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    width: 80%;
+}
+
+#form div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+#form input {
+    height: 25px;
+}
+
+
+#form input[type=submit] {
+    padding: 0 5px;
+    color: white;
+    outline: none;
+    border: none;
+    background: #ffffff15;
+}
+
+#form input[type=submit]:active {
+    background:  #ffffff3a;
+}
+
+#label-msg textarea, #form input:not(input[type=submit]) {
+    padding: 0 5px;
+    color: white;
+    outline: none;
+    border-radius: 0 0 8px 0;
+    border: none;
+    border-bottom: 1px solid transparent;
+    background:  #ffffff15;
+    transition: border-bottom .2s ease-out,font-size .2s ease-out;
+}
+
+#label-msg textarea:focus, #form input:focus:not(input[type=submit]) {
+    border-bottom: 1px solid white;
+    font-size: 14px;
+}
+
+#form:invalid input[type=submit]{
+    display: none;
+}
+
+#form input:valid:not(input[type=submit]),#form input:in-range {
+    background: green;
+}
+
+#form input:invalid, #form input:out-of-range {
+    background: darkred;
+    color: white;
+}
+
+#label-msg span, #label-msg textarea {
+    grid-column: 1/3;
+    resize: none;
+    outline: none;
+}
+
+#label-msg textarea {
+    height: 160px;
+}
+
+
+#submit {
+    grid-column: 1/3;
+    width: 100px;
+    justify-self: center;
+    align-self: center;
+}
+#submit:active {
+    background-color: #ffffffbb;
+}
+
+@media only screen and (max-width: 420px) {
+    #form div {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        margin: 10px 0;
+    }
+}

@@ -1,0 +1,131 @@
+<?php
+
+namespace php\Config;
+
+use PDOException;
+use \php\Inputs as Inputs;
+use \php\Enum as Enum;
+
+class Form {
+    public static $inputs;
+    public static $errors;
+
+    function __construct() {}
+    
+    public function crearInputs($POST) {
+        new Inputs\InputText("Usuario", $POST["Usuario"], 3, 20, "Nombre de usuario");
+        new Inputs\InputMail("Email", $POST["Email"], "example@example.com", 30);
+        new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
+        // print_r(implode(", ",array_keys(self::$inputs)));
+    }
+
+    public function crearInputsLogin($POST) {
+        new Inputs\InputMail("Email", $POST["Email"], "example@example.com", 30);
+        new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
+        // print_r(implode(", ",array_keys(self::$inputs)));
+    }
+
+    public function crearForm($action, $method) {
+
+        if(isset($_GET['success'])) : ?>
+            <div class="success">Usuario añadido con exito</div>
+<?php   endif;?>
+        <form action="<?= $action ?>" method="<?= $method ?>" class="form">
+            <?php
+                foreach (self::$inputs as $input) {
+                    $input->imprimirInput();
+                }
+            ?>
+            
+            <div class="input">
+                <input type="submit" name="submit" value="Login">
+            </div>
+        </form>
+<?php
+    }
+
+    public function validarForm() {
+        foreach (self::$inputs as $input) {
+            $input->validar();
+        }
+    }
+
+    public function esValido() {
+        return (self::$errors == 0);
+    }
+
+    public function guardarBBDD() {
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("INSERT INTO PracticaExamen (Nombre, Apellidos, Genero, Edad, FechaNacimiento, Localidad, Usuario, Email, Contrasenya, Cursos, SobreTi) VALUES (:nombre, :apellidos, :genero, :edad, :fecha_nacimiento, :localidad, :usuario, :email, :contrasenya, :cursos, :sobre_ti)");
+
+        foreach (self::$inputs as $key => $input) {
+            if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
+                $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
+            } else if ($input->getType() == Enum\Type::PASSWORD->value) {
+                $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
+            } else if($input->getType() == Enum\Type::MAIL->value) {
+                $stmt->bindValue($key, $input->getData());
+            } else {
+                $stmt->bindValue($key, ucwords($input->getData()));
+            }
+        }
+
+        $stmt->execute();
+    }
+
+    public function guardarUser() {
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("INSERT INTO users (user, email, passwd) VALUES (:Usuario, :Email, :Contrasenya)");
+
+        foreach (self::$inputs as $key => $input) {
+            if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
+                $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
+            } else if ($input->getType() == Enum\Type::PASSWORD->value) {
+                $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
+            } else if($input->getType() == Enum\Type::MAIL->value) {
+                $stmt->bindValue($key, $input->getData());
+            } else {
+                $stmt->bindValue($key, ucwords($input->getData()));
+            }
+        }
+
+        $stmt->execute();
+    }
+
+    public function getUser($datos) { 
+
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("SELECT user, email, passwd FROM users where email = :email");
+
+        $stmt->bindParam(":email", $datos["Email"]);
+        $stmt->execute();
+
+        if (!empty($stmt->fetch())) {
+            return $stmt->fetch();
+        } else {
+            self::$inputs[":email"]->setError("Correo inválido");
+        }
+
+
+    }
+
+    public function getListado() {
+        $conn = Conn::singleton()->getConn();
+        
+        $stmt = $conn->query("SELECT id, Nombre, Apellidos, Genero, Edad, fechanacimiento as 'Fecha Nacimiento', Localidad, Usuario, Email, Cursos FROM PracticaExamen");
+        
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+    
+    public function deleteRegistros($post) {
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare(sprintf("DELETE FROM PracticaExamen WHERE id IN (%s)", implode(", ",array_fill(0, count($post), "?"))));
+
+        return $stmt->execute($post);
+    }
+}

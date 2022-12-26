@@ -1,0 +1,12 @@
+.content-section img {
+    width: 100%;
+}
+
+.platforms {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.platforms img {
+    width: 100%;
+}

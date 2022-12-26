@@ -1,0 +1,100 @@
+table,
+tr {
+    border: 1px solid white;
+    border-collapse: collapse;
+}
+
+table, td {
+    padding: 2px 10px;
+}
+
+.content-section {
+    border-bottom: 1px dashed white;
+}
+
+.tabla__fecha {
+    font-family: monospace;
+    font-size: 14px;
+}
+
+.text__underline {
+    position: relative;
+}
+
+.query1 .text__underline:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0px;
+    height: 1px;
+    background-color: white;
+    transition: width .2s ease-in-out;
+}
+
+.query1 label:hover > .text__underline:after {
+    content: "";
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+
+.query1 .categoria {
+    display: flex;
+    flex-direction: column;
+}
+
+.query1 .categoria > li > input[type=checkbox] {
+    display: none;
+}
+
+.query1 .categoria > li > .subcategorias {
+    opacity: 0;
+    max-height: 0px;
+    visibility: hidden;
+    overflow-y: hidden;
+    list-style-position: inside;
+    transition: max-height 0.25s ease-out, opacity .2s;
+}
+
+.query1 .categoria > li > label:hover {
+    cursor: pointer;
+}
+
+.query1 .categoria > li > input[type=checkbox]:checked ~ .subcategorias {
+    opacity: 1;
+    visibility: visible;
+    max-height: 500px;
+    transition: max-height 0.25s ease-in, opacity .2s;
+
+}
+
+.query2 .text__underline:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+
+.query3 .image__wrapper {
+    border: 1px solid white;
+    padding: 10px 60px;
+    border-radius: 30px 0;
+}
+
+.query4 .tabla__fecha {
+    text-align: center;
+}
+
+.main__img {
+    width: 100%;
+    object-fit: contain;
+}
+
+#map {
+    width: 100%;
+    height: 600px;
+}

@@ -1,0 +1,11 @@
+.content-section section img {
+    width: 100%;
+}
+
+.content-section section {
+    border-bottom: 1px dashed white;
+}
+
+.content-section section * {
+    margin: 15px 0;
+}
