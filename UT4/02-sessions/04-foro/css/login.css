@@ -16,3 +16,8 @@
 .error {
     color: red;
 }
+
+.login__links {
+    display: flex;
+    justify-content: space-between;
+}

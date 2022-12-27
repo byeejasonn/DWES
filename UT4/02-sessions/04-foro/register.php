@@ -1,5 +1,4 @@
 <?php
-    session_start();
 
     // autoload
     spl_autoload_register(function ($class) {
@@ -10,16 +9,20 @@
 
     $form = new php\Config\Form();
     // crea todos los inputs y se guardan automaticamente en un array con la clave :<<nombre>> para introducirlo a la base de datos
-    @$form->crearInputsLogin($_POST);
+    @$form->crearInputsRegister($_POST);
     // print_r($_POST);
 
     if(isset($_POST["submit"])) {
-        $user = $form->getUser($_POST);
 
-        if(!empty($user) && $form->validateUser($_POST, $user)) {
-            $_SESSION['user'] = $user['user'];
+        $form->validarForm();
 
-            header('Location: index.php');
+        if($form->esValido()) {
+            $form->guardarUser();
+
+            if($form->esValido()) {
+                header('Location: login.php');
+                exit();
+            }
         }
 
     }
@@ -43,7 +46,7 @@
     <div class="content-wrapper">
         <h1>Inicio de sesión</h1>
 
-        <?= $form->crearFormLogin("", "POST") ?>
+        <?= $form->crearFormRegister("", "POST") ?>
     </div>
 
 
