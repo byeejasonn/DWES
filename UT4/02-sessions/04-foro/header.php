@@ -11,7 +11,7 @@
         <li><a href="./historia.php">Historia</a></li>
         <li><a href="./consejos.php">Consejos</a></li>
         <li><a href="./blog.php">Blog</a></li>
-        <li><a href="./login.php"><i class="bi bi-person-circle" style="margin: 0 5px;"></i> Login</a></li>
+        <li><a href="./login.php"><i class="bi bi-person-circle" style="margin: 0 5px;"></i> <?= (isset($_SESSION['user'])?$_SESSION['user']:'Login') ?></a></li>
         <!-- <li><a href="./proyecto-xml.php">Proyecto XML</a></li> -->
         <!-- <li><a href="./contacto.php">Contacto</a></li> -->
     </ul>

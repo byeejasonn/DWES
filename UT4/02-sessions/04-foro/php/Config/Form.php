@@ -20,9 +20,10 @@ class Form {
     }
 
     public function crearInputsLogin($POST) {
-        new Inputs\InputMail("Email", $POST["Email"], "example@example.com", 30);
+        new Inputs\InputText("Usuario", $POST["Usuario"], 3, 20, "Nombre de usuario");
         new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         // print_r(implode(", ",array_keys(self::$inputs)));
+
     }
 
     public function crearForm($action, $method) {
@@ -98,18 +99,22 @@ class Form {
 
         $conn = Conn::singleton()->getConn();
 
-        $stmt = $conn->prepare("SELECT user, email, passwd FROM users where email = :email");
+        $stmt = $conn->prepare("SELECT user, email, passwd FROM users where user = :usuario");
 
-        $stmt->bindParam(":email", $datos["Email"]);
+        $stmt->bindParam(":usuario", $datos["Usuario"]);
         $stmt->execute();
 
         if (!empty($stmt->fetch())) {
             return $stmt->fetch();
         } else {
-            self::$inputs[":email"]->setError("Correo inválido");
+            self::$inputs[":usuario"]->setError("Usuario inválido");
         }
+    }
 
+    public function validateUser($data, $user) {
+        echo password_verify($data['Contraseña'], $user['passwd']);
 
+        return password_verify($data['Contraseña'], $user['passwd']);
     }
 
     public function getListado() {

@@ -1,4 +1,9 @@
 <?php
+    session_start();
+
+    print_r($_SESSION);
+
+
     // autoload
     spl_autoload_register(function ($class) {
         $path = "./";
@@ -14,8 +19,12 @@
     if(isset($_POST["submit"])) {
         print_r($_POST);
         $user = $form->getUser($_POST);
+        print_r($user);
 
-        
+        // if(!empty($user) && $form->validateUser($_POST, $user)) {
+        //     $_SESSION['user'] = $user['user'];
+
+        // }
 
     }
 ?>
