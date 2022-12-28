@@ -1,5 +1,7 @@
 <?php
 
+    session_start();
+
     // autoload
     spl_autoload_register(function ($class) {
         $path = "./";

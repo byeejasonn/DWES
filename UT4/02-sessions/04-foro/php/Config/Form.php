@@ -7,6 +7,7 @@ use \php\Inputs as Inputs;
 use \php\Enum as Enum;
 
 class Form {
+    
     public static $inputs;
     public static $errors;
 
@@ -71,6 +72,7 @@ class Form {
     }
 
     public function crearFormLogin($action, $method) {
+        // session_start();
 
         if(isset($_GET['success'])) : ?>
             <div class="success">Usuario añadido con exito</div>
@@ -87,8 +89,13 @@ class Form {
             </div>
 
             <div class="login__links">
-                <a href="logout.php">Cerrar Sesión</a>
-                <a href="register.php">Regístrate</a>
+
+                <?php if(!isset($_SESSION['user'])) : ?>
+                    <a href="register.php">Regístrate</a>
+                <?php else: ?>    
+                    <a href="logout.php">Cerrar Sesión</a>
+                <?php endif; ?>
+                
             </div>
         </form>
 <?php

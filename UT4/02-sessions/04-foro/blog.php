@@ -18,8 +18,12 @@
 
     <div class="content-wrapper">
         <h1>Blog</h1>
+        <span class="add_thread">
+            <i class="bi bi-plus" style="font-size: 20px;"></i>
+            Añadir hilo
+        </span>
         <div class="content-section">
-            <article>
+            <!-- <article>
                 <div class="blog-header">
                     <h4 class="user">byeejasonn</h4>
                     <span class="date">26/12/2021</span>
@@ -27,7 +31,7 @@
                 <h3 class="blog-title">Recomendadísimo</h3>
                 <p>Llevo un mes jugando y ya me lo he pasado, incríble juego; historia, y jugabilidad incomparable, espero salga pronto la secuela.</p>
                 <a href="#header">Volver al inicio</a>
-            </article>
+            </article> -->
             <article>
                 <div class="blog-header">
                     <h4 class="user">TheBlastSFX</h4>
