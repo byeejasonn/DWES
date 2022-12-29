@@ -2,6 +2,7 @@
 
 namespace php\Config;
 
+use PDO;
 use PDOException;
 use \php\Inputs as Inputs;
 use \php\Enum as Enum;
@@ -32,6 +33,14 @@ class Form {
         new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         // print_r(implode(", ",array_keys(self::$inputs)));
     }
+
+    public function crearInputsThread($POST) {
+        new Inputs\InputText("Titulo", $POST["Titulo"], 3, 30, "Titulo del hilo");
+        new Inputs\TextArea("Mensaje", $POST["Mensaje"], 255);
+        // print_r(implode(", ",array_keys(self::$inputs)));
+    }
+
+
 
     public function crearForm($action, $method) {
 
@@ -101,6 +110,23 @@ class Form {
 <?php
     }
 
+    public function crearFormThread($action, $method) {
+
+?>
+        <form action="<?= $action ?>" method="<?= $method ?>" class="form">
+            <?php
+                foreach (self::$inputs as $input) {
+                    $input->imprimirInput();
+                }
+            ?>
+            
+            <div class="input">
+                <input type="submit" name="thread" value="Enviar">
+            </div>
+        </form>
+<?php
+    }
+
     public function validarForm() {
         foreach (self::$inputs as $input) {
             $input->validar();
@@ -156,11 +182,39 @@ class Form {
         }
     }
 
+    public function guardarThread($userid) {
+        $conn = Conn::singleton()->getConn();
+
+        date_default_timezone_set('Europe/Madrid');
+
+        $stmt = $conn->prepare("INSERT INTO thread (title, body, userid, publishDate) VALUES (:titulo, :mensaje, :userid, now())");
+
+        foreach (self::$inputs as $key => $input) {
+            if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
+                $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
+            } else if ($input->getType() == Enum\Type::PASSWORD->value) {
+                $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
+            } else if($input->getType() == Enum\Type::MAIL->value) {
+                $stmt->bindValue($key, $input->getData());
+            } else {
+                $stmt->bindValue($key, ucwords($input->getData()));
+            }
+        }
+
+        $stmt->bindParam(':userid', $userid);
+        
+        try {
+            $stmt->execute();
+        } catch(PDOException $e) {
+            // echo "ERROR $e";
+        }
+    }
+
     public function getUser($datos) { 
 
         $conn = Conn::singleton()->getConn();
 
-        $stmt = $conn->prepare("SELECT user, email, passwd FROM users where user = :usuario");
+        $stmt = $conn->prepare("SELECT id, user, email, passwd FROM users where user = :usuario");
 
         $stmt->bindParam(":usuario", $datos["Usuario"]);
         $stmt->execute();

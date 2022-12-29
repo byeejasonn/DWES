@@ -17,6 +17,7 @@
         $user = $form->getUser($_POST);
 
         if(!empty($user) && $form->validateUser($_POST, $user)) {
+            $_SESSION['id'] = $user['id'];
             $_SESSION['user'] = $user['user'];
 
             header('Location: index.php');

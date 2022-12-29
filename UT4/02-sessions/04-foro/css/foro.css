@@ -1,0 +1,77 @@
+.content-section article {
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 0 18px;
+}
+
+.content-section article p {
+    margin: 8px 0;
+}
+
+.blog-header {
+    display: flex;
+    align-items: center;
+}
+
+.user {
+    font-style: italic;
+}
+
+.date {
+    color: gray;
+}
+
+.date::before{
+    content: "•";
+    padding: 0 10px;
+}
+
+.blog-title {
+    font-family: Trajan, Arial;
+    letter-spacing: 2px;
+}
+
+.add_thread {
+    display: flex;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    font-family: var(--font-family);
+    font-size: 14px;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+    width: 110px;
+}
+
+.thread__form {
+    /* background-color: red; */
+    max-height: 0px;
+    overflow-y: hidden;
+    width: 100%;
+    transition: max-height .4s ease;
+}
+
+.thread__form-open {
+    max-height: 500px;
+}
+
+.thread__form .form {
+    padding: 15px 30px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px 0;
+    margin-bottom: 15px;
+}
+
+.input input {
+    height: 25px;
+}
+
+.input > textarea {
+    min-height: 140px;
+    resize: none;
+}
+

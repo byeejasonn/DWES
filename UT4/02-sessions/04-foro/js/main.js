@@ -3,13 +3,15 @@ const exit = document.querySelector('#exit');
 const nav = document.querySelector('.nav');
 const html = document.getElementsByTagName('html')[0];
 const body = document.getElementsByTagName('body')[0];
+const addThread = document.querySelector('.add_thread');
+
 let windowWidth;
 
 window.onresize = () => {
-    windowWidth=window.innerWidth;
+    windowWidth = window.innerWidth;
 
-    if (windowWidth>=1250) {
-        if (nav.className==='nav nav-active') {
+    if (windowWidth >= 1250) {
+        if (nav.classList.contains('nav-active')) {
             nav.classList.remove('nav-active');
         }
         nav.style.transition = 'transform .3s ease, visibility .3s ease';
@@ -28,7 +30,7 @@ exit.onclick = () => {
 }
 
 function scroll() {
-    if (nav.className==='nav nav-active') {
+    if (nav.classList.contains('nav-active')) {
         body.style.overflow = 'hidden';
         html.style.overflow = 'hidden';
     } else {
@@ -37,3 +39,15 @@ function scroll() {
     }
 }
 
+// funcion para desplegar el formulario a rellenar para añadir un hilo en el foro
+
+addThread.onclick = () => {
+    const form = document.querySelector('.thread__form');
+
+    if (!form.classList.contains('thread__form-open')) {
+        form.classList.add('thread__form-open');
+    } else {
+        form.classList.remove('thread__form-open');
+    }
+
+}

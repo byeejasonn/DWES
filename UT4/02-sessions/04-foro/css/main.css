@@ -20,6 +20,12 @@
     scroll-behavior: smooth;
 }
 
+:root {
+    --bg-color: #131313;
+    --font-color: white;
+    --font-family: Poppins, Arial;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -42,8 +48,8 @@ html, body {
 
 body {
     font-family: Poppins, Arial;
-    background-color: #131313;
-    color: white;
+    background-color: var(--bg-color);
+    color: var(--font-color);
 }
 
 h1,h2,h3,h4,h5,h6{

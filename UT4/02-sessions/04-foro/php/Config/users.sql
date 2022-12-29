@@ -18,6 +18,18 @@ create table thread (
     foreign key (userid) references users(id)
 )
 
+-- drop table thread;
+
+-- create table thread (
+--     id int auto_increment primary key,
+--     thread id int,
+--     title varchar(30),
+--     body varchar(255),
+--     userid int,
+--     publishDate datetime,
+--     foreign key (userid) references users(id)
+-- )
+
 drop table replies;
 
 create table replies (
