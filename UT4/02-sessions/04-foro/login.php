@@ -47,6 +47,7 @@
         <?= $form->crearFormLogin("", "POST") ?>
     </div>
 
+    <?php require('footer.php'); ?>
 
 </body>
 </html>

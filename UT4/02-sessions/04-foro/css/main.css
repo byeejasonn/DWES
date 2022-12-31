@@ -194,8 +194,11 @@ iframe {
     justify-content: center;
 }
 
-#social svg{
-    width: 30px;
+.footer-icon {
+    line-height: 1.3px;
+    font-size: 30px;
+    color: white;
+    height: 30px;
 }
 
 @media only screen and (max-width: 1600px) {

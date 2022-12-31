@@ -1,14 +1,10 @@
-.content-section article {
+.thread {
     border: 1px solid white;
     border-radius: 8px;
-    padding: 0 18px;
+    padding: 5px 18px;
 }
 
-.content-section article p {
-    margin: 8px 0;
-}
-
-.blog-header {
+.foro-header {
     display: flex;
     align-items: center;
 }
@@ -26,7 +22,7 @@
     padding: 0 10px;
 }
 
-.blog-title {
+.foro-title {
     font-family: Trajan, Arial;
     letter-spacing: 2px;
 }
@@ -41,6 +37,7 @@
     padding: 5px;
     border-radius: 5px;
     width: 110px;
+    cursor: pointer;
 }
 
 .thread__form {
@@ -75,3 +72,21 @@
     resize: none;
 }
 
+.thread-replies {
+    /* background: red; */
+    padding-left: 40px;
+    position: relative;
+}
+
+.reply {
+    position: relative;
+    padding: 4px 0;
+}
+
+.icon-reply {
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translate(0, -25%);
+}

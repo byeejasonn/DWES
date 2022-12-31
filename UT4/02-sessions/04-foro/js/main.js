@@ -3,7 +3,6 @@ const exit = document.querySelector('#exit');
 const nav = document.querySelector('.nav');
 const html = document.getElementsByTagName('html')[0];
 const body = document.getElementsByTagName('body')[0];
-const addThread = document.querySelector('.add_thread');
 
 let windowWidth;
 
@@ -37,17 +36,4 @@ function scroll() {
         body.style.overflow = '';
         html.style.overflow = '';
     }
-}
-
-// funcion para desplegar el formulario a rellenar para añadir un hilo en el foro
-
-addThread.onclick = () => {
-    const form = document.querySelector('.thread__form');
-
-    if (!form.classList.contains('thread__form-open')) {
-        form.classList.add('thread__form-open');
-    } else {
-        form.classList.remove('thread__form-open');
-    }
-
 }

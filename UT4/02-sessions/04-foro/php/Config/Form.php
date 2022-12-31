@@ -3,6 +3,7 @@
 namespace php\Config;
 
 use PDO;
+use DateTime;
 use PDOException;
 use \php\Inputs as Inputs;
 use \php\Enum as Enum;
@@ -197,7 +198,7 @@ class Form {
             } else if($input->getType() == Enum\Type::MAIL->value) {
                 $stmt->bindValue($key, $input->getData());
             } else {
-                $stmt->bindValue($key, ucwords($input->getData()));
+                $stmt->bindValue($key, ucfirst($input->getData()));
             }
         }
 
@@ -228,6 +229,75 @@ class Form {
             self::$inputs[":contrasenya"]->setError("Contraseña inválida");
         }
     }
+
+    public function getThreads() {
+
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("SELECT T.id, title, body, user, publishDate FROM thread AS T LEFT JOIN users AS U ON U.id = T.userid order by publishDate desc");
+
+        $stmt->execute();
+
+        $thread = $stmt->fetchAll();
+
+        return $thread;
+
+    }
+
+    public function getReplies($threadid) {
+
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("SELECT R.id, threadid, user, body, publishDate FROM replies AS R LEFT JOIN users AS U ON U.id = R.userid where threadid = :threadid order by publishDate desc");
+
+        $stmt->bindParam(":threadid", $threadid);
+
+        $stmt->execute();
+
+        $replies = $stmt->fetchAll();
+
+        return $replies;
+
+    }
+
+    public function printThreads() {
+
+        $threads = self::getThreads();
+
+        foreach ($threads as $thread) : 
+            $replies = self::getReplies($thread['id']);
+        ?>
+            <article class="thread">
+                <div class="foro-header">
+                    <h4 class="user"><?= $thread['user'] ?></h4>
+                    <span class="date"><?= date_format(new DateTime($thread['publishDate']), "d-m-Y H:i") ?></span>
+                </div>
+                <h3 class="foro-title"><?= $thread['title'] ?></h3>
+                <p><?= $thread['body'] ?></p>
+                
+                <?php if(count($replies) > 0): ?>
+                    <div class="thread-replies">
+
+                        <?php foreach ($replies as $reply): ?>
+                            <div class="reply">
+                                <i class="bi bi-arrow-return-right icon-reply"></i>
+                                <div class="foro-header">
+                                    <h4 class="user"><?= $reply['user'] ?></h4>
+                                    <span class="date"><?= date_format(new DateTime($reply['publishDate']), "d-m-Y H:i") ?></span>
+                                </div>
+                                <p><?= $reply['body'] ?></p>
+                            </div>
+                        <?php endforeach; ?>
+
+                    </div>
+                <?php endif; ?>
+                
+            </article>
+<?php
+        endforeach;
+
+    }
+
 
     public function validateUser($data, $user) {
         return password_verify($data['Contraseña'], $user['passwd']);

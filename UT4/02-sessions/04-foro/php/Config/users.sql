@@ -45,4 +45,7 @@ create table replies (
 -- passwd 12345678
 insert into users (user, email, passwd) values ('prueba', 'prueba@prueba.com', '$2y$10$8Vg3DPrIAbyMOkORiR9V8.Xd85d63JfggkQliuQQAgM9hH.9VBwrW');
 
-insert into thread (title, body, userid, publishDate) values ('prueba', 'prueba', 1, now())
+insert into thread (title, body, userid, publishDate) values ('titulo', 'prueba de hilo', 1, now())
+
+
+insert into replies (threadid, userid, body, publishDate) values (1, 1, 'prueba de respuesta', now())
