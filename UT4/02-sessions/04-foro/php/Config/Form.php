@@ -10,10 +10,10 @@ use \php\Enum as Enum;
 
 class Form {
     
-    private $inputs = [];
-    // public static $inputs;
-    private $errors = 0;
-    // public static $errors;
+    private $forminputs = [];
+    public static $inputs;
+
+    public static $errors;
 
     function __construct() {}
 
@@ -30,6 +30,9 @@ class Form {
         new Inputs\InputMail("Email", $POST["Email"], "example@example.com", 30);
         new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         // print_r(implode(", ",array_keys(self::$inputs)));
+
+        $this->forminputs = self::$inputs;
+        self::$inputs = [];
     }
 
     public function crearInputsRegister($POST) {
@@ -37,23 +40,31 @@ class Form {
         new Inputs\InputMail("Email", $POST["Email"], "example@example.com", 30);
         new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         // print_r(implode(", ",array_keys(self::$inputs)));
+        $this->forminputs = self::$inputs;
+        self::$inputs = [];
     }
 
     public function crearInputsLogin($POST) {
         new Inputs\InputText("Usuario", $POST["Usuario"], 3, 20, "Nombre de usuario");
         new Inputs\InputPassword("Contraseña", $POST["Contraseña"], 8, 16, "Contraseña");
         // print_r(implode(", ",array_keys(self::$inputs)));
+        $this->forminputs = self::$inputs;
+        self::$inputs = [];
     }
 
     public function crearInputsThread($POST) {
         new Inputs\InputText("Titulo", $POST["Titulo"], 3, 30, "Titulo del hilo");
         new Inputs\TextArea("Mensaje", $POST["Mensaje"], 255);
         // print_r(implode(", ",array_keys(self::$inputs)));
+        $this->forminputs = self::$inputs;
+        self::$inputs = [];
     }
 
     public function crearInputsReply($POST) {
         new Inputs\TextArea("Respuesta", $POST["Respuesta"], 255);
         // print_r(implode(", ",array_keys(self::$inputs)));
+        $this->forminputs = self::$inputs;
+        self::$inputs = [];
     }
 
     public function crearForm($action, $method) {
@@ -63,7 +74,7 @@ class Form {
 <?php   endif;?>
         <form action="<?= $action ?>" method="<?= $method ?>" class="form">
             <?php
-                foreach (self::$inputs as $input) {
+                foreach ($this->forminputs as $input) {
                     $input->imprimirInput();
                 }
             ?>
@@ -82,7 +93,7 @@ class Form {
 <?php   endif;?>
         <form action="<?= $action ?>" method="<?= $method ?>" class="form">
             <?php
-                foreach (self::$inputs as $input) {
+                foreach ($this->forminputs as $input) {
                     $input->imprimirInput();
                 }
             ?>
@@ -102,7 +113,7 @@ class Form {
 <?php   endif;?>
         <form action="<?= $action ?>" method="<?= $method ?>" class="form">
             <?php
-                foreach (self::$inputs as $input) {
+                foreach ($this->forminputs as $input) {
                     $input->imprimirInput();
                 }
             ?>
@@ -129,7 +140,7 @@ class Form {
 ?>
         <form action="<?= $action ?>" method="<?= $method ?>" class="form">
             <?php
-                foreach (self::$inputs as $input) {
+                foreach ($this->forminputs as $input) {
                     $input->imprimirInput();
                 }
             ?>
@@ -141,15 +152,17 @@ class Form {
 <?php
     }
 
-    public function crearFormReply($action, $method) {
+    public function crearFormReply($action, $method, $threadid) {
 
 ?>
         <form action="<?= $action ?>" method="<?= $method ?>" class="form">
             <?php
-                foreach (self::$inputs as $input) {
+                foreach ($this->forminputs as $input) {
                     $input->imprimirInput();
                 }
             ?>
+
+            <input type="hidden" name="t" value="<?= $threadid ?>">
             
             <div class="input">
                 <input type="submit" name="reply" value="Enviar">
@@ -159,7 +172,7 @@ class Form {
     }
 
     public function validarForm() {
-        foreach (self::$inputs as $input) {
+        foreach ($this->forminputs as $input) {
             $input->validar();
         }
     }
@@ -173,7 +186,7 @@ class Form {
 
         $stmt = $conn->prepare("INSERT INTO PracticaExamen (Nombre, Apellidos, Genero, Edad, FechaNacimiento, Localidad, Usuario, Email, Contrasenya, Cursos, SobreTi) VALUES (:nombre, :apellidos, :genero, :edad, :fecha_nacimiento, :localidad, :usuario, :email, :contrasenya, :cursos, :sobre_ti)");
 
-        foreach (self::$inputs as $key => $input) {
+        foreach ($this->forminputs as $key => $input) {
             if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
                 $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
             } else if ($input->getType() == Enum\Type::PASSWORD->value) {
@@ -193,7 +206,7 @@ class Form {
 
         $stmt = $conn->prepare("INSERT INTO users (user, email, passwd) VALUES (:usuario, :email, :contrasenya)");
 
-        foreach (self::$inputs as $key => $input) {
+        foreach ($this->forminputs as $key => $input) {
             if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
                 $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
             } else if ($input->getType() == Enum\Type::PASSWORD->value) {
@@ -208,8 +221,8 @@ class Form {
         try {
             $stmt->execute();
         } catch(PDOException $e) {
-            self::$inputs[":usuario"]->setError("Nombre de usuario ya en uso");
-            self::$inputs[":email"]->setError("Email ya en uso");
+            $this->forminputs[":usuario"]->setError("Nombre de usuario ya en uso");
+            $this->forminputs[":email"]->setError("Email ya en uso");
         }
     }
 
@@ -220,7 +233,7 @@ class Form {
 
         $stmt = $conn->prepare("INSERT INTO thread (title, body, userid, publishDate) VALUES (:titulo, :mensaje, :userid, now())");
 
-        foreach (self::$inputs as $key => $input) {
+        foreach ($this->forminputs as $key => $input) {
             if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
                 $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
             } else if ($input->getType() == Enum\Type::PASSWORD->value) {
@@ -243,6 +256,37 @@ class Form {
         }
     }
 
+    public function guardarReply($userid, $threadid) {
+        $conn = Conn::singleton()->getConn();
+
+        date_default_timezone_set('Europe/Madrid');
+
+        $stmt = $conn->prepare("INSERT INTO replies (threadid, userid, body, publishDate) VALUES (:threadid, :userid, :respuesta, now())");
+
+        foreach ($this->forminputs as $key => $input) {
+            if ($input->getType() == Enum\Type::CHECKBOX->value || $input->getType() == Enum\Type::SELECT->value) {
+                $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
+            } else if ($input->getType() == Enum\Type::PASSWORD->value) {
+                $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
+            } else if ($input->getType() == Enum\Type::MAIL->value) {
+                $stmt->bindValue($key, $input->getData());
+            } else if ($input->getType() == Enum\Type::TEXTAREA->value) {
+                $stmt->bindValue($key, nl2br($input->getData()));
+            }else {
+                $stmt->bindValue($key, ucfirst($input->getData()));
+            }
+        }
+
+        $stmt->bindParam(':threadid', $threadid);
+        $stmt->bindParam(':userid', $userid);
+        
+        try {
+            $stmt->execute();
+        } catch(PDOException $e) {
+            echo "ERROR $e";
+        }
+    }
+
     public function getUser($datos) { 
 
         $conn = Conn::singleton()->getConn();
@@ -257,8 +301,8 @@ class Form {
         if (!empty($user)) {
             return $user;
         } else {
-            self::$inputs[":usuario"]->setError("Usuario inválido");
-            self::$inputs[":contrasenya"]->setError("Contraseña inválida");
+            $this->forminputs[":usuario"]->setError("Usuario inválido");
+            $this->forminputs[":contrasenya"]->setError("Contraseña inválida");
         }
     }
 
@@ -292,15 +336,12 @@ class Form {
 
     }
 
-    public function printThreads($POST) {
+    public function printThreads($repliesForm) {
 
         $threads = self::getThreads();
 
         foreach ($threads as $thread) : 
             $replies = self::getReplies($thread['id']);
-            $repliesForm = new Form();
-
-            @$repliesForm->crearInputsReply($POST);
 
         ?>
             <article class="thread">
@@ -317,8 +358,8 @@ class Form {
                 </button>
                 <div class="reply__form">
                     <?php
-                        $repliesForm->crearFormReply('', 'POST');
-                        print_r($repliesForm::$inputs);
+                        $repliesForm->crearFormReply("foro.php#{$thread['id']}", 'POST', $thread['id']);
+                        // print_r($repliesForm::$inputs);
                     ?>
                 </div>
 

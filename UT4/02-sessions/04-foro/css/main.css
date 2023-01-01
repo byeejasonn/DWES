@@ -99,6 +99,10 @@ a:visited {
     list-style: none;
 }
 
+.nav li {
+    position: relative;
+}
+
 .nav li a{
     text-align: center;
     text-decoration: none;
@@ -116,6 +120,23 @@ a:visited {
 .nav li a:hover{
     color: white;
     background-color: #ffffff46;
+}
+
+.nav .logout {
+    position: relative;
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s ease;
+}
+
+.nav li:hover a:hover + .logout {
+    visibility: visible;
+    opacity: 1;
+}
+
+.nav .logout:hover {
+    visibility: visible;
+    opacity: 1;
 }
 
 .nav .current{

@@ -40,7 +40,7 @@
     cursor: pointer;
 }
 
-.thread__form {
+.thread__form, .reply__form {
     /* background-color: red; */
     max-height: 0px;
     overflow-y: hidden;
@@ -48,7 +48,7 @@
     transition: max-height .4s ease;
 }
 
-.thread__form-open {
+.thread__form-open, .reply__form-open {
     max-height: 500px;
 }
 

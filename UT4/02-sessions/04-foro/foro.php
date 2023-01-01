@@ -9,8 +9,10 @@
     });
 
     $form = new php\Config\Form();
+    $repliesForm = new php\Config\Form();
     
     @$form->crearInputsThread($_POST);
+    @$repliesForm->crearInputsReply($_POST);
 
     if (isset($_POST['thread'])) {
 
@@ -28,7 +30,24 @@
         }
 
     }
+
+    if (isset($_POST['reply'])) {
+
+        if (isset($_SESSION['user'])) {
+            $repliesForm->validarForm();
     
+            if($repliesForm->esValido() && !empty($_POST['t'])) {
+
+                $repliesForm->guardarReply($_SESSION['id'], $_POST['t']);
+                header('Location: foro.php');
+    
+            }
+        } else {
+            header('Location: login.php');
+        }
+
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +85,7 @@
 
         <div class="content-section">
 
-            <?php $form->printThreads($_POST) ?>
+            <?php $form->printThreads($repliesForm) ?>
 
         </div>
     </div>

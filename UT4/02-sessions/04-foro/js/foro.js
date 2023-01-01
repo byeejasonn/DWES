@@ -16,6 +16,12 @@ addThread.onclick = () => {
 
 for (const btnReply of addReply) {
     btnReply.onclick = () => {
-        const form = document.querySelector('.reply__form');
+        const form = btnReply.nextElementSibling;
+
+        if (!form.classList.contains('reply__form-open')) {
+            form.classList.add('reply__form-open');
+        } else {
+            form.classList.remove('reply__form-open');
+        }
     }
 }

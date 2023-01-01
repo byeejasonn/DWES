@@ -1,17 +1,24 @@
 <header id="header">
     <img src="./img/logo.png" alt="logo" id="logo" draggable="false">
     <ul class="nav">
-        <li>
+        <!-- <li> -->
             <svg id="exit" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
                 <path fill="white" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
             </svg>
-        </li>
+        <!-- </li> -->
         <li><a href="./index.php">Inicio</a></li>
         <li><a href="./inventario.php">Inventario</a></li>
         <li><a href="./historia.php">Historia</a></li>
         <li><a href="./consejos.php">Consejos</a></li>
         <li><a href="./foro.php">Foro</a></li>
-        <li><a href="./login.php"><i class="bi bi-person-circle" style="margin: 0 5px;"></i> <?= (isset($_SESSION['user'])?$_SESSION['user']:'Login') ?></a></li>
+        <li>
+            <a <?= (isset($_SESSION['user'])?'':"href='./login.php'") ?> ><i class="bi bi-person-circle" style="margin: 0 5px;"></i> <?= (isset($_SESSION['user'])?$_SESSION['user']:'Login') ?></a>
+            <?php if (isset($_SESSION['user'])): ?>
+                <div class="logout">
+                    <a href="./logout.php">Cerrar Sesión</a>
+                </div>
+            <?php endif; ?>
+        </li>
         <!-- <li><a href="./proyecto-xml.php">Proyecto XML</a></li> -->
         <!-- <li><a href="./contacto.php">Contacto</a></li> -->
     </ul>

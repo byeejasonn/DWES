@@ -13,8 +13,8 @@ abstract class AInput {
     function __construct($name, $data) {
         $this->name = $name;
         $this->data = $data;
-        Config\Form::setInput(":".strtolower(str_replace("ñ", "ny",$this->name)), $this);
-        // Config\Form::$inputs[":".strtolower(str_replace("ñ", "ny",$this->name))] = $this;
+        // Config\Form::setInput(":".strtolower(str_replace("ñ", "ny",$this->name)), $this);
+        Config\Form::$inputs[":".strtolower(str_replace("ñ", "ny",$this->name))] = $this;
     }
 
     protected function cleanData() {
@@ -29,8 +29,8 @@ abstract class AInput {
 
         if(empty($this->data)) {
             $this->error[] = "El campo no puede estar vacio";
-            Config\Form::addError();
-            // Config\Form::$errors++;
+            // Config\Form::addError();
+            Config\Form::$errors++;
         }
     }
 
@@ -56,7 +56,7 @@ abstract class AInput {
 
     function setError($error) {
         $this->error[] = $error;
-        Config\Form::addError();
-        // Config\Form::$errors++;
+        // Config\Form::addError();
+        Config\Form::$errors++;
     }
 }
