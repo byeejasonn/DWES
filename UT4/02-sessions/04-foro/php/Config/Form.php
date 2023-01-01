@@ -10,10 +10,20 @@ use \php\Enum as Enum;
 
 class Form {
     
-    public static $inputs;
-    public static $errors;
+    private $inputs = [];
+    // public static $inputs;
+    private $errors = 0;
+    // public static $errors;
 
     function __construct() {}
+
+    public static function setInput($key, $value) {
+        self::$inputs[$key] = $value;
+    }
+
+    public static function addError() {
+        self::$errors++;
+    }
     
     public function crearInputs($POST) {
         new Inputs\InputText("Usuario", $POST["Usuario"], 3, 20, "Nombre de usuario");
@@ -41,7 +51,10 @@ class Form {
         // print_r(implode(", ",array_keys(self::$inputs)));
     }
 
-
+    public function crearInputsReply($POST) {
+        new Inputs\TextArea("Respuesta", $POST["Respuesta"], 255);
+        // print_r(implode(", ",array_keys(self::$inputs)));
+    }
 
     public function crearForm($action, $method) {
 
@@ -128,6 +141,23 @@ class Form {
 <?php
     }
 
+    public function crearFormReply($action, $method) {
+
+?>
+        <form action="<?= $action ?>" method="<?= $method ?>" class="form">
+            <?php
+                foreach (self::$inputs as $input) {
+                    $input->imprimirInput();
+                }
+            ?>
+            
+            <div class="input">
+                <input type="submit" name="reply" value="Enviar">
+            </div>
+        </form>
+<?php
+    }
+
     public function validarForm() {
         foreach (self::$inputs as $input) {
             $input->validar();
@@ -195,9 +225,11 @@ class Form {
                 $stmt->bindValue($key, implode(";",($input->getData() == null)?[]:$input->getData()));
             } else if ($input->getType() == Enum\Type::PASSWORD->value) {
                 $stmt->bindValue($key, password_hash($input->getData(), PASSWORD_DEFAULT));
-            } else if($input->getType() == Enum\Type::MAIL->value) {
+            } else if ($input->getType() == Enum\Type::MAIL->value) {
                 $stmt->bindValue($key, $input->getData());
-            } else {
+            } else if ($input->getType() == Enum\Type::TEXTAREA->value) {
+                $stmt->bindValue($key, nl2br($input->getData()));
+            }else {
                 $stmt->bindValue($key, ucfirst($input->getData()));
             }
         }
@@ -260,12 +292,16 @@ class Form {
 
     }
 
-    public function printThreads() {
+    public function printThreads($POST) {
 
         $threads = self::getThreads();
 
         foreach ($threads as $thread) : 
             $replies = self::getReplies($thread['id']);
+            $repliesForm = new Form();
+
+            @$repliesForm->crearInputsReply($POST);
+
         ?>
             <article class="thread">
                 <div class="foro-header">
@@ -275,6 +311,17 @@ class Form {
                 <h3 class="foro-title"><?= $thread['title'] ?></h3>
                 <p><?= $thread['body'] ?></p>
                 
+                <button class="add_reply">
+                    <i class="bi bi-reply"></i>
+                    Responder
+                </button>
+                <div class="reply__form">
+                    <?php
+                        $repliesForm->crearFormReply('', 'POST');
+                        print_r($repliesForm::$inputs);
+                    ?>
+                </div>
+
                 <?php if(count($replies) > 0): ?>
                     <div class="thread-replies">
 

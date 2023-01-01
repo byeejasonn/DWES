@@ -9,7 +9,7 @@
     });
 
     $form = new php\Config\Form();
-
+    
     @$form->crearInputsThread($_POST);
 
     if (isset($_POST['thread'])) {
@@ -20,6 +20,7 @@
             if($form->esValido()) {
     
                 $form->guardarThread($_SESSION['id']);
+                header('Location: foro.php');
     
             }
         } else {
@@ -65,7 +66,7 @@
 
         <div class="content-section">
 
-            <?php $form->printThreads() ?>
+            <?php $form->printThreads($_POST) ?>
 
         </div>
     </div>

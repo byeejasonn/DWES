@@ -1,4 +1,5 @@
 const addThread = document.querySelector('.add_thread');
+const addReply = document.querySelectorAll('.add_reply');
 
 // funcion para desplegar el formulario a rellenar para añadir un hilo en el foro
 
@@ -11,4 +12,10 @@ addThread.onclick = () => {
         form.classList.remove('thread__form-open');
     }
 
+}
+
+for (const btnReply of addReply) {
+    btnReply.onclick = () => {
+        const form = document.querySelector('.reply__form');
+    }
 }

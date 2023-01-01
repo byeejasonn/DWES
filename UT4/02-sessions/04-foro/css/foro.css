@@ -34,7 +34,7 @@
     font-family: var(--font-family);
     font-size: 14px;
     align-items: center;
-    padding: 5px;
+    padding: 3px;
     border-radius: 5px;
     width: 110px;
     cursor: pointer;
@@ -89,4 +89,18 @@
     top: 50%;
     left: -30px;
     transform: translate(0, -25%);
+}
+
+.add_reply {
+    display: flex;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    font-family: var(--font-family);
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 2px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 100px;
+    cursor: pointer;
 }
