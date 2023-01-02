@@ -23,7 +23,7 @@
 :root {
     --bg-color: #131313;
     --font-color: white;
-    --font-family: Poppins, Arial;
+    --font-poppins: Poppins, Arial;
 }
 
 ::-webkit-scrollbar {
@@ -47,7 +47,7 @@ html, body {
 }
 
 body {
-    font-family: Poppins, Arial;
+    font-family: var(--font-poppins);
     background-color: var(--bg-color);
     color: var(--font-color);
 }
@@ -168,7 +168,7 @@ a:visited {
 }
 
 .content-section p {
-    text-align: justify;
+    text-align: left;
 }
 
 .content-section ul {

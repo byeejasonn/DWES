@@ -1,7 +1,8 @@
 .thread {
-    border: 1px solid white;
-    border-radius: 8px;
-    padding: 5px 18px;
+    /* border: 1px solid white;
+    border-radius: 8px; */
+    padding: 5px 8px;
+    background-color: #ffffff1c;
 }
 
 .foro-header {
@@ -63,10 +64,13 @@
     margin-bottom: 15px;
 }
 
-.input input {
-    height: 25px;
+.input input, .input textarea {
+    outline: none;
+    border: none;
+    font: var(--font-poppins);
+    font-size: 14px;
+    padding: 4px 2px;
 }
-
 .input > textarea {
     min-height: 140px;
     resize: none;
@@ -102,5 +106,25 @@
     margin: 5px 0;
     border-radius: 5px;
     width: 100px;
+    cursor: pointer;
+}
+
+.pagination {
+    background-color: red;
+    height: 30px;
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.prev, .next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+}
+
+.prev:hover, .next:hover {
+    background-color: #ffffff46;
     cursor: pointer;
 }

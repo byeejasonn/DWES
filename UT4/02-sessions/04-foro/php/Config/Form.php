@@ -339,14 +339,20 @@ class Form {
     public function printThreads($repliesForm) {
 
         $threads = self::getThreads();
-
+?>
+            <div class="pagination">
+                <div class="prev"><i class="bi bi-caret-left-fill"></i></div>
+                <div class="current"></div>
+                <div class="next"><i class="bi bi-caret-right-fill"></i></div>
+            </div>
+<?php
         foreach ($threads as $thread) : 
             $replies = self::getReplies($thread['id']);
 
         ?>
-            <article class="thread">
+            <article class="thread" id="t<?= $thread['id'] ?>">
                 <div class="foro-header">
-                    <h4 class="user"><?= $thread['user'] ?></h4>
+                    <span class="user"><?= $thread['user'] ?></span>
                     <span class="date"><?= date_format(new DateTime($thread['publishDate']), "d-m-Y H:i") ?></span>
                 </div>
                 <h3 class="foro-title"><?= $thread['title'] ?></h3>
@@ -358,7 +364,7 @@ class Form {
                 </button>
                 <div class="reply__form">
                     <?php
-                        $repliesForm->crearFormReply("foro.php#{$thread['id']}", 'POST', $thread['id']);
+                        $repliesForm->crearFormReply("foro.php#t{$thread['id']}", 'POST', $thread['id']);
                         // print_r($repliesForm::$inputs);
                     ?>
                 </div>
@@ -370,7 +376,7 @@ class Form {
                             <div class="reply">
                                 <i class="bi bi-arrow-return-right icon-reply"></i>
                                 <div class="foro-header">
-                                    <h4 class="user"><?= $reply['user'] ?></h4>
+                                    <span class="user"><?= $reply['user'] ?></span>
                                     <span class="date"><?= date_format(new DateTime($reply['publishDate']), "d-m-Y H:i") ?></span>
                                 </div>
                                 <p><?= $reply['body'] ?></p>

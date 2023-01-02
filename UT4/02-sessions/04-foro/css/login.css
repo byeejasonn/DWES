@@ -15,6 +15,11 @@
 
 .input input {
     height: 25px;
+    outline: none;
+    border: none;
+    font: var(--font-poppins);
+    font-size: 14px;
+    padding: 0 2px;
 }
 
 .error {
