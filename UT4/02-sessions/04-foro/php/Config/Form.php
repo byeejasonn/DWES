@@ -15,6 +15,8 @@ class Form {
 
     public static $errors;
 
+    private const PAGINATION_LIMIT = 5;
+
     function __construct() {}
 
     public static function setInput($key, $value) {
@@ -306,11 +308,14 @@ class Form {
         }
     }
 
-    public function getThreads() {
+    public function getThreads($page) {
 
         $conn = Conn::singleton()->getConn();
 
-        $stmt = $conn->prepare("SELECT T.id, title, body, user, publishDate FROM thread AS T LEFT JOIN users AS U ON U.id = T.userid order by publishDate desc");
+        $stmt = $conn->prepare("SELECT T.id, title, body, user, publishDate FROM thread AS T LEFT JOIN users AS U ON U.id = T.userid order by publishDate desc LIMIT :page, :limit");
+
+        $stmt->bindValue(":page", ($page - 1) * self::PAGINATION_LIMIT, PDO::PARAM_INT);
+        $stmt->bindValue(":limit", self::PAGINATION_LIMIT, PDO::PARAM_INT);
 
         $stmt->execute();
 
@@ -336,16 +341,32 @@ class Form {
 
     }
 
-    public function printThreads($repliesForm) {
+    public function printThreads($repliesForm, $page) {
 
-        $threads = self::getThreads();
+        $conn = Conn::singleton()->getConn();
+
+        $stmt = $conn->prepare("SELECT * FROM thread");
+        $stmt->execute();
+
+        $totalPages = $stmt->fetchAll();
+        echo ceil(count($totalPages) / 5);
+        $pages = ceil(count($totalPages) / self::PAGINATION_LIMIT);
+
+        $threads = self::getThreads($page);
+
 ?>
-            <div class="pagination">
+        <div class="pagination">
+            <?php if ($page - 1 > 0) : ?>
                 <div class="prev"><i class="bi bi-caret-left-fill"></i></div>
-                <div class="current"></div>
+            <?php endif; ?>
+            <div class="current"><?= $page ?></div>
+
+            <?php if ($page < $pages) : ?>
                 <div class="next"><i class="bi bi-caret-right-fill"></i></div>
-            </div>
+            <?php endif; ?>
+        </div>
 <?php
+
         foreach ($threads as $thread) : 
             $replies = self::getReplies($thread['id']);
 
@@ -414,3 +435,5 @@ class Form {
         return $stmt->execute($post);
     }
 }
+
+?>

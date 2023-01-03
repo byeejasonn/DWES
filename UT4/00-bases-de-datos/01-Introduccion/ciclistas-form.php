@@ -31,7 +31,7 @@
         $offset = $_POST['limit'] * ($_GET['page'] - 1);
 
         if(!empty($_POST['nombre'])) {
-            $nombre = "%${_POST['nombre']}%";
+            $nombre = "%{$_POST['nombre']}%";
         }
 
         $paginacion->bindParam(":nombre", $nombre);
