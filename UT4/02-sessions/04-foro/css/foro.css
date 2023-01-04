@@ -12,6 +12,7 @@
 
 .user {
     font-style: italic;
+    font-weight: bold;
 }
 
 .date {
@@ -115,6 +116,7 @@
     width: 200px;
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
 }
 
 .prev, .next, .current {

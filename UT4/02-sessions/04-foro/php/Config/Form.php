@@ -349,21 +349,20 @@ class Form {
         $stmt->execute();
 
         $totalPages = $stmt->fetchAll();
-        echo ceil(count($totalPages) / 5);
         $pages = ceil(count($totalPages) / self::PAGINATION_LIMIT);
 
         $threads = self::getThreads($page);
 
 ?>
         <div class="pagination">
-            <?php if ($page - 1 > 0) : ?>
-                <div class="prev"><i class="bi bi-caret-left-fill"></i></div>
-            <?php endif; ?>
+            <?php //if ($page - 1 > 0) : ?>
+                <div class="prev" id="<?= ($page - 1 > 0)?$page - 1:1; ?>"><i class="bi bi-caret-left-fill"></i></div>
+            <?php //endif; ?>
             <div class="current"><?= $page ?></div>
 
-            <?php if ($page < $pages) : ?>
-                <div class="next"><i class="bi bi-caret-right-fill"></i></div>
-            <?php endif; ?>
+            <?php //if ($page < $pages) : ?>
+                <div class="next" id="<?= ($page + 1 < $pages)?$page + 1:$pages; ?>"><i class="bi bi-caret-right-fill"></i></div>
+            <?php //endif; ?>
         </div>
 <?php
 
@@ -410,6 +409,20 @@ class Form {
             </article>
 <?php
         endforeach;
+
+?>
+        <div class="pagination">
+            <?php //if ($page - 1 > 0) : ?>
+                <div class="prev" id="<?= ($page - 1 > 0)?$page - 1:1; ?>"><i class="bi bi-caret-left-fill"></i></div>
+            <?php //endif; ?>
+            <div class="current"><?= $page ?></div>
+
+            <?php //if ($page < $pages) : ?>
+                <div class="next" id="<?= ($page + 1 < $pages)?$page + 1:$pages; ?>"><i class="bi bi-caret-right-fill"></i></div>
+            <?php //endif; ?>
+        </div>
+<?php
+
 
     }
 
