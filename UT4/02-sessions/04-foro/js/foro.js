@@ -14,6 +14,7 @@ addThread.onclick = () => {
 }
 
 window.onload = () => {
+    // Al cargar la pagina hacemos una peticion para que nos devuelva siempre la primera pagina de los hilos
     let request = new XMLHttpRequest();
 
     request.open("GET", '/UT4/02-sessions/04-foro/threads.php?p=1');
@@ -23,8 +24,7 @@ window.onload = () => {
 
     request.onreadystatechange = () => {
         if (request.readyState == 4 && request.status == 200) {
-            console.log(request.response);
-
+            
             Threads.innerHTML = request.response;
 
             paginationControl(Threads);
@@ -34,10 +34,12 @@ window.onload = () => {
 }
 
 function paginationControl(Threads) {
+    // Como los elementos a buscar los guardamos en un elemento habra que buscarlos dentro de el
     const nextPages = Threads.querySelectorAll('.next');
     const prevPages = Threads.querySelectorAll('.prev');
     const addReply = document.querySelectorAll('.add_reply');
 
+    // A cada uno le asignamos las funciones que tiene
     for (const nextPage of nextPages) {
         nextPage.onclick = () => {
             let request = new XMLHttpRequest();
@@ -49,7 +51,6 @@ function paginationControl(Threads) {
 
             request.onreadystatechange = () => {
                 if (request.readyState == 4 && request.status == 200) {
-                    console.log(request.response);
 
                     Threads.innerHTML = request.response;
 
@@ -70,7 +71,6 @@ function paginationControl(Threads) {
 
             request.onreadystatechange = () => {
                 if (request.readyState == 4 && request.status == 200) {
-                    console.log(request.response);
 
                     Threads.innerHTML = request.response;
 
@@ -80,6 +80,7 @@ function paginationControl(Threads) {
         }
     }
     
+    // despliege del formulario de respuesta para cada boton de cada hilo
     for (const btnReply of addReply) {
         btnReply.onclick = () => {
             const form = btnReply.nextElementSibling;
