@@ -61,6 +61,7 @@
     <title>Foro</title>
     <script src="./js/main.js" defer></script>
     <script src="./js/foro.js" defer></script>
+
 </head>
 <body>
     
@@ -83,14 +84,19 @@
             </div>
         </div>
 
-        <div class="content-section">
+        <div class="content-section threads">
 
-            <?php $form->printThreads($repliesForm) ?>
+            
+
+            <?php //$form->printThreads($repliesForm) ?>
+
+
 
         </div>
     </div>
 
     <?php require('footer.php'); ?>
+    
     
 </body>
 </html>

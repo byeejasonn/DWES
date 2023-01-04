@@ -55,6 +55,6 @@ main {
 .list input[type=checkbox]:checked ~ ul {
     opacity: 1;
     visibility: visible;
-    max-height: 500px;
+    max-height: 999px;
     transition: max-height 0.25s ease-in, opacity .2s;
 }
