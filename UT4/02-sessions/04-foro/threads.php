@@ -15,11 +15,8 @@
         $repliesForm = new \php\Config\Form();
 
         @$repliesForm->crearInputsReply($_POST);
-?>
-    
-        <?php $repliesForm->printThreads($repliesForm, $page) ?>
-
-<?php 
+        
+        $repliesForm->printThreads($repliesForm, $page);
     else : 
         http_response_code(404);
 
