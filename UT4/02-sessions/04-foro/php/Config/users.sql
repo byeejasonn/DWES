@@ -12,7 +12,7 @@ drop table thread;
 create table thread (
     id int auto_increment primary key,
     title varchar(30),
-    body varchar(255),
+    body text,
     userid int,
     publishDate datetime,
     foreign key (userid) references users(id)
@@ -36,7 +36,7 @@ create table replies (
     id int auto_increment primary key,
     threadid int,
     userid int,
-    body varchar(255),
+    body text,
     publishDate datetime,
     foreign key (threadid) references thread(id),
     foreign key (userid) references users(id)
