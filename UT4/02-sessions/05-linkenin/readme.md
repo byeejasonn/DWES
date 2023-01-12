@@ -52,3 +52,35 @@ CREATE TABLE token (
 - \+ registro.php
 - \- edit.php /perfil/
 - \+ recuperar.php
+
+## Composer
+
+Instala *composer* y luego instala *dotenv*
+
+- dotenv
+```s
+$ composer require vlucas/phpdotenv 
+```
+
+- phpmailer
+```s
+$ composer require phpmailer/phpmailer
+```
+
+Para hacer que funcione correctamente *dotenv* en nuestro archivo de configuración escribiremos las siguientes tres líneas:
+
+```php
+require '../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+```
+
+Ejemplo de env:
+
+```t
+TITLE = "Linkenin"
+DN_NAME = "linkenin"
+DN_USER = "byeejasonn"
+DN_PASS = "1234"
+DN_HOST = "localhost"
+```
