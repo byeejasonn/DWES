@@ -75,6 +75,19 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 ```
 
+Y habrá que poner esto para que funcione *phpmailer*
+```php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../vendor/phpmailer/phpmailer/src/Exception.php';
+require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require '../vendor/phpmailer/phpmailer/src/SMTP.php';
+
+// cambiamos el autoloader del ejemplo por el init que cargará las clases
+require('../src/init.php');
+```
+
 Ejemplo de env:
 
 ```t
@@ -84,3 +97,10 @@ DN_USER = "byeejasonn"
 DN_PASS = "1234"
 DN_HOST = "localhost"
 ```
+
+## Mailer
+
+Clase estatica de tres parametros:
+- correo
+- nombre de usuario
+- subject
