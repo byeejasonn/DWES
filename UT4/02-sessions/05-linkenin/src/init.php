@@ -2,6 +2,7 @@
 
 session_start();
 require('DWESBaseDatos.php');
+require('Mailer.php');
 
 require '../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);

@@ -16,6 +16,13 @@ if(isset($_POST['submit'])) {
     $DB->ejecuta("INSERT INTO usuarios (nombre, passwd, correo) values (?, ?, ?)", $usuario, password_hash($passwd, PASSWORD_DEFAULT), $correo);
 
     $insertado = $DB->getExecuted();
+
+    if($insertado) {
+        $cuerpo = <<<EOL
+            Gracias por haberte registrado $usuario en <b>Linkenin</b>.
+        EOL;
+        Mailer::send($correo, $usuario, $cuerpo);
+    }
 }
 
 
@@ -39,23 +46,23 @@ if(isset($_POST['submit'])) {
     <?php if (!$insertado) :?>
         <form class="formulario" method="POST" action="">
 
-            <div class="input">
+            <div class="formulario__contenedor">
                 <label for="passwd">Email:</label>
-                <input type="email" name="correo" id="correo" value="<?= $correo ?>">
+                <input class="formulario__input" type="email" name="correo" id="correo" value="<?= $correo ?>" autofocus>
             </div>
 
-            <div class="input">
+            <div class="formulario__contenedor">
                 <label for="usuario">Usuario:</label>
-                <input type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
+                <input class="formulario__input" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
             </div>
 
-            <div class="input">
+            <div class="formulario__contenedor">
                 <label for="passwd">Constraseña:</label>
-                <input type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
+                <input class="formulario__input" type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
             </div>
 
-            <div class="input">
-                <input type="submit" name="submit" value="Log in">
+            <div class="formulario__contenedor">
+                <input class="formulario__input" type="submit" name="submit" value="Log in">
             </div>
             <!-- <a href="logout.php">Cerrar Sesión</a> -->
         </form>

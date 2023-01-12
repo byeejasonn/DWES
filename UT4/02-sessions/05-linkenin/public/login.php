@@ -45,18 +45,18 @@ if(isset($_POST['submit'])) {
     <?php require('header.php') ?>
     
     <form class="formulario" method="POST" action="">
-        <div class="input">
+        <div class="formulario__contenedor">
             <label for="usuario">Usuario:</label>
-            <input type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
+            <input class="formulario__input" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" autofocus>
         </div>
 
-        <div class="input">
+        <div class="formulario__contenedor">
             <label for="passwd">Constraseña:</label>
-            <input type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
+            <input class="formulario__input" type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
         </div>
 
-        <div class="input">
-            <input type="submit" name="submit" value="Log in">
+        <div class="formulario__contenedor">
+            <input class="formulario__input" type="submit" name="submit" value="Log in">
         </div>
         <!-- <a href="logout.php">Cerrar Sesión</a> -->
     </form>

@@ -4,7 +4,7 @@ CREATE TABLE usuarios (
     nombre VARCHAR(255),
     passwd VARCHAR(255),
     img    VARCHAR(255),
-    correo VARCHAR(255),
+    correo VARCHAR(255) unique,
     descripcion TEXT
 );
 
