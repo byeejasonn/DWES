@@ -13,7 +13,7 @@ require('../src/init.php');
 
 define("LONG_TOKEN", 32);
 
-if (isset($_SESSION['user'])) {
+if (isset($_SESSION['usuario'])) {
     header('Location: listado.php');
 }
 
@@ -35,13 +35,21 @@ if(isset($_POST['submit'])) {
     print_r($data);
     
     if(!empty($data) && password_verify($passwd,$data['passwd'])) {
-        $_SESSION['user'] = $data['nombre'];
+        $_SESSION['usuario'] = $data['nombre'];
         $_SESSION['id'] = $data['id'];
 
         if(isset($recuerdame) && $recuerdame == 'on') {
-            $token = bin2hex(openssl_random_pseudo_bytes(LONG_TOKEN));
+            $DB->ejecuta("SELECT * FROM token WHERE id_usuario = ?", $_SESSION['id']);
 
-            $DB->ejecuta("INSERT INTO token (id_usuario, valor) VALUES (?, ?)", $_SESSION['id'], $token);
+            $token = $DB->obtenPrimeraInstacia();
+
+            if (empty($token)) {
+                $token = bin2hex(openssl_random_pseudo_bytes(LONG_TOKEN));
+    
+                $DB->ejecuta("INSERT INTO token (id_usuario, valor) VALUES (?, ?)", $_SESSION['id'], $token);
+            } else {
+                $token = $token['valor'];
+            }
 
             // setcookie("hola", "hola");
             setcookie("recuerdame", $token, [

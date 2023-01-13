@@ -4,15 +4,15 @@
     </div>
     <nav class="header__nav">
         <a href="listado.php" class="header__link">Inicio</a>
-        <?php if(isset($_SESSION['user'])) : ?>
+        <?php if(isset($_SESSION['usuario'])) : ?>
             <!-- <a href="logout.php" class="header__link">Cerrar sesión</a> -->
         <?php else : ?>
             <!-- <a href="login.php" class="header__link">Iniciar sesión</a>
             <a href="registro.php" class="header__link">Registrarse</a> -->
         <?php endif; ?>
         <div class="header__dropdown">
-            <?php if(isset($_SESSION['user'])) : ?>
-                <a href="edit.php" class="header__link"><i class="bi bi-person-circle"></i> <?= $_SESSION['user'] ?></a>
+            <?php if(isset($_SESSION['usuario'])) : ?>
+                <a href="edit.php" class="header__link"><i class="bi bi-person-circle"></i> <?= $_SESSION['usuario'] ?></a>
                 <div class="header__dropdown-items">
                     <a href="logout.php" class="header__link header__dropdown-item">Cerrar sesión</a>
                 </div>
