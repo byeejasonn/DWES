@@ -21,16 +21,18 @@ $data = $DB->obtenDatos();
 <body>
     <?php require('header.php'); ?>
 
-    <h2>Hola mundo</h2>
-    <div class="listado">
-        <table>
-            <?php foreach($data as $fila) : ?>
-                <tr>
-                    <td><?= $fila['nombre'] ?></td>
-                    <td><?= $fila['correo'] ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
+    <main class="main">
+        <h2>Hola mundo</h2>
+        <div class="listado">
+            <table>
+                <?php foreach($data as $fila) : ?>
+                    <tr>
+                        <td><?= $fila['nombre'] ?></td>
+                        <td><?= $fila['correo'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

@@ -1,4 +1,9 @@
+-- DECLARE @DAY AS INT;
+SET @DAY = 2;
+
+DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS usuarios;
+
 CREATE TABLE usuarios (
     id int auto_increment PRIMARY KEY,
     nombre VARCHAR(255),
@@ -8,11 +13,10 @@ CREATE TABLE usuarios (
     descripcion TEXT
 );
 
-DROP TABLE IF EXISTS token;
 CREATE TABLE token (
     id int auto_increment PRIMARY KEY,
     id_usuario int,
     valor VARCHAR(255),
-    expiracion DATETIME,
+    expiracion DATETIME DEFAULT (NOW() + INTERVAL @DAY DAY),
     CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );

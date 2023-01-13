@@ -42,32 +42,33 @@ if(isset($_POST['submit'])) {
 
     <?php require('header.php') ?>
     
-
-    <?php if (!$insertado) :?>
-        <form class="formulario" method="POST" action="">
-
-            <div class="formulario__contenedor">
-                <label for="passwd">Email:</label>
-                <input class="formulario__input" type="email" name="correo" id="correo" value="<?= $correo ?>" autofocus>
-            </div>
-
-            <div class="formulario__contenedor">
-                <label for="usuario">Usuario:</label>
-                <input class="formulario__input" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
-            </div>
-
-            <div class="formulario__contenedor">
-                <label for="passwd">Constraseña:</label>
-                <input class="formulario__input" type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
-            </div>
-
-            <div class="formulario__contenedor">
-                <input class="formulario__input" type="submit" name="submit" value="Log in">
-            </div>
-            <!-- <a href="logout.php">Cerrar Sesión</a> -->
-        </form>
-    <?php else : ?>
-        <h3>Usuario insertado</h3>
-    <?php endif; ?>
+    <main class="main">
+        <?php if (!$insertado) :?>
+            <form class="formulario" method="POST" action="">
+    
+                <div class="formulario__contenedor">
+                    <label for="passwd">Email:</label>
+                    <input class="formulario__input" type="email" name="correo" id="correo" value="<?= $correo ?>" autofocus>
+                </div>
+    
+                <div class="formulario__contenedor">
+                    <label for="usuario">Usuario:</label>
+                    <input class="formulario__input" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
+                </div>
+    
+                <div class="formulario__contenedor">
+                    <label for="passwd">Constraseña:</label>
+                    <input class="formulario__input" type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
+                </div>
+    
+                <div class="formulario__contenedor">
+                    <input class="formulario__input" type="submit" name="submit" value="Log in">
+                </div>
+                <!-- <a href="logout.php">Cerrar Sesión</a> -->
+            </form>
+        <?php else : ?>
+            <h3>Usuario insertado</h3>
+        <?php endif; ?>
+    </main>
 </body>
 </html>

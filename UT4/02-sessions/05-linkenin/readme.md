@@ -1,16 +1,10 @@
+- recuerdame
+- email
+- subir imagenes
+
 ## Tablas
 
 ### Usuarios
-
-| **Usuarios** |
-| ------------ |
-| id           |
-| usuario      |
-| nombre       |
-| passwd       |
-| img          |
-| correo       |
-| desc         |
 
 ```sql
 CREATE TABLE usuarios (
@@ -24,15 +18,6 @@ CREATE TABLE usuarios (
 ```
 
 ### Tokens
-
-| **Tokens** |
-| ---------- |
-| id         |
-| idUsuario  |
-| token      |
-| exp        |
-
-
 ```sql
 CREATE TABLE token (
     id int auto_increment PRIMARY KEY,
