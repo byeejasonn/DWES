@@ -31,6 +31,7 @@ $usuarios = $DB->obtenDatos();
                     <img src="<?= $usuario['img'] ?>" alt="" class="tarjeta__foto">
                     <span class="tarjeta__usuario"><?= $usuario['nombre'] ?></span>
                 </div>
+                <p class="tarjeta__desc"><?= $usuario['descripcion'] ?></p>
             </div>
             <?php endforeach; ?>
         </div>

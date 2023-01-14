@@ -46,7 +46,7 @@ Instala *composer* y luego instala *dotenv* y *phpmailer*
 
 - dotenv
 ```s
-$ composer require vlucas/phpdotenv 
+$ composer require vlucas/phpdotenv
 ```
 
 - phpmailer
@@ -75,14 +75,18 @@ require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 require('../src/init.php');
 ```
 
-Ejemplo de .env:
+Ejemplo de .env que se crea en la carpeta *src* :
 
 ```t
 TITLE = "Linkenin"
-DN_NAME = "linkenin"
-DN_USER = "byeejasonn"
-DN_PASS = "1234"
-DN_HOST = "localhost"
+DB_NAME = "linkenin"
+DB_USER = "linkenin"
+DB_PASS = "linkenin"
+DB_HOST = "localhost"
+
+Llamas a las variables mediante la variable global $_ENV
+
+ejemplo -> $_ENV['DB_NAME']
 ```
 
 ## Mailer
