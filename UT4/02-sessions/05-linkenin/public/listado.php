@@ -4,7 +4,7 @@ require('../src/init.php');
 
 $DB->ejecuta("SELECT * FROM usuarios");
 
-$data = $DB->obtenDatos();
+$usuarios = $DB->obtenDatos();
 
 // print_r($_SESSION);
 
@@ -23,15 +23,16 @@ $data = $DB->obtenDatos();
 
     <main class="main">
         <h2>Hola mundo</h2>
+        
         <div class="listado">
-            <table>
-                <?php foreach($data as $fila) : ?>
-                    <tr>
-                        <td><?= $fila['nombre'] ?></td>
-                        <td><?= $fila['correo'] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+            <?php foreach($usuarios as $usuario): ?>
+            <div class="tarjeta">
+                <div class="tarjeta__header">
+                    <img src="<?= $usuario['img'] ?>" alt="" class="tarjeta__foto">
+                    <span class="tarjeta__usuario"><?= $usuario['nombre'] ?></span>
+                </div>
+            </div>
+            <?php endforeach; ?>
         </div>
     </main>
 </body>

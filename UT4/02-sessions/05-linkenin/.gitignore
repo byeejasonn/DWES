@@ -2,3 +2,5 @@
 vendor
 composer.*
 src/.env
+
+public/uploads/profile/img/*

@@ -1,5 +1,5 @@
 -- DECLARE @DAY AS INT;
-SET @DAY = 2;
+SET @DAY = 7;
 
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS usuarios;

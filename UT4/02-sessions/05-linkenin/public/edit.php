@@ -11,19 +11,21 @@ $usuario = $DB->obtenPrimeraInstacia();
 
 $directorio = './uploads/profile/img/';
 
+
+// no deja subir una imagen de más de 2MB
 if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
     $nombre = $_FILES['img']['name'];
     $tipo = $_FILES['img']['type'];
     $rutaTemportal = $_FILES['img']['tmp_name'];
 
     if ($tipo == 'image/png' || $tipo == 'image/jpeg') {
-        $nombreUnico = bin2hex(random_bytes(16));
+        $nombre = bin2hex(random_bytes(16)).$nombre;
 
-        $rutaFichero = $directorio.$nombreUnico.$nombre;
+        $rutaFichero = $directorio.$nombre;
         echo $rutaFichero;
         if(move_uploaded_file($rutaTemportal, $rutaFichero)) {
             echo "Fichero subido";
-
+            @unlink($usuario['img']);
             $DB->ejecuta("UPDATE usuarios set img = ? where id = ?", $rutaFichero, $_SESSION['id']);
 
             header('Location: edit.php');
@@ -35,25 +37,6 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
     }
 }
 
-
-// $target_dir = "uploads/";
-// $target_file = $target_dir . basename($_FILES["img"]["name"]);
-// $uploadOk = 1;
-// $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-// // Check if image file is a actual image or fake image
-// if(isset($_POST["submit"])) {
-//     $check = getimagesize($_FILES["img"]["tmp_name"]);
-//     if($check !== false) {
-//         echo "File is an image - " . $check["mime"] . ".";
-//         $uploadOk = 1;
-//     } else {
-//         echo "File is not an image.";
-//         $uploadOk = 0;
-//     }
-// }
-
-// print_r($_POST);
-// print_r($_FILES);
 
 ?>
 <!DOCTYPE html>
@@ -73,9 +56,13 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
         <h2>Perfil</h2>
 
         <form action="" method="POST" class="formulario" enctype="multipart/form-data">
-            <input class="fomulario__input formulario__profile-pic" type="file" name="img" id="img" accept="image/png, image/jpeg, image/JPEG, image/PNG">
+            <label for="img" class="formulario__profile-pic">
+                <img src="<?= $usuario['img'] ?>" alt="foto perfil" class="formulario__foto">
+                <span class="overlay"><i class="bi bi-pencil-fill"></i> Editar</span>
+            </label>
+            <input class="fomulario__input formulario__input--hidden" type="file" name="img" id="img" accept="image/png, image/jpeg, image/JPEG, image/PNG">
 
-            <input type="submit" name="submit" value="Enviar" class="formulario__input">
+            <input type="submit" name="submit" value="Guardar" class="formulario__input">
         </form>
 
     </main>

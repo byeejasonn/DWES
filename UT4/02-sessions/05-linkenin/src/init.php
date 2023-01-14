@@ -27,6 +27,8 @@ $DB->inicializa(
 );
 
 // print_r($_COOKIE);
+// print_r($_SESSION);
+// print_r($_FILES);
 
 if(isset($_COOKIE['recuerdame']) && $_COOKIE['recuerdame'] != null) {
     $DB->ejecuta("SELECT * FROM token WHERE valor = ?", $_COOKIE['recuerdame']);
