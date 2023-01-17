@@ -1,4 +1,6 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css");
+@import url("https://getbootstrap.com/docs/5.3/assets/css/docs.css");
 
 * {
     margin: 0;
@@ -39,13 +41,16 @@ body {
     position: relative;
     display: block;
     width: 140px;
-    padding: 8px;
+    padding: 8px 4px;
     text-align: center;
     /* background-color: red; */
     text-decoration: none;
     color: black;
     background-color: white;
     transition: background .3s;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
 }
 
 .header__link:hover::after {
@@ -87,24 +92,45 @@ body {
 }
 
 .formulario {
+    padding: 50px 30px;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+.formulario--login, .formulario--registro {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 400px;
     height: 350px;
     transform: translate(-50%, -50%);
-    padding: 50px 30px;
-    /* background-color: aqua; */
     border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
     border: 1px solid black;
+}
+
+.formulario--edit {
+    height: 60%;
+    max-width: 500px;
 }
 
 .formulario__contenedor {
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+
+.formulario__contenedor--column {
+    flex-direction: column;
+}
+
+.formulario__contenedor--row {
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 12px;
 }
 
 .formulario__input {
@@ -115,16 +141,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 6px 0;
     height: 28px;
+    width: 100%;
 }
 
-.formulario__contenedor--column {
-    flex-direction: column;
-}
-.formulario__contenedor--row {
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    gap: 8px;
+.formulario__input--textarea {
+    height: 150px;
+    resize: none;
 }
 
 .formulario__checkbox {
@@ -133,15 +155,14 @@ body {
 
 /* foto de perfil */
 .formulario__foto, .formulario__profile-pic {
-    width: var(--foto-formulario);
-    height: var(--foto-formulario);
+    min-width: var(--foto-formulario);
+    max-width: var(--foto-formulario);
+    min-height: var(--foto-formulario);
+    max-height: var(--foto-formulario);
     border-radius: 50%;
     object-fit: cover;
-}
-
-.formulario__profile-pic {
-    overflow: hidden;
     position: relative;
+    overflow: hidden;
 }
 
 .formulario__profile-pic:hover .overlay {

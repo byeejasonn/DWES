@@ -73,6 +73,8 @@ if(isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $_ENV['TITLE'] ?></title>
     <link rel="stylesheet" href="./css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
+
 
 </head>
 <body>
@@ -80,28 +82,29 @@ if(isset($_POST['submit'])) {
     <?php require('header.php') ?>
 
     <main class="main">
-        <form class="formulario" method="POST" action="">
-            <div class="formulario__contenedor">
-                <label for="usuario">Usuario:</label>
-                <input class="formulario__input" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" autofocus>
+        <form class="formulario formulario--login" method="POST" action="">
+
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" placeholder="" autofocus required>
+                <label class="" for="usuario">Usuario:</label>
             </div>
     
-            <div class="formulario__contenedor">
-                <label for="passwd">Constraseña:</label>
-                <input class="formulario__input" type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
+            <div class="form-floating mb-3">
+                <input class="form-control" type="password" name="passwd" id="passwd" value="<?= $passwd ?>" placeholder="" required>
+                <label class="form-label" for="passwd">Constraseña:</label>
             </div>
 
-            <div class="formulario__contenedor formulario__contenedor--row">
-                <input class="formulario__input formulario__checkbox" type="checkbox" name="recuerdame" id="recuerdame">
-                <label for="recuerdame">Recuerdame</label>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" name="recuerdame" id="recuerdame">
+                <label class="form-check-label" for="recuerdame">Recuerdame</label>
             </div>
     
-            <div class="formulario__contenedor">
-                <input class="formulario__input" type="submit" name="submit" value="Log in">
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" name="submit" value="Log in">
             </div>
             <!-- <a href="logout.php">Cerrar Sesión</a> -->
         </form>
     </main>
-    
+
 </body>
 </html>

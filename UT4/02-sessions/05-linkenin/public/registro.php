@@ -44,25 +44,25 @@ if(isset($_POST['submit'])) {
     
     <main class="main">
         <?php if (!$insertado) :?>
-            <form class="formulario" method="POST" action="">
+            <form class="formulario formulario--registro" method="POST" action="">
     
-                <div class="formulario__contenedor">
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="email" name="correo" id="correo" value="<?= $correo ?>" placeholder="" autofocus>
                     <label for="passwd">Email:</label>
-                    <input class="formulario__input" type="email" name="correo" id="correo" value="<?= $correo ?>" autofocus>
                 </div>
     
-                <div class="formulario__contenedor">
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" placeholder="">
                     <label for="usuario">Usuario:</label>
-                    <input class="formulario__input" type="text" name="usuario" id="usuario" value="<?= $usuario ?>">
                 </div>
     
-                <div class="formulario__contenedor">
+                <div class="form-floating mb-3">
+                    <input class="form-control" type="password" name="passwd" id="passwd" value="<?= $passwd ?>" placeholder="">
                     <label for="passwd">Constraseña:</label>
-                    <input class="formulario__input" type="password" name="passwd" id="passwd" value="<?= $passwd ?>">
                 </div>
     
-                <div class="formulario__contenedor">
-                    <input class="formulario__input" type="submit" name="submit" value="Log in">
+                <div class="mb-3">
+                    <input class="btn btn-primary" type="submit" name="submit" value="Log in">
                 </div>
                 <!-- <a href="logout.php">Cerrar Sesión</a> -->
             </form>

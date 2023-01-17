@@ -55,14 +55,33 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
     <main class="main">
         <h2>Perfil</h2>
 
-        <form action="" method="POST" class="formulario" enctype="multipart/form-data">
-            <label for="img" class="formulario__profile-pic">
-                <img src="<?= $usuario['img'] ?>" alt="foto perfil" class="formulario__foto">
-                <span class="overlay"><i class="bi bi-pencil-fill"></i> Editar</span>
-            </label>
-            <input class="fomulario__input formulario__input--hidden" type="file" name="img" id="img" accept="image/png, image/jpeg, image/JPEG, image/PNG">
+        <form action="" method="POST" class="container-md bg-secondary formulario formulario--edit" enctype="multipart/form-data">
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-3">
+                
+                <label for="img" class="align-self-center formulario__profile-pic me-0 me-sm-4 mb-3 mb-sm-0">
+                    <img src="<?= $usuario['img'] ?>" alt="foto perfil" class="formulario__foto">
+                    <span class="overlay"><i class="bi bi-pencil-fill"></i> Editar</span>
+                </label>
+                <input class="form-control formulario__input--hidden" type="file" name="img" id="img" accept="image/png, image/jpeg, image/JPEG, image/PNG">
+    
+                <div class="form-floating flex-fill">
+                    <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario['nombre'] ?>" placeholder="" autofocus>
+                    <label for="usuario">Nombre de usuario</label>
+                </div>
 
-            <input type="submit" name="submit" value="Guardar" class="formulario__input">
+            </div>
+
+            <div class="form-floating mb-3">
+                <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario['correo'] ?>" placeholder="" disabled>
+                <label for="usuario">Correo</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea class="form-control formulario__input--textarea form-control" name="descripcion" id="descripcion" placeholder=""><?= $usuario['descripcion'] ?></textarea>
+                <label for="usuario">Descripción</label>
+            </div>
+
+            <input type="submit" name="submit" value="Guardar" class="btn btn-primary">
         </form>
 
     </main>
