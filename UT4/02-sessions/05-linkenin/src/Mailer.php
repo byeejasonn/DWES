@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mailer{
 
-    public static function send($correo, $usuario, $cuerpo){
+    public static function send($correo, $usuario, $asunto, $cuerpo){
         $mail = new PHPMailer(true);
 
         try {
@@ -25,7 +25,7 @@ class Mailer{
             $mail->setFrom('jason.londono@educa.madrid.org', 'Jason Londoño');
             $mail->addAddress($correo, $usuario);     //Add a recipient
             // $mail->addAddress('ellen@example.com');               //Name is optional
-            $mail->addReplyTo('jason.londono@educa.madrid.org', 'Jason Londoño');
+            // $mail->addReplyTo('jason.londono@educa.madrid.org', 'Jason Londoño');
             // $mail->addCC('cc@example.com');
             // $mail->addBCC('bcc@example.com');
 
@@ -35,7 +35,7 @@ class Mailer{
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Registro';
+            $mail->Subject = $asunto;
             $mail->Body    = $cuerpo;
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

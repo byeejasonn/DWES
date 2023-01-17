@@ -17,6 +17,7 @@ CREATE TABLE token (
     id int auto_increment PRIMARY KEY,
     id_usuario int,
     valor VARCHAR(255),
+    tipo int,
     expiracion DATETIME DEFAULT (NOW() + INTERVAL @DAY DAY),
     CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );

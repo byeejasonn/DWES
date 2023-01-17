@@ -18,10 +18,11 @@ if(isset($_POST['submit'])) {
     $insertado = $DB->getExecuted();
 
     if($insertado) {
+        $asunto = 'Registro';
         $cuerpo = <<<EOL
             Gracias por haberte registrado $usuario en <b>Linkenin</b>.
         EOL;
-        Mailer::send($correo, $usuario, $cuerpo);
+        Mailer::send($correo, $usuario, $asunto, $cuerpo);
     }
 }
 
@@ -43,6 +44,8 @@ if(isset($_POST['submit'])) {
     <?php require('header.php') ?>
     
     <main class="main">
+        <h2>Registro</h2>
+
         <?php if (!$insertado) :?>
             <form class="formulario formulario--registro" method="POST" action="">
     
@@ -61,9 +64,8 @@ if(isset($_POST['submit'])) {
                     <label for="passwd">Constraseña:</label>
                 </div>
     
-                <div class="mb-3">
-                    <input class="btn btn-primary" type="submit" name="submit" value="Log in">
-                </div>
+                <input class="btn btn-primary" type="submit" name="submit" value="Log in">
+
                 <!-- <a href="logout.php">Cerrar Sesión</a> -->
             </form>
         <?php else : ?>

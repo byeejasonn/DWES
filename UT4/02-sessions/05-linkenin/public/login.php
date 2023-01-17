@@ -11,8 +11,6 @@ require('../src/init.php');
 //  guardar token
 //  cookie con token
 
-define("LONG_TOKEN", 32);
-
 if (isset($_SESSION['usuario'])) {
     header('Location: listado.php');
 }
@@ -44,9 +42,9 @@ if(isset($_POST['submit'])) {
             $token = $DB->obtenPrimeraInstacia();
 
             if (empty($token)) {
-                $token = bin2hex(openssl_random_pseudo_bytes(LONG_TOKEN));
+                $token = getToken();
     
-                $DB->ejecuta("INSERT INTO token (id_usuario, valor) VALUES (?, ?)", $_SESSION['id'], $token);
+                $DB->ejecuta("INSERT INTO token (id_usuario, valor, tipo) VALUES (?, ?, ?)", $_SESSION['id'], $token, TOKEN_SESSION);
             } else {
                 $token = $token['valor'];
             }
@@ -73,8 +71,6 @@ if(isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $_ENV['TITLE'] ?></title>
     <link rel="stylesheet" href="./css/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" defer></script>
-
 
 </head>
 <body>
@@ -82,6 +78,8 @@ if(isset($_POST['submit'])) {
     <?php require('header.php') ?>
 
     <main class="main">
+        <h2>Inicio de sesión</h2>
+
         <form class="formulario formulario--login" method="POST" action="">
 
             <div class="form-floating mb-3">
@@ -98,10 +96,11 @@ if(isset($_POST['submit'])) {
                 <input class="form-check-input" type="checkbox" name="recuerdame" id="recuerdame">
                 <label class="form-check-label" for="recuerdame">Recuerdame</label>
             </div>
+
+            <a href="./recuperar.php" class="mb-3">¿Has olvidado la contraseña?</a>
     
-            <div class="mb-3">
-                <input class="btn btn-primary" type="submit" name="submit" value="Log in">
-            </div>
+            <input class="btn btn-primary" type="submit" name="submit" value="Log in">
+    
             <!-- <a href="logout.php">Cerrar Sesión</a> -->
         </form>
     </main>

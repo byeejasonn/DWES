@@ -82,6 +82,7 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
             </div>
 
             <input type="submit" name="submit" value="Guardar" class="btn btn-primary">
+            
         </form>
 
     </main>

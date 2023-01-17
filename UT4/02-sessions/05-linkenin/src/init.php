@@ -3,6 +3,11 @@
 session_start();
 
 define("DAYS_RENEW", 7);
+define("TIME_TOKEN_PASSWD", 20);
+define("LONG_TOKEN", 32);
+define('TOKEN_SESSION', 1);
+define('TOKEN_RECOVER_PASSWD', 2);
+
 
 require('DWESBaseDatos.php');
 require('Mailer.php');
@@ -43,5 +48,8 @@ if(isset($_COOKIE['recuerdame']) && $_COOKIE['recuerdame'] != null) {
         $_SESSION['usuario'] = $usuario['nombre'];
         $_SESSION['id'] = $usuario['id'];
     }
+}
 
+function getToken() {
+    return bin2hex(openssl_random_pseudo_bytes(LONG_TOKEN));
 }

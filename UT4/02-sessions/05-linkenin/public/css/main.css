@@ -98,14 +98,15 @@ body {
     flex-direction: column;
     justify-content: space-evenly;
     margin: 0 auto;
+    width: 500px;
+
 }
 
 .formulario--login, .formulario--registro {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
-    height: 350px;
+    height: fit-content;
     transform: translate(-50%, -50%);
     border-radius: 20px;
     border: 1px solid black;
