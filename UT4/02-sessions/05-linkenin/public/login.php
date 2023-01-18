@@ -23,14 +23,15 @@ $passwd = '';
 if(isset($_POST['submit'])) {
     $usuario = $_POST['usuario'];
     $passwd = $_POST['passwd'];
-    $recuerdame = $_POST['recuerdame'];
+    $recuerdame = $_POST['recuerdame'] ?? null;
 
     $DB->ejecuta("SELECT * FROM usuarios WHERE nombre = ?", $usuario);
 
     // solo quiero la primera instancia
     $data = $DB->obtenPrimeraInstacia();
 
-    print_r($data);
+    // echo password_verify($passwd, $data['passwd']);
+    // print_r($data);
     
     if(!empty($data) && password_verify($passwd,$data['passwd'])) {
         $_SESSION['usuario'] = $data['nombre'];
@@ -49,7 +50,6 @@ if(isset($_POST['submit'])) {
                 $token = $token['valor'];
             }
 
-            // setcookie("hola", "hola");
             setcookie("recuerdame", $token, [
                 "expires" => time() + (7 * 24 * 60 * 60),
                 // "secure" => true,
@@ -60,6 +60,7 @@ if(isset($_POST['submit'])) {
         header('Location: listado.php');
     }
 }
+
 
 ?>
 

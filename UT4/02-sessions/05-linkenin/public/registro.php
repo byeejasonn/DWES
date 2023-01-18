@@ -4,6 +4,8 @@ require('../src/init.php');
 
 $DB = DWESBaseDatos::obtenerInstancia();
 
+$insertado = false;
+
 $correo = '';
 $usuario = '';
 $passwd = '';

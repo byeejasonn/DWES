@@ -25,7 +25,11 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
         echo $rutaFichero;
         if(move_uploaded_file($rutaTemportal, $rutaFichero)) {
             echo "Fichero subido";
-            @unlink($usuario['img']);
+
+            if ($usuario['img'] != './uploads/profile/img/default.jpg') {
+                @unlink($usuario['img']);
+            }
+            
             $DB->ejecuta("UPDATE usuarios set img = ? where id = ?", $rutaFichero, $_SESSION['id']);
 
             header('Location: edit.php');
@@ -59,7 +63,7 @@ if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
             <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-3">
                 
                 <label for="img" class="align-self-center formulario__profile-pic me-0 me-sm-4 mb-3 mb-sm-0">
-                    <img src="<?= $usuario['img'] ?>" alt="foto perfil" class="formulario__foto">
+                    <img src="<?= $usuario['img']  ?>" alt="foto perfil" class="formulario__foto">
                     <span class="overlay"><i class="bi bi-pencil-fill"></i> Editar</span>
                 </label>
                 <input class="form-control formulario__input--hidden" type="file" name="img" id="img" accept="image/png, image/jpeg, image/JPEG, image/PNG">

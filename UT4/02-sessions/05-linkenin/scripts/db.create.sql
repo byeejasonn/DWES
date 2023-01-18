@@ -8,7 +8,7 @@ CREATE TABLE usuarios (
     id int auto_increment PRIMARY KEY,
     nombre VARCHAR(255),
     passwd VARCHAR(255),
-    img    VARCHAR(255),
+    img    VARCHAR(255) DEFAULT './uploads/profile/img/default.jpg',
     correo VARCHAR(255) unique,
     descripcion TEXT
 );

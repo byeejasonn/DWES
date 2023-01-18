@@ -10,6 +10,23 @@ if (isset($_SESSION['usuario'])) {
     header('Location: listado.php');
 }
 
+$recuperar = false;
+if (isset($_GET['t'])) {
+    $recuperar = true;
+
+    $DB->ejecuta("SELECT * FROM token WHERE valor = ? and tipo = ?", $_GET['t'], TOKEN_RECOVER_PASSWD);
+
+    $token = $DB->obtenPrimeraInstacia();
+
+    if (isset($_POST['new_passwd']) && !empty($token)) {
+        $DB->ejecuta("UPDATE usuarios set passwd = ? WHERE id = ?", password_hash($_POST['passwd'], PASSWORD_DEFAULT), $token['id_usuario']);
+
+        $DB->ejecuta("DELETE FROM token where id = ?", $token['id']);
+
+        header('Location: listado.php');
+    }
+}
+
 if(isset($_POST['enviar'])) {
     $DB->ejecuta("SELECT * FROM usuarios WHERE correo = ?", $_POST['correo']);
 
@@ -50,22 +67,34 @@ if(isset($_POST['enviar'])) {
     <main class="main">
         <h2>Recuperar contraseña</h2>
 
-        <form action="" method="POST" class="formulario">
+        <?php if (!$recuperar) :?>
 
-            <div class="form-floating mb-3">
-                <input type="text" name="correo" id="correo" class="form-control" placeholder="" required>
-                <label for="correo">Correo:</label>
-                <div class="form-text">Correo al que se le enviará los pasos a seguir para cambiar la contraseña</div>
-            </div>
+            <form action="" method="POST" class="formulario">
 
-            <input type="submit" value="Enviar" name="enviar" class="btn btn-primary">
-        </form>        
+                <div class="form-floating mb-3">
+                    <input type="text" name="correo" id="correo" class="form-control" placeholder="" required>
+                    <label for="correo">Correo:</label>
+                    <div class="form-text">Correo al que se le enviará los pasos a seguir para cambiar la contraseña</div>
+                </div>
+
+                <input type="submit" value="Enviar" name="enviar" class="btn btn-primary">
+            </form>        
+
+        <?php else: ?>
+
+            <form action="" method="POST" class="formulario">
+
+                <div class="form-floating mb-3">
+                    <input type="password" name="passwd" id="passwd" class="form-control" placeholder="" required>
+                    <label for="correo">Contraseña:</label>
+                    <div class="form-text">Contraseña nueva</div>
+                </div>
+
+                <input type="submit" value="Enviar" name="new_passwd" class="btn btn-primary">
+            </form>        
+
+        <?php endif; ?>
     </main>
 
-    <!-- <h3>Recuperar contraseña</h3>
-
-<p>Para poder reestablecer la contraseña de tu cuenta haz click en el siguiente enlace y estable la nueva con la que te vas a identificar en la plataforma</p>
-
-<a href="http://localhost:8000/recuperar.php" style="display: flex; width: fit-content; height: 60px; background-color: #FFCA28;align-items:center; padding: 12px;">Establecer contraseña</a> -->
 </body>
 </html>
