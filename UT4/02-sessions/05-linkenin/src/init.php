@@ -8,7 +8,6 @@ define("LONG_TOKEN", 32);
 define('TOKEN_SESSION', 1);
 define('TOKEN_RECOVER_PASSWD', 2);
 
-
 require('DWESBaseDatos.php');
 require('Mailer.php');
 
@@ -35,21 +34,36 @@ $DB->inicializa(
 // print_r($_SESSION);
 // print_r($_FILES);
 
-if(isset($_COOKIE['recuerdame']) && $_COOKIE['recuerdame'] != null) {
-    $DB->ejecuta("SELECT * FROM token WHERE valor = ?", $_COOKIE['recuerdame']);
+if(!isset($_SESSION['usuario']) && isset($_COOKIE['recuerdame']) && $_COOKIE['recuerdame'] != null) {
+    // hacer join
+    $DB->ejecuta(
+        "SELECT t.id as 'id_token', u.id as 'id_usuario', u.nombre 
+        FROM token t 
+        LEFT JOIN usuarios u ON u.id = t.id_usuario 
+        WHERE t.valor = ? AND t.expiracion > NOW()", 
+        $_COOKIE['recuerdame']);
+
     $token = $DB->obtenPrimeraInstacia();
 
+    // print_r($token);
+
     if(!empty($token)) {
-        $DB->ejecuta("UPDATE token set expiracion = (NOW() + INTERVAL ? DAY) WHERE id = ?", DAYS_RENEW, $token['id']);
-        $DB->ejecuta("SELECT * FROM usuarios WHERE id = ?", $token['id_usuario']);
+        $DB->ejecuta(
+            "UPDATE token 
+            set expiracion = (NOW() + INTERVAL ? DAY) 
+            WHERE id = ?", 
+            DAYS_RENEW, $token['id_token']
+        );
 
-        $usuario = $DB->obtenPrimeraInstacia();
-
-        $_SESSION['usuario'] = $usuario['nombre'];
-        $_SESSION['id'] = $usuario['id'];
+        $_SESSION['usuario'] = $token['nombre'];
+        $_SESSION['id'] = $token['id_usuario'];
     }
 }
 
 function getToken() {
     return bin2hex(openssl_random_pseudo_bytes(LONG_TOKEN));
+}
+
+function br2nl( $input ) {
+    return preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n","",str_replace("\r","", htmlspecialchars_decode($input))));
 }

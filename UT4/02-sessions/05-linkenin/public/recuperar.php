@@ -48,6 +48,8 @@ if(isset($_POST['enviar'])) {
         EOL;
 
         Mailer::send($usuario['correo'], $usuario['nombre'], $asunto, $cuerpo);
+
+        header('Location: listado.php');
     }
 }
 
@@ -55,14 +57,11 @@ if(isset($_POST['enviar'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $_ENV['TITLE'] ?></title>
-    <link rel="stylesheet" href="./css/main.css">
+    <?php require('../src/head.php') ?>
+
 </head>
 <body>
-    <?php require('header.php'); ?>
+    <?php require('../src/header.php') ?>
 
     <main class="main">
         <h2>Recuperar contraseña</h2>

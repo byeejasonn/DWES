@@ -1,5 +1,4 @@
--- DECLARE @DAY AS INT;
-SET @DAY = 7;
+-- SET @INT_DAY := 7;
 
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS usuarios;
@@ -18,6 +17,6 @@ CREATE TABLE token (
     id_usuario int,
     valor VARCHAR(255),
     tipo int,
-    expiracion DATETIME DEFAULT (NOW() + INTERVAL @DAY DAY),
+    expiracion DATETIME DEFAULT (NOW() + INTERVAL 7 DAY), -- no consigo que vaya con variable
     CONSTRAINT fk_id_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
