@@ -27,7 +27,7 @@ if (isset($_GET['t'])) {
     }
 }
 
-if(isset($_POST['enviar'])) {
+if (isset($_POST['enviar'])) {
     $DB->ejecuta("SELECT * FROM usuarios WHERE correo = ?", $_POST['correo']);
 
     $usuario = $DB->obtenPrimeraInstacia();
@@ -35,16 +35,45 @@ if(isset($_POST['enviar'])) {
     if (!empty($usuario)) {
         $token = getToken();
 
-        $DB->ejecuta("INSERT INTO token (id_usuario, valor, tipo, expiracion) VALUES (?, ?, ?, NOW() + INTERVAL ? MINUTE)",$usuario['id'], $token, TOKEN_RECOVER_PASSWD, TIME_TOKEN_PASSWD);
+        $DB->ejecuta("INSERT INTO token (id_usuario, valor, tipo, expiracion) VALUES (?, ?, ?, NOW() + INTERVAL ? MINUTE)", $usuario['id'], $token, TOKEN_RECOVER_PASSWD, TIME_TOKEN_PASSWD);
 
         $asunto = 'Linkenin - Recuperar contraseña';
         // cambiar estilos, ver como poner estilos en correo
         $cuerpo = <<<EOL
-        <h3>Recuperar contraseña</h3>
-
-        <p>Para poder reestablecer la contraseña de tu cuenta haz click en el siguiente enlace y estable la nueva con la que te vas a identificar en la plataforma</p>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+            <style>
+                .wrapper {
+                    width: 100%;
+                    background-color: gray;
+                }
         
-        <a href="http://localhost:8000/recuperar.php?t={$token}" style="display: flex; width: fit-content; height: 60px; background-color: #FFCA28;align-items:center; padding: 12px;">Establecer contraseña</a>
+                .main {
+                    width: 80%;
+                    background-color: white;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="wrapper">
+                <main class="main">
+        
+                    <h2>Recuperar contraseña</h2>
+        
+                    <p>Para poder restablecer la contraseña de tu cuenta haz click en el siguiente enlace y estable la nueva con la que te vas a identificar en la plataforma</p>
+                    <small class="text-muted">Una vez se cambie no podrá usar más este enlace o después de media hora tras recibir el correo</small>
+        
+                    <a href="http://localhost:8000/recuperar.php?t={$token}" class="btn btn-primary">Restablecer contraseña</a>
+        
+                </main>
+            </div>
+        </body>
+        </html>
         EOL;
 
         Mailer::send($usuario['correo'], $usuario['nombre'], $asunto, $cuerpo);
@@ -64,11 +93,11 @@ if(isset($_POST['enviar'])) {
     <?php require('../src/header.php') ?>
 
     <main class="main">
-        <h2>Recuperar contraseña</h2>
+        
+        <form action="" method="POST" class="formulario container-lg d-flex flex-column mx-auto">
+            <h2 class="mb-3">Recuperar contraseña</h2>
 
-        <?php if (!$recuperar) :?>
-
-            <form action="" method="POST" class="formulario">
+            <?php if (!$recuperar) : ?>
 
                 <div class="form-floating mb-3">
                     <input type="text" name="correo" id="correo" class="form-control" placeholder="" required>
@@ -77,11 +106,8 @@ if(isset($_POST['enviar'])) {
                 </div>
 
                 <input type="submit" value="Enviar" name="enviar" class="btn btn-primary">
-            </form>        
 
-        <?php else: ?>
-
-            <form action="" method="POST" class="formulario">
+            <?php else : ?>
 
                 <div class="form-floating mb-3">
                     <input type="password" name="passwd" id="passwd" class="form-control" placeholder="" required>
@@ -89,10 +115,10 @@ if(isset($_POST['enviar'])) {
                     <div class="form-text">Contraseña nueva</div>
                 </div>
 
-                <input type="submit" value="Enviar" name="new_passwd" class="btn btn-primary">
-            </form>        
+            <?php endif; ?>
 
-        <?php endif; ?>
+        </form>
+
     </main>
 
 </body>

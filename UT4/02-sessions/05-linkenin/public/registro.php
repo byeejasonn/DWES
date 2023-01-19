@@ -47,8 +47,8 @@ if (isset($_POST['submit'])) {
 
     <main class="main">
 
-        <form class="formulario" method="POST" action="">
-            <h2>Registro</h2>
+        <form class="formulario container-lg d-flex flex-column mx-auto" method="POST" action="">
+            <h2 class="mb-3">Registro</h2>
 
             <div class="form-floating mb-3">
                 <input class="form-control" type="email" name="correo" id="correo" value="<?= $correo ?>" placeholder="" autofocus>

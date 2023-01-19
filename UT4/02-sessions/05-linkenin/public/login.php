@@ -38,17 +38,17 @@ if(isset($_POST['submit'])) {
         $_SESSION['id'] = $data['id'];
 
         if(isset($recuerdame) && $recuerdame == 'on') {
-            $DB->ejecuta("SELECT * FROM token WHERE id_usuario = ?", $_SESSION['id']);
+            // $DB->ejecuta("SELECT * FROM token WHERE id_usuario = ?", $_SESSION['id']);
 
-            $token = $DB->obtenPrimeraInstacia();
+            // $token = $DB->obtenPrimeraInstacia();
 
-            if (empty($token)) {
+            // if (empty($token)) {
                 $token = getToken();
     
                 $DB->ejecuta("INSERT INTO token (id_usuario, valor, tipo) VALUES (?, ?, ?)", $_SESSION['id'], $token, TOKEN_SESSION);
-            } else {
-                $token = $token['valor'];
-            }
+            // } else {
+            //     $token = $token['valor'];
+            // }
 
             setcookie("recuerdame", $token, [
                 "expires" => time() + (7 * 24 * 60 * 60),
@@ -75,8 +75,8 @@ if(isset($_POST['submit'])) {
 
     <main class="main">
         
-        <form class="formulario" method="POST" action="">
-            <h2>Inicio de sesión</h2>
+        <form class="formulario container-lg d-flex flex-column mx-auto" method="POST" action="">
+            <h2 class="mb-3">Inicio de sesión</h2>
 
             <div class="form-floating mb-3">
                 <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" placeholder="" autofocus required>

@@ -86,7 +86,7 @@ if (isset($_POST['submit'])) {
 
     <main class="main">
         
-        <form action="edit.php" method="POST" class="container-md formulario formulario--edit" enctype="multipart/form-data">
+        <form action="edit.php" method="POST" class="container-md formulario" enctype="multipart/form-data">
             <h2 class="mb-3">Perfil</h2>
             <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-3">
                 

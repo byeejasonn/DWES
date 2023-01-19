@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary py-3 px-4">
+<nav class="navbar navbar-expand-lg bg-body-tertiary py-3 px-5">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><h3>Navbar</h3></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#"><h3 class="m-0">Linkenin</h3></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-dropdown" aria-controls="navbar-dropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse d-lg-flex justify-content-lg-end" id="navbar-dropdown">
             <ul class="navbar-nav">
                 <li class="nav-item px-2">
                     <a class="nav-link active" aria-current="page" href="listado.php">Inicio</a>

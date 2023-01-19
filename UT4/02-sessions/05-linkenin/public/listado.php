@@ -18,11 +18,11 @@ $usuarios = $DB->obtenDatos();
     <?php require('../src/header.php'); ?>
 
     <main class="main">
-        <h2>Hola mundo</h2>
+        <h2>Listado</h2>
         
         <div class="listado">
             <?php foreach($usuarios as $usuario): ?>
-            <div class="tarjeta">
+            <div class="tarjeta rounded shadow mb-4">
                 <div class="tarjeta__header">
                     <img src="<?= $usuario['img'] ?>" alt="" class="tarjeta__foto">
                     <span class="tarjeta__usuario"><?= $usuario['nombre'] ?></span>
