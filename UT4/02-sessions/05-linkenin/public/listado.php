@@ -18,13 +18,18 @@ $usuarios = $DB->obtenDatos();
     <?php require('../src/header.php'); ?>
 
     <main class="main">
+        
+        <?php //implementar notificación de verificación ?>
+
+        <?php ?>
+
         <h2>Listado</h2>
         
         <div class="listado">
             <?php foreach($usuarios as $usuario): ?>
             <div class="tarjeta rounded shadow mb-4">
                 <div class="tarjeta__header">
-                    <img src="<?= $usuario['img'] ?>" alt="" class="tarjeta__foto">
+                    <img src="<?= $usuario['img'] ?>" alt="" class="tarjeta__foto" draggable="false">
                     <span class="tarjeta__usuario"><?= $usuario['nombre'] ?></span>
                 </div>
                 <p class="tarjeta__desc"><?= $usuario['descripcion'] ?></p>

@@ -41,44 +41,50 @@ if (isset($_POST['enviar'])) {
         // cambiar estilos, ver como poner estilos en correo
         $cuerpo = <<<EOL
         <!DOCTYPE html>
-        <html lang="en">
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
         <head>
             <meta charset="UTF-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta name="x-apple-disable-message-reformatting">
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
             <style>
-                .wrapper {
-                    width: 100%;
-                    background-color: gray;
-                }
-        
-                .main {
-                    width: 80%;
-                    background-color: white;
-                }
+                table, td, div, h1, p {font-family: Arial, sans-serif;}
+                table, td {border:2px solid #000000 !important;}
             </style>
         </head>
-        <body>
-            <div class="wrapper">
-                <main class="main">
-        
-                    <h2>Recuperar contraseña</h2>
-        
-                    <p>Para poder restablecer la contraseña de tu cuenta haz click en el siguiente enlace y estable la nueva con la que te vas a identificar en la plataforma</p>
-                    <small class="text-muted">Una vez se cambie no podrá usar más este enlace o después de media hora tras recibir el correo</small>
-        
-                    <a href="http://localhost:8000/recuperar.php?t={$token}" class="btn btn-primary">Restablecer contraseña</a>
-        
-                </main>
-            </div>
+        <body style="margin: 0; padding: 0;">
+            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
+                <tr>
+                    <td align="center" style="padding: 0;">
+                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                            <tr>
+                                <td align="center" style="padding: 40px 0;">
+                                    <h2>Linkenin</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="padding: 30px 20px;">
+                                    <p align="left">Para poder restablecer la contraseña de tu cuenta haz click en el siguiente enlace y estable la nueva con la que te vas a identificar en la plataforma.</p>
+
+                                    <a href="http://localhost:8000/recuperar.php?t={$token}" class="btn btn-primary">Recuperar contraseña</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" style="padding: 30px 20px;">
+                                    <small class="text-muted">Una vez se cambie no podrá usar más este enlace o después de media hora tras recibir el correo.</small>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         EOL;
 
         Mailer::send($usuario['correo'], $usuario['nombre'], $asunto, $cuerpo);
 
-        header('Location: listado.php');
+        header('Location: recuperar.php?enviado');
     }
 }
 
@@ -105,7 +111,7 @@ if (isset($_POST['enviar'])) {
                     <div class="form-text">Correo al que se le enviará los pasos a seguir para cambiar la contraseña</div>
                 </div>
 
-                <input type="submit" value="Enviar" name="enviar" class="btn btn-primary">
+                <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mb-3">
 
             <?php else : ?>
 
@@ -115,6 +121,14 @@ if (isset($_POST['enviar'])) {
                     <div class="form-text">Contraseña nueva</div>
                 </div>
 
+                <input type="submit" value="Enviar" name="new_passwd" class="btn btn-primary mb-3">
+
+            <?php endif; ?>
+
+            <?php if (isset($_GET['enviado'])) : ?>
+                <div class="alert alert-success" role="alert">
+                    Se ha enviado correctamente el correo
+                </div>
             <?php endif; ?>
 
         </form>

@@ -7,6 +7,7 @@ define("TIME_TOKEN_PASSWD", 20);
 define("LONG_TOKEN", 32);
 define('TOKEN_SESSION', 1);
 define('TOKEN_RECOVER_PASSWD', 2);
+define('TOKEN_VERIFY', 2);
 
 require('DWESBaseDatos.php');
 require('Mailer.php');
@@ -67,3 +68,6 @@ function getToken() {
 function br2nl( $input ) {
     return preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n","",str_replace("\r","", htmlspecialchars_decode($input))));
 }
+
+
+// mirar template and use of ob_start()
