@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
     img    VARCHAR(255) DEFAULT './uploads/profile/img/default.jpg',
     correo VARCHAR(255) unique,
     descripcion TEXT,
-    verificación INT DEFAULT 0
+    verificacion INT DEFAULT 0
 );
 
 CREATE TABLE token (

@@ -6,7 +6,14 @@ $DB->ejecuta("SELECT * FROM usuarios");
 
 $usuarios = $DB->obtenDatos();
 
-// print_r($_SESSION);
+$verificado = 1;
+if (isset($_SESSION['usuario'])) {
+    $DB->ejecuta("SELECT * FROM usuarios WHERE id = ?", $_SESSION['id']);
+
+    $usuario = $DB->obtenPrimeraInstacia();
+
+    $verificado = $usuario['verificacion'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -19,9 +26,11 @@ $usuarios = $DB->obtenDatos();
 
     <main class="main">
         
-        <?php //implementar notificación de verificación ?>
-
-        <?php ?>
+        <?php if (isset($_SESSION['usuario']) && !$verificado) : ?>
+            <div class="alert alert-warning" role="alert">
+                Por favor verifique su cuenta, se le ha enviado un correo.
+            </div>
+        <?php endif; ?>
 
         <h2>Listado</h2>
         
