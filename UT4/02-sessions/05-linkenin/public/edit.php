@@ -41,36 +41,6 @@ if (isset($_POST['submit'])) {
     $DB->ejecuta("UPDATE usuarios SET img = ?, descripcion = ? WHERE id = ?", $imagen, $descripcion, $_SESSION['id']);
 }
 
-
-// no deja subir una imagen de más de 2MB - resulto, se modifica en php.ini
-// if (isset($_FILES['img']) && $_FILES['img']['error'] == 0) {
-//     $nombre = $_FILES['img']['name'];
-//     $tipo = $_FILES['img']['type'];
-//     $rutaTemportal = $_FILES['img']['tmp_name'];
-
-//     if ($tipo == 'image/png' || $tipo == 'image/jpeg') {
-//         $nombre = bin2hex(random_bytes(16)).$nombre;
-
-//         $rutaFichero = $directorio.$nombre;
-//         echo $rutaFichero;
-//         if(move_uploaded_file($rutaTemportal, $rutaFichero)) {
-//             echo "Fichero subido";
-
-//             if ($usuario['img'] != './uploads/profile/img/default.jpg') {
-//                 @unlink($usuario['img']);
-//             }
-            
-//             $DB->ejecuta("UPDATE usuarios set img = ? where id = ?", $rutaFichero, $_SESSION['id']);
-
-//             header('Location: edit.php');
-//         } else {
-//             echo "Error al subir la imagen";
-//         }
-//     } else {
-//         echo "Solo se permite formato png y jpg";
-//     }
-// }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

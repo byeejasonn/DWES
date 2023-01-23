@@ -9,12 +9,8 @@ if (isset($_SESSION['usuario'])) {
 $recuperar = false;
 if (isset($_GET['t'])) {
     $recuperar = true;
-    
-    // $DB->ejecuta("SELECT * FROM token WHERE valor = ? AND tipo = ? AND expiracion > NOW()", $_GET['t'], TOKEN_RECOVER_PASSWD);
-    
-    // $token = $DB->obtenPrimeraInstancia();
+
     $token = recuperarToken($_GET['t'], TOKEN_RECOVER_PASSWD);
-    print_r($token);
 
     if (isset($_POST['new_passwd']) && !empty($token)) {
         $DB->ejecuta("UPDATE usuarios SET passwd = ? WHERE id = ?", password_hash($_POST['passwd'], PASSWORD_DEFAULT), $token['id_usuario']);

@@ -2,15 +2,6 @@
 
 require('../src/init.php');
 
-// recoger datos post
-// consulta a base de datos por el usuario
-// verificar contraseña
-
-// Si ha pedido recuerdame
-//  generar token
-//  guardar token
-//  cookie con token
-
 if (isset($_SESSION['usuario'])) {
     header('Location: listado.php');
 }

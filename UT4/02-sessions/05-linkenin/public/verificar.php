@@ -4,10 +4,6 @@ require '../src/init.php';
 
 if (isset($_GET['t'])) {
     
-    // $DB->ejecuta("SELECT * FROM token WHERE valor = ? AND tipo = 3", $_GET['t']);
-    
-    // $token = $DB->obtenPrimeraInstancia();
-    
     $token = recuperarToken($_GET['t'], TOKEN_VERIFY);
 
     if (!empty($token)) {

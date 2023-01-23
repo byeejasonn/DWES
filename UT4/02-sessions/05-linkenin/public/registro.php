@@ -36,12 +36,10 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?php require('../src/head.php') ?>
 
 </head>
-
 <body>
 
     <?php require('../src/header.php') ?>
@@ -74,9 +72,7 @@ if (isset($_POST['submit'])) {
                 </div>
             <?php endif; ?>
 
-            <!-- <a href="logout.php">Cerrar Sesión</a> -->
         </form>
     </main>
 </body>
-
 </html>
