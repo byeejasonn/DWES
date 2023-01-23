@@ -94,7 +94,7 @@ class DWESBaseDatos {
         return $this->sentencia->fetchAll();
     }
 
-    function obtenPrimeraInstacia(){
+    function obtenPrimeraInstancia(){
         return $this->sentencia->fetch();
     }
 

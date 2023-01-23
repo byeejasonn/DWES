@@ -15,8 +15,6 @@ if (isset($_SESSION['usuario'])) {
     header('Location: listado.php');
 }
 
-$DB = DWESBaseDatos::obtenerInstancia();
-
 $usuario = '';
 $passwd = '';
 
@@ -28,7 +26,7 @@ if(isset($_POST['submit'])) {
     $DB->ejecuta("SELECT * FROM usuarios WHERE nombre = ?", $usuario);
 
     // solo quiero la primera instancia
-    $data = $DB->obtenPrimeraInstacia();
+    $data = $DB->obtenPrimeraInstancia();
 
     // echo password_verify($passwd, $data['passwd']);
     // print_r($data);
@@ -40,7 +38,7 @@ if(isset($_POST['submit'])) {
         if(isset($recuerdame) && $recuerdame == 'on') {
             // $DB->ejecuta("SELECT * FROM token WHERE id_usuario = ?", $_SESSION['id']);
 
-            // $token = $DB->obtenPrimeraInstacia();
+            // $token = $DB->obtenPrimeraInstancia();
 
             // if (empty($token)) {
                 $token = getToken();

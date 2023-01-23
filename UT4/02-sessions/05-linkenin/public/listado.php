@@ -10,7 +10,7 @@ $verificado = 1;
 if (isset($_SESSION['usuario'])) {
     $DB->ejecuta("SELECT * FROM usuarios WHERE id = ?", $_SESSION['id']);
 
-    $usuario = $DB->obtenPrimeraInstacia();
+    $usuario = $DB->obtenPrimeraInstancia();
 
     $verificado = $usuario['verificacion'];
 }
@@ -28,7 +28,13 @@ if (isset($_SESSION['usuario'])) {
         
         <?php if (isset($_SESSION['usuario']) && !$verificado) : ?>
             <div class="alert alert-warning" role="alert">
-                Por favor verifique su cuenta, se le ha enviado un correo.
+                Por favor verifique su cuenta, se le ha enviado un correo. <a href="verificar.php?reenviar" rel="noopener noreferrer">Reenviar correo</a>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_GET['error']) && $_GET['error'] == 'verify') : ?>
+            <div class="alert alert-danger" role="alert">
+                No se ha podido verificar su cuenta de correo.
             </div>
         <?php endif; ?>
 

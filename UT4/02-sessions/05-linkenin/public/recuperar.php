@@ -2,10 +2,6 @@
 
 require('../src/init.php');
 
-$DB = DWESBaseDatos::obtenerInstancia();
-
-// print_r($_SESSION);
-
 if (isset($_SESSION['usuario'])) {
     header('Location: listado.php');
 }
@@ -13,76 +9,41 @@ if (isset($_SESSION['usuario'])) {
 $recuperar = false;
 if (isset($_GET['t'])) {
     $recuperar = true;
-
-    $DB->ejecuta("SELECT * FROM token WHERE valor = ? and tipo = ?", $_GET['t'], TOKEN_RECOVER_PASSWD);
-
-    $token = $DB->obtenPrimeraInstacia();
+    
+    // $DB->ejecuta("SELECT * FROM token WHERE valor = ? AND tipo = ? AND expiracion > NOW()", $_GET['t'], TOKEN_RECOVER_PASSWD);
+    
+    // $token = $DB->obtenPrimeraInstancia();
+    $token = recuperarToken($_GET['t'], TOKEN_RECOVER_PASSWD);
+    print_r($token);
 
     if (isset($_POST['new_passwd']) && !empty($token)) {
-        $DB->ejecuta("UPDATE usuarios set passwd = ? WHERE id = ?", password_hash($_POST['passwd'], PASSWORD_DEFAULT), $token['id_usuario']);
+        $DB->ejecuta("UPDATE usuarios SET passwd = ? WHERE id = ?", password_hash($_POST['passwd'], PASSWORD_DEFAULT), $token['id_usuario']);
 
-        $DB->ejecuta("DELETE FROM token where id = ?", $token['id']);
+        $DB->ejecuta("DELETE FROM token WHERE id = ?", $token['id']);
 
         header('Location: listado.php');
+        exit();
+        
+    } elseif (empty($token)) {
+        
+        header('Location: recuperar.php?error=recover');
+        exit();
     }
+
 }
 
 if (isset($_POST['enviar'])) {
+
     $DB->ejecuta("SELECT * FROM usuarios WHERE correo = ?", $_POST['correo']);
 
-    $usuario = $DB->obtenPrimeraInstacia();
+    $usuario = $DB->obtenPrimeraInstancia();
 
     if (!empty($usuario)) {
         $token = getToken();
 
         $DB->ejecuta("INSERT INTO token (id_usuario, valor, tipo, expiracion) VALUES (?, ?, ?, NOW() + INTERVAL ? MINUTE)", $usuario['id'], $token, TOKEN_RECOVER_PASSWD, TIME_TOKEN_PASSWD);
 
-        $asunto = 'Linkenin - Recuperar contraseña';
-        // cambiar estilos, ver como poner estilos en correo
-        $cuerpo = <<<EOL
-        <!DOCTYPE html>
-        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width,initial-scale=1">
-            <meta name="x-apple-disable-message-reformatting">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-            <style>
-                table, td, div, h1, p {font-family: Arial, sans-serif;}
-                table, td {border:2px solid #000000 !important;}
-            </style>
-        </head>
-        <body style="margin: 0; padding: 0;">
-            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
-                <tr>
-                    <td align="center" style="padding: 0;">
-                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
-                            <tr>
-                                <td align="center" style="padding: 40px 0;">
-                                    <h2>Linkenin</h2>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="padding: 30px 20px;">
-                                    <p align="left">Para poder restablecer la contraseña de tu cuenta haz click en el siguiente enlace y estable la nueva con la que te vas a identificar en la plataforma.</p>
-
-                                    <a href="http://localhost:8000/recuperar.php?t={$token}" class="btn btn-primary">Recuperar contraseña</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="padding: 30px 20px;">
-                                    <small class="text-muted">Una vez se cambie no podrá usar más este enlace o después de media hora tras recibir el correo.</small>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </body>
-        </html>
-        EOL;
-
-        Mailer::send($usuario['correo'], $usuario['nombre'], $asunto, $cuerpo);
+        Mailer::enviarRecuperar($usuario['correo'], $usuario['nombre'], $token);
 
         header('Location: recuperar.php?enviado');
     }
@@ -102,6 +63,12 @@ if (isset($_POST['enviar'])) {
         
         <form action="" method="POST" class="formulario container-lg d-flex flex-column mx-auto">
             <h2 class="mb-3">Recuperar contraseña</h2>
+
+            <?php if (isset($_GET['error']) && $_GET['error'] == 'recover') : ?>
+                <div class="alert alert-danger" role="alert">
+                    Ha expirado el tiempo para poder reestablecer su contraseña o ya ha cambiado la contraseña, pruebe de nuevo.
+                </div>
+            <?php endif; ?>
 
             <?php if (!$recuperar) : ?>
 

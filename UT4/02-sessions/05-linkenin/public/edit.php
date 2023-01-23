@@ -2,12 +2,9 @@
 
 require('../src/init.php');
 
-// alumno.falso
-$DB = DWESBaseDatos::obtenerInstancia();
-
 $DB->ejecuta("SELECT * FROM usuarios where id = ?", $_SESSION['id']);
 
-$usuario = $DB->obtenPrimeraInstacia();
+$usuario = $DB->obtenPrimeraInstancia();
 
 $directorio = './uploads/profile/img/';
 

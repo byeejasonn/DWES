@@ -2,8 +2,6 @@
 
 require('../src/init.php');
 
-$DB = DWESBaseDatos::obtenerInstancia();
-
 $insertado = false;
 
 $correo = '';
@@ -21,56 +19,13 @@ if (isset($_POST['submit'])) {
 
     if ($insertado) {
         $DB->ejecuta("SELECT * FROM usuarios WHERE correo = ?", $correo);
-        $usuario = $DB->obtenPrimeraInstacia();
+        $usuario = $DB->obtenPrimeraInstancia();
 
         $token = getToken();
 
         $DB->ejecuta("INSERT INTO token (id_usuario, valor, tipo) VALUES (?, ?, ?)", $usuario['id'], $token, TOKEN_VERIFY);
 
-        $asunto = 'Registro';
-        $cuerpo = <<<EOL
-        <!DOCTYPE html>
-        <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width,initial-scale=1">
-            <meta name="x-apple-disable-message-reformatting">
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-            <style>
-                table, td, div, h1, p {font-family: Arial, sans-serif;}
-                table, td {border:2px solid #000000 !important;}
-            </style>
-        </head>
-        <body style="margin: 0; padding: 0;">
-            <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background:#ffffff;">
-                <tr>
-                    <td align="center" style="padding: 0;">
-                        <table role="presentation" style="width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
-                            <tr>
-                                <td align="center" style="padding: 40px 0;">
-                                    <h2>Linkenin</h2>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="padding: 30px 20px;">
-                                    <p align="left">Pulse el siguiente botón para verificar su cuenta en nuestra plataforma.</p>
-
-                                    <a href="http://localhost:8000/verificar.php?t={$token}" class="btn btn-primary">Verificar correo</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" style="padding: 30px 20px;">
-                                    <small class="text-muted">Una vez verifique su correo no podrá usar más este enlace.</small>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </body>
-        </html>
-        EOL;
-        Mailer::send($correo, $nombre, $asunto, $cuerpo);
+        Mailer::enviarRegistro($correo, $nombre, $token);
 
         header('Location: registro.php?success');
     }

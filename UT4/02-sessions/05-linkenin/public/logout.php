@@ -2,8 +2,6 @@
 
 require('../src/init.php');
 
-$DB = DWESBaseDatos::obtenerInstancia();
-
 if(isset($_SESSION['usuario'])) {
     unset($_SESSION['usuario']);
     unset($_SESSION['id']);

@@ -44,7 +44,7 @@ if(!isset($_SESSION['usuario']) && isset($_COOKIE['recuerdame']) && $_COOKIE['re
         WHERE t.valor = ? AND t.expiracion > NOW()", 
         $_COOKIE['recuerdame']);
 
-    $token = $DB->obtenPrimeraInstacia();
+    $token = $DB->obtenPrimeraInstancia();
 
     // print_r($token);
 
@@ -69,5 +69,18 @@ function br2nl( $input ) {
     return preg_replace('/<br\s?\/?>/ius', "\n", str_replace("\n","",str_replace("\r","", htmlspecialchars_decode($input))));
 }
 
+function recuperarToken($token, $tipo) {
+    $DB = DWESBaseDatos::obtenerInstancia();
+
+    $DB->ejecuta("SELECT * FROM token WHERE valor = ? AND tipo = ? AND expiracion > NOW()", $token, $tipo);
+
+    $token = $DB->obtenPrimeraInstancia();
+
+    // print_r($token);
+    // echo ($DB->obtenPrimeraInstancia())?'Correcto':'Error expirado';
+    // print_r($DB->obtenPrimeraInstancia());
+
+    return $token;
+}
 
 // mirar template and use of ob_start()
