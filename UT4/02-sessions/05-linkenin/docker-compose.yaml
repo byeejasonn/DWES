@@ -1,17 +1,45 @@
 version: "3"
+networks:
+  backend:
+  frontend:
+
+volumes:
+  db_data:
+
 services:
+  app:
+    build:
+      context: ./
+      dockerfile: dockerfile
+    image: linkenin
+    container_name: linkenin-app
+    networks:
+      - backend
+      - frontend
+    volumes: 
+      - ./:/var/www
+      - ./scripts/php/:/etc/php/
+    ports:
+      - 80:80
+
   db:
     hostname: localhost
     image: mariadb:10.9.4
-    container_name: mariadb
+    container_name: linkenin-db
+    restart: always
     networks: 
       - backend
     environment:
+      MYSQL_ROOT_USER: root
       MYSQL_ROOT_PASSWORD: linkenin
       MYSQL_DATABASE: linkenin
       MYSQL_USER: linkenin
       MYSQL_PASSWORD: linkenin
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci --init-file /data/app/db.create.sql
+    volumes:
+      - ./scripts/sql/:/data/app/
+      - ./scripts/sql/:/docker-entrypoint-initdb.d/
+      - db_data:/var/lib/mysql
     ports: 
       - 3306:3306
 
@@ -21,23 +49,20 @@ services:
   #   container_name: composer-linkenin
   #   command: composer require vlucas/phpdotenv && composer require phpmailer/phpmailer
 
-  web:
-    hostname: localhost
-    image: php:8.1-rc-apache
-    container_name: php-linkenin
-    networks:
-      - backend
-      - frontend
-    # command: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-    depends_on:
-      - db
-      - composer
-    volumes:
-      - ./public/:/var/www/html
-      - ./src/:/var/www/src/
-    ports:
-      - 80:80
+  # web:
+  #   hostname: localhost
+  #   image: php:8.1-rc-apache
+  #   container_name: php-linkenin
+  #   networks:
+  #     - backend
+  #     - frontend
+  #   # command: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  #   depends_on:
+  #     - db
+  #     - composer
+  #   volumes:
+  #     - ./public/:/var/www/html
+  #     - ./src/:/var/www/src/
+  #   ports:
+  #     - 80:80
 
-networks:
-  backend:
-  frontend:
