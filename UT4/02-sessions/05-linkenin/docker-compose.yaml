@@ -1,0 +1,43 @@
+version: "3"
+services:
+  db:
+    hostname: localhost
+    image: mariadb:10.9.4
+    container_name: mariadb
+    networks: 
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: linkenin
+      MYSQL_DATABASE: linkenin
+      MYSQL_USER: linkenin
+      MYSQL_PASSWORD: linkenin
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci
+    ports: 
+      - 3306:3306
+
+  # composer:
+  #   hostname: localhost
+  #   image: composer:2.5.1
+  #   container_name: composer-linkenin
+  #   command: composer require vlucas/phpdotenv && composer require phpmailer/phpmailer
+
+  web:
+    hostname: localhost
+    image: php:8.1-rc-apache
+    container_name: php-linkenin
+    networks:
+      - backend
+      - frontend
+    # command: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    depends_on:
+      - db
+      - composer
+    volumes:
+      - ./public/:/var/www/html
+      - ./src/:/var/www/src/
+    ports:
+      - 80:80
+
+networks:
+  backend:
+  frontend:
