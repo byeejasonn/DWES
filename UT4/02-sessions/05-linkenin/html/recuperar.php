@@ -45,58 +45,73 @@ if (isset($_POST['enviar'])) {
     }
 }
 
+// css
+ob_start();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php require('../src/head.php') ?>
+<!-- etiquetas css -->
+<?php
+$css = ob_get_clean();
 
-</head>
-<body>
-    <?php require('../src/header.php') ?>
+// scripts
+ob_start();
+?>
+<!-- etiquetas script att defer -->
+<?php
+$scripts = ob_get_clean();
 
-    <main class="main">
-        
-        <form action="" method="POST" class="formulario container-lg d-flex flex-column mx-auto">
-            <h2 class="mb-3">Recuperar contraseña</h2>
+// avisos
+ob_start();
+?>
+<!-- avisos -->
+<?php
+$avisos = ob_get_clean();
 
-            <?php if (isset($_GET['error']) && $_GET['error'] == 'recover') : ?>
-                <div class="alert alert-danger" role="alert">
-                    Ha expirado el tiempo para poder reestablecer su contraseña o ya ha cambiado la contraseña, pruebe de nuevo.
-                </div>
-            <?php endif; ?>
+// titulo
+$tituloPagina = "";
 
-            <?php if (!$recuperar) : ?>
+// contenido
+ob_start();
+?>
+<form action="" method="POST" class="formulario container-lg d-flex flex-column mx-auto">
+    <h2 class="mb-3">Recuperar contraseña</h2>
 
-                <div class="form-floating mb-3">
-                    <input type="text" name="correo" id="correo" class="form-control" placeholder="" required>
-                    <label for="correo">Correo:</label>
-                    <div class="form-text">Correo al que se le enviará los pasos a seguir para cambiar la contraseña</div>
-                </div>
+    <?php if (!$recuperar) : ?>
 
-                <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mb-3">
+        <div class="form-floating mb-3">
+            <input type="text" name="correo" id="correo" class="form-control" placeholder="" required>
+            <label for="correo">Correo:</label>
+            <div class="form-text">Correo al que se le enviará los pasos a seguir para cambiar la contraseña</div>
+        </div>
 
-            <?php else : ?>
+        <input type="submit" value="Enviar" name="enviar" class="btn btn-primary mb-3">
 
-                <div class="form-floating mb-3">
-                    <input type="password" name="passwd" id="passwd" class="form-control" placeholder="" required>
-                    <label for="correo">Contraseña:</label>
-                    <div class="form-text">Contraseña nueva</div>
-                </div>
+    <?php else : ?>
 
-                <input type="submit" value="Enviar" name="new_passwd" class="btn btn-primary mb-3">
+        <div class="form-floating mb-3">
+            <input type="password" name="passwd" id="passwd" class="form-control" placeholder="" required>
+            <label for="correo">Contraseña:</label>
+            <div class="form-text">Contraseña nueva</div>
+        </div>
 
-            <?php endif; ?>
+        <input type="submit" value="Enviar" name="new_passwd" class="btn btn-primary mb-3">
 
-            <?php if (isset($_GET['enviado'])) : ?>
-                <div class="alert alert-success" role="alert">
-                    Se ha enviado correctamente el correo
-                </div>
-            <?php endif; ?>
+    <?php endif; ?>
 
-        </form>
+    <?php if (isset($_GET['enviado'])) : ?>
+        <div class="alert alert-success" role="alert">
+            Se ha enviado correctamente el correo
+        </div>
+    <?php endif; ?>
+    <?php if (isset($_GET['error']) && $_GET['error'] == 'recover') : ?>
+        <div class="alert alert-danger" role="alert">
+            Ha expirado el tiempo para poder reestablecer su contraseña o ya ha cambiado la contraseña, pruebe de nuevo.
+        </div>
+    <?php endif; ?>
+    
+</form>
+<?php
+$contenido = ob_get_clean();
 
-    </main>
-
-</body>
-</html>
+// implementamos la plantilla en la que se aplican las variables antes incializadas
+require '../src/template.php';
+?>

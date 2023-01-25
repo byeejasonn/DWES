@@ -50,45 +50,71 @@ if(isset($_POST['submit'])) {
     }
 }
 
-
+// css
+ob_start();
 ?>
+<!-- etiquetas css -->
+<?php
+$css = ob_get_clean();
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <?php require('../src/head.php') ?>
-</head>
-<body>
+// scripts
+ob_start();
+?>
+<!-- etiquetas script att defer -->
+<?php
+$scripts = ob_get_clean();
 
-    <?php require('../src/header.php') ?>
+// avisos
+ob_start();
+?>
+<!-- avisos -->
+<?php
+$avisos = ob_get_clean();
 
-    <main class="main">
-        
-        <form class="formulario container-lg d-flex flex-column mx-auto" method="POST" action="">
-            <h2 class="mb-3">Inicio de sesión</h2>
+// titulo
+$tituloPagina = "";
 
-            <div class="form-floating mb-3">
-                <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" placeholder="" autofocus required>
-                <label class="" for="usuario">Usuario:</label>
-            </div>
-    
-            <div class="form-floating mb-3">
-                <input class="form-control" type="password" name="passwd" id="passwd" value="<?= $passwd ?>" placeholder="" required>
-                <label class="form-label" for="passwd">Constraseña:</label>
-            </div>
+// contenido
+ob_start();
+?>
+<form class="formulario container-lg d-flex flex-column mx-auto" method="POST" action="">
+    <h2 class="mb-3">Inicio de sesión</h2>
 
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" name="recuerdame" id="recuerdame">
-                <label class="form-check-label" for="recuerdame">Recuerdame</label>
-            </div>
+    <div class="form-floating mb-3">
+        <input class="form-control" type="text" name="usuario" id="usuario" value="<?= $usuario ?>" placeholder="" autofocus required>
+        <label class="" for="usuario">Usuario:</label>
+    </div>
 
-            <a href="./recuperar.php" class="mb-3">¿Has olvidado la contraseña?</a>
-    
-            <input class="btn btn-primary" type="submit" name="submit" value="Log in">
-    
-            <!-- <a href="logout.php">Cerrar Sesión</a> -->
-        </form>
-    </main>
+    <div class="form-floating mb-3">
+        <input class="form-control" type="password" name="passwd" id="passwd" value="<?= $passwd ?>" placeholder="" required>
+        <label class="form-label" for="passwd">Constraseña:</label>
+    </div>
 
-</body>
-</html>
+    <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" name="recuerdame" id="recuerdame">
+        <label class="form-check-label" for="recuerdame">Recuerdame</label>
+    </div>
+
+    <a href="./recuperar.php" class="mb-3">¿Has olvidado la contraseña?</a>
+
+    <input class="btn btn-primary" type="submit" name="submit" value="Log in">
+
+    <?php if (isset($_SESSION['usuario']) && !$verificado) : ?>
+        <div class="alert alert-warning" role="alert">
+            Por favor verifique su cuenta, se le ha enviado un correo. <a href="verificar.php?reenviar" rel="noopener noreferrer">Reenviar correo</a>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['error']) && $_GET['error'] == 'verify') : ?>
+        <div class="alert alert-danger" role="alert">
+            No se ha podido verificar su cuenta de correo.
+        </div>
+    <?php endif; ?>
+
+</form>
+<?php
+$contenido = ob_get_clean();
+
+// implementamos la plantilla en la que se aplican las variables antes incializadas
+require '../src/template.php';
+?>
