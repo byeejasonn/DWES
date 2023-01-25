@@ -1,6 +1,6 @@
 # src/config.php
 vendor
-composer.*
+
 src/.env
 
 public/uploads/profile/img/*
