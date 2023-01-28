@@ -22,4 +22,7 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('holamundo/', views.holamundo, name="holamundo"),
     path('navegador/', views.navegador, name="navegador"),
+    path('<int:question_id>/', views.detail, name="detalles"),
+    path('<int:question_id>/results/', views.results, name="resultados"),
+    path('<int:question_id>/vote/', views.vote, name="votar"),
 ]
