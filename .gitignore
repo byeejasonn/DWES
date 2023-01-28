@@ -2,3 +2,4 @@
 *.zip
 
 UT5/00-python/mysite/mysite/settings.py
+UT5/00-python/mysite/*/__pycache__/

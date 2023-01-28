@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 
-from django.http import HttpResponse
-
-
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("Aquí están las encuestas");
 
 def holamundo(request):
-    return HttpResponse(f"Holitas Jason uwu. {request.META['HTTP_USER_AGENT']}")
+    return HttpResponse("Hola mundo");
+
+def navegador(request):
+    return HttpResponse(f"Este es tu navegador: {request.META['HTTP_USER_AGENT']}");
