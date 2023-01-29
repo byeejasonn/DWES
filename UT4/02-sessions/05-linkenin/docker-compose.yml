@@ -1,0 +1,50 @@
+version: "3.1"
+networks:
+  backend:
+  frontend:
+
+volumes:
+  db_data:
+      
+services:
+  db:
+    hostname: localhost
+    image: mariadb:10.9.4
+    container_name: linkenin-db
+    restart: always
+    networks: 
+      - backend
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: linkenin
+      MYSQL_DATABASE: linkenin
+      MYSQL_USER: linkenin
+      MYSQL_PASSWORD: linkenin
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_520_ci --init-file /data/app/db.create.sql
+    volumes:
+      - ./scripts/sql/:/data/app/
+      - ./scripts/sql/:/docker-entrypoint-initdb.d/
+      - db_data:/var/lib/mysql
+    ports: 
+      - 3306:3306
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: linkenin
+    container_name: linkenin-app
+    # command: nohup docker-php-ext-install mysqli pdo pdo_mysql
+    # depends_on:
+    #   - db
+    networks:
+      - backend
+      - frontend
+    volumes: 
+      - ./:/var/www
+      # - ./scripts/php/:/usr/local/etc/php
+    ports:
+      - 80:80
+    
+  
