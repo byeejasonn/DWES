@@ -18,11 +18,12 @@ from django.urls import include, path
 
 from . import views
 
+app_name = 'polls'
 urlpatterns = [
     path('', views.index, name="index"),
     path('holamundo/', views.holamundo, name="holamundo"),
     path('navegador/', views.navegador, name="navegador"),
-    path('<int:question_id>/', views.detail, name="detalles"),
-    path('<int:question_id>/results/', views.results, name="resultados"),
-    path('<int:question_id>/vote/', views.vote, name="votar"),
+    path('<int:question_id>/', views.detail, name="details"),
+    path('<int:question_id>/results/', views.results, name="results"),
+    path('<int:question_id>/vote/', views.vote, name="vote"),
 ]

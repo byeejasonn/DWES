@@ -5,22 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles</title>
+    <style>
+        .form {
+            width: 500px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
             <a href="/">Inicio</a>
-            <a href="/polls/">Encuestas</a>
+            <a href="{% url 'polls:index' %}">Encuestas</a>
         </nav>
     </header>
     <main class="main">
-        <h2>{{ question }}</h2>
-
-        <ul>
-            {% for choice in question.choice_set.all %}
-                <li>{{ choice.choice_text }}</li>
-            {% endfor %}
-        </ul>
+        <form action="{% url 'polls:vote' question.id %}" method="post" class="form">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h1>{{ question.question_text }}</h1></legend>
+                {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                {% for choice in question.choice_set.all %}
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                {% endfor %}
+            </fieldset>
+            <input type="submit" value="Vote">
+            </form>
     </main>
 </body>
 </html>
