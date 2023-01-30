@@ -37,7 +37,7 @@ class DWESBaseDatos {
         $usuario  = 'root', // Ignorado si es SQLite
         $pass     = '1234', // Ignorado si es SQLite
         $motor    = 'mysql',
-        $serverIp = 'localhost',
+        $serverIp = '127.0.0.1',
         $charset  = 'utf8mb4',
         $options  = null
     ) {
