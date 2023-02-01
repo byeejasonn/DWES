@@ -1,6 +1,6 @@
 *.csv
 *.zip
 
-UT5/00-python/mysite/mysite/settings.py
-UT5/00-python/mysite/*/__pycache__/
-UT5/00-python/mysite/*/*/__pycache__
+UT5/00-python/*/*/settings.py
+UT5/00-python/*/*/__pycache__/
+UT5/00-python/*/*/*/__pycache__

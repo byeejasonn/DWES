@@ -33,8 +33,20 @@
         <!-- place navbar here -->
     </header>
     <main>
-        <div class="tweets container">
-            <div class="row justify-content-center align-items-center g-2">
+        <div class="tweets container mt-4">
+            {% if tweets %}
+                {% for tweet in tweets %}
+
+                <div class="row justify-content-center align-items-center g-2">
+                    <div class="tweet col mb-3">
+                        <h2>titulo</h2>
+                        <p>{{ tweet.tweet_text }}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+            {% endif %}
+            <!-- <div class="row justify-content-center align-items-center g-2">
                 <div class="tweet col mb-3">
                     <h2>titulo</h2>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus illum fugiat blanditiis numquam. Doloribus accusantium consequuntur officiis atque aspernatur eligendi laboriosam dolorem, nam ex! Vitae veniam laudantium aliquid optio blanditiis!</p>
@@ -45,7 +57,7 @@
                     <h2>titulo</h2>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus illum fugiat blanditiis numquam. Doloribus accusantium consequuntur officiis atque aspernatur eligendi laboriosam dolorem, nam ex! Vitae veniam laudantium aliquid optio blanditiis!</p>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <!-- <div class="card mb-3" style="max-width: 540px;">
