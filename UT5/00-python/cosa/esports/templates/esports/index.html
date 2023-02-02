@@ -1,3 +1,6 @@
+{% extends 'esports/base.html' %}
+
+{% comment %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,9 +25,64 @@
                         <h2 class="title is-3">{{ team.name }}</h2>
                         
                         <p>{{ team.desc }}</p>
+
+                        <!-- <span>
+                            {% for game in team.game_set.all %}
+                                {{game.name}}
+                            {% endfor %}
+                        </span> -->
+                        <div class="container mt-3">
+                            <p class="is-size-4">Juegos</p>
+                            <nav class="breadcrumb" aria-label="breadcrumbs">
+                                <ul>
+                                    {% for game in team.game_set.all %}
+                                        <li class="is-active"><a aria-current="page">{{ game.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 {% endfor %}
             {% endif %}
     </main>
 </body>
 </html>
+{% endcomment %}
+
+
+{% block styles %}
+<style>
+    .main {
+        width: 800px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    {% if teams %}
+        {% for team in teams %}
+            <div class="box my-4">
+
+                <h2 class="title is-3">{{ team.name }}</h2>
+                
+                <p>{{ team.desc }}</p>
+
+                <!-- <span>
+                    {% for game in team.game_set.all %}
+                        {{game.name}}
+                    {% endfor %}
+                </span> -->
+                <div class="container mt-3">
+                    <p class="is-size-4">Juegos</p>
+                    <nav class="breadcrumb" aria-label="breadcrumbs">
+                        <ul>
+                            {% for game in team.game_set.all %}
+                                <li><a href="{% url 'esports:games' game.name %}">{{ game.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

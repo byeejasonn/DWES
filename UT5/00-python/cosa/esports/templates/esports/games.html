@@ -1,0 +1,28 @@
+{% extends 'esports/base.html' %}
+
+{% block styles %}
+<style>
+    .main {
+        width: 800px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    {% if game %}
+            <div class="box my-4">
+
+                <h2 class="title is-3">{{ game.name }}</h2>
+                <h4 class="subtitle is-5">Género: {{ game.genre.name }}</h4>
+                
+                <p>{{ game.desc }}</p>
+
+                <!-- <span>
+                    {% for game in team.game_set.all %}
+                        {{game.name}}
+                    {% endfor %}
+                </span> -->
+            </div>
+    {% endif %}
+
+{% endblock %}
