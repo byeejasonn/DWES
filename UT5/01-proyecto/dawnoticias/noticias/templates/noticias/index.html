@@ -1,0 +1,31 @@
+{% extends 'noticias/base.html' %}
+
+{% block styles %}
+<style>
+    .noticia {
+        width: 800px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    {% if noticias %}
+        {% for noticia in noticias %}
+            <div class="row noticia mx-auto my-5 g-2 position-relative">
+                <div class="col">
+                    <h2>{{ noticia.titulo }}</h2>
+                    <p>{{ noticia.desc | slice:":100" }}</p>
+
+                    <img src="{{ noticia.img1.url }}" class="w-100 d-block" alt="imagen 1">
+
+
+                </div>
+
+                <a href="{% url 'details' noticia.id %}" class="btn btn-primary stretched-link">Leer más</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}

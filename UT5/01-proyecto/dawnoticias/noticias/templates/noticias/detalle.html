@@ -1,0 +1,41 @@
+{% extends 'noticias/base.html' %}
+
+{% block styles %}
+<style>
+    .noticia {
+        width: 800px;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row noticia mx-auto my-5 g-2 position-relative">
+        <div class="col">
+            <h2>{{ noticia.titulo }}</h2>
+            <p>{{ noticia.desc }}</p>
+
+            <div id="carousel{{ forloop.counter }}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" role="listbox">
+                    {% for image in noticia.getImages %}
+                        {% if image %}
+                            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+                                <img src="{{ image.url }}" class="w-100 d-block" alt="imagen {{ forloop.counter }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ forloop.counter }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
