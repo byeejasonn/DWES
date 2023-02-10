@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
-</head>
-<body>
-    <main class="main">
+{% extends 'polls/base.html' %}
+
+{% block content %}
+    <div class="questions mx-auto">
         {% if latest_question %}
         <ul>
             {% for question in latest_question %}
@@ -18,9 +10,9 @@
         </ul>
         {% else %}
             <p>No hay preguntas</p>
+            
         {% endif %}
 
         <div class="imagen"></div>
-    </main>
-</body>
-</html>
+    </div>
+{% endblock content %}

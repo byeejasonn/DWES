@@ -4,5 +4,7 @@
 UT5/*/*/*/settings.py
 UT5/*/*/*/__pycache__/
 UT5/*/*/*/media/
+UT5/*/*/*/static/
 UT5/*/*/*/*/__pycache__
 UT5/*/*/media/
+UT5/*/*/static/
