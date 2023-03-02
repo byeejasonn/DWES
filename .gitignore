@@ -1,10 +1,8 @@
 *.csv
 *.zip
 
-UT5/*/*/*/settings.py
-UT5/*/*/*/__pycache__/
-UT5/*/*/*/media/
-UT5/*/*/*/static/
-UT5/*/*/*/*/__pycache__
-UT5/*/*/media/
-UT5/*/*/static/
+settings.py
+__pycache__/
+media/
+static/
+__pycache__
